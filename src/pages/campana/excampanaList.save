@@ -1,0 +1,193 @@
+import { Fragment, useState, useReducer, useEffect } from 'react';
+import { Forbidden } from '../forbidden'
+import Listado from '../components/tables'
+import Waiting from '../parts/waiting';
+import * as myConst from '../../main/constants';
+import messenger from '../../services/messenger';
+import tool from '../../services/tools'
+
+// import $ from 'jquery';
+// import '../../../public/assets/js/plugin/datatables/datatables.min.js'
+
+export default function ListadoCampana(){
+    // eslint-disable-next-line
+	const [waiting, setWaiting] = useState(false);
+	const [isFetching, setIsFetching] = useState(false);
+	const [listado, setListado] = useState([]);
+	const [columnas, setColumnas] = useState([]);
+
+    let miUsuario =  tool.getUser()
+	
+	if(!miUsuario.isLogged){
+		return (
+			<Fragment>
+				<Forbidden />
+			</Fragment>
+		);
+	}
+
+    const [miLista, dispatch] = useReducer(async (state = [], action) => {
+        // EACH INTERACTION GET USER INFORMATION
+        miUsuario = tool.getUser()
+        switch(action.type){
+            
+            case 'list':
+                await messenger.poster({
+                    method:'POST',
+                    url: myConst.roots.engine + myConst.roots.clientList,
+                    value: {reference: action.reference, token: miUsuario.token }
+                }) 
+                .then((resultado)=>{
+                    if(resultado.message.length > 0){
+                        setListado(resultado.message)
+                        return listado
+                    }
+                })
+            break;
+
+            case 'delete': 
+
+                await messenger.poster({
+                    method:'POST',
+                    url: myConst.roots.engine + myConst.roots.clientDelete,
+                    value: {reference: action.reference, token: miUsuario.token}
+                }).then((resultado)=>{
+                    if(resultado.message !== ""){
+                        return [...state, resultado.message]
+                    }
+                })
+                
+            break;
+
+            case 'add': 
+                await messenger.poster({
+                    method:'POST',
+                    url: myConst.roots.engine + myConst.roots.clientDelete,
+                    value: {reference: action.reference}
+                }).then((resultado)=>{
+                    if(parseInt(resultado.statusCode) === 200){
+                        return [...state, resultado.message]
+                    }
+                })
+                
+            break;
+
+            default:
+                return state;
+            
+        }
+
+    });
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        dispatch({
+            type:'list',
+            reference: miUsuario.usuarioId
+        })
+    }
+
+    useEffect(() => {
+        // tool.appendScript("assets/js/plugin/datatables/datatables.min.js")
+       
+        setIsFetching(true)
+		dispatch({
+            type:'list', 
+            reference: miUsuario.usuarioId
+        })
+        // eslint-disable-next-line
+        console.log('El listado: ', listado)
+		setIsFetching(false)
+
+    }, []);
+
+
+	if(isFetching){
+		return (
+			<Fragment>
+				<Waiting />
+			</Fragment>
+		);
+	}else{
+        return (
+            <Fragment>
+                <div className="row">
+                    <div className="col-md-12">
+                        <div className="card">
+                            <div className="card-header">
+                                <div className="d-flex align-items-center">
+                                    <h4 className="card-title">Listado de campañas</h4>
+                                    <button className="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
+                                        <i className="fa fa-plus">&nbsp;&nbsp;</i>
+                                        Campaña 
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="card-body">
+                                <form onSubmit={handleSubmit}>
+                                    <table id="milistado" className="display table table-striped table-hover" >
+                                        <thead>
+                                            <tr>
+                                                <th>Fecha de inicio</th>
+                                                <th>Partido</th>
+                                                <th>Campaña</th>
+                                                <th>Tarjetón</th>
+                                                <th>Tipo Campaña</th>
+                                                <th>Plan</th>
+                                                <th>Estado</th>
+                                                <th style={{width:'10%'}}>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Fecha de inicio</th>
+                                                <th>Partido</th>
+                                                <th>Campaña</th>
+                                                <th>Tarjetón</th>
+                                                <th>Tipo Campaña</th>
+                                                <th>Plan</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>{ listado && listado.map((lista,i) => (
+                                                <tr key={lista.idcampana}>
+                                                    <td>{lista.fechainiciocontrato}</td>
+                                                    <td>{lista.partidopolitico}</td>
+                                                    <td>{lista.nombre}</td>
+                                                    <td>{lista.tarjeton}</td>
+                                                    <td>{lista.tipocampana}</td>
+                                                    <td>{lista.nombreplan}</td>
+                                                    <td>{lista.estado}</td>
+                                                    <td>
+                                                        <div className="form-button-action">
+                                                            <button type="button" data-toggle="tooltip"  
+                                                                onClick={() => dispatch({type:'edit', reference: lista.idcampana})} 
+                                                                title="" className="btn btn-link btn-primary btn-lg" 
+                                                                data-original-title="Edtar elemento">
+                                                                <i className="fa fa-edit"></i>
+                                                            </button>
+                                                            <button type="button" data-toggle="tooltip" 
+                                                                onClick={() => dispatch({type:'delete', reference: lista.idcampana})} 
+                                                                title="" className="btn btn-link btn-danger" 
+                                                                data-original-title="Eliminar elemento">
+                                                                <i className="fa fa-times"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                ))
+                                            }                                  
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </Fragment>
+        );
+    }
+
+
+}

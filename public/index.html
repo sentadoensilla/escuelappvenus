@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta http-equiv='cache-control' content='no-cache'>
+		<meta http-equiv='expires' content='0'>
+		<meta http-equiv='pragma' content='no-cache'>
+		<meta http-equiv="Permissions-Policy" content="ch-ua-form-factor">
+		<title>%REACT_APP_TITLE%</title>
+		<meta
+			content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+			name="viewport"
+		/>
+
+		<link rel="icon" href="%REACT_APP_PUBLIC_FOLDER%/favicon.ico" type="image/x-icon" />
+		<!-- CSS Files -->
+		<link rel="stylesheet" href="%REACT_APP_PUBLIC_FOLDER%/assets/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="%REACT_APP_PUBLIC_FOLDER%/assets/css/atlantis.min.css" />
+		<link rel="stylesheet" href="%REACT_APP_PUBLIC_FOLDER%/assets/css/demo.css" />
+	</head>
+	<body>
+		<noscript>Debes tener javascript habilitado en tu navegador para ver este sistema.</noscript>
+		<div id="root"></div>
+		<!--
+			This HTML file is a template.
+			If you open it directly in the browser, you will see an empty page.
+
+			You can add webfonts, meta tags, or analytics to this file.
+			The build step will place the bundled scripts into the <body> tag.
+
+			To begin the development, run `npm start` or `yarn start`.
+			To create a production bundle, use `npm run build` or `yarn build`.
+		-->
+		<!-- Fonts and icons -->
+		<script src="%REACT_APP_PUBLIC_FOLDER%/assets/js/plugin/webfont/webfont.min.js"></script>
+		<script>
+			WebFont.load({
+				google: { families: ['Lato:300,400,700,900'] },
+				custom: {
+					families: [
+						'Flaticon',
+						'Font Awesome 5 Solid',
+						'Font Awesome 5 Regular',
+						'Font Awesome 5 Brands',
+						'simple-line-icons',
+					],
+					urls: ['%REACT_APP_PUBLIC_FOLDER%/assets/css/fonts.min.css'],
+				},
+				active: function () {
+					sessionStorage.fonts = true;
+				},
+			});
+
+			// console.log('.env: ', env.REACT_APP_TITLE)
+		</script>
+		<!--   Core JS Files   -->
+		<script src="%REACT_APP_PUBLIC_FOLDER%/assets/js/core/jquery.3.2.1.min.js"></script>
+		<script src="%REACT_APP_PUBLIC_FOLDER%/assets/js/core/popper.min.js"></script>
+		<script src="%REACT_APP_PUBLIC_FOLDER%/assets/js/core/bootstrap.min.js"></script>
+
+		<!-- jQuery UI -->
+		<script src="%REACT_APP_PUBLIC_FOLDER%/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+		<script src="%REACT_APP_PUBLIC_FOLDER%/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+
+		<!-- jQuery Scrollbar -->
+		<script src="%REACT_APP_PUBLIC_FOLDER%/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+		<!-- Bootstrap Notify -->
+		<script src="%REACT_APP_PUBLIC_FOLDER%/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+		<!-- Chart Circle -->
+		<script src="%REACT_APP_PUBLIC_FOLDER%/assets/js/plugin/chart-circle/circles.min.js"></script>
+		<script src="%REACT_APP_PUBLIC_FOLDER%/assets/js/atlantis.min.js"></script>
+
+		<script type="text/jsx" src="bundle.js"></script>
+	</body>
+</html>
