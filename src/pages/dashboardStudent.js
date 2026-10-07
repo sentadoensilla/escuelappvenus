@@ -14,7 +14,6 @@ import tool from '../services/tools'
 
 import WidgetCirciular from './components/circularStats'
 import { ChartLine } from './components/lineStats'
-import { ChartColumn } from './components/columnStats';
 import WidgetWP from './components/wpStats'
 
 
@@ -38,12 +37,8 @@ function Dashboard() {
 	// eslint-disable-next-line
 	// const [proper, setProper] = useState({});
 	// const deviceInfo = tool.deviceInfo()
-	const [statsTeracherAttend, setStatsTeracherAttend] = useState({});
-	const [statsTeracherAttendDay, setStatsTeracherAttendDay] = useState({});
 	const [statsStudentAttend, setStatsStudentAttend] = useState({});
 	const [statsStudentAttendDay, setStatsStudentAttendDay] = useState({});
-	const [statsUnnatendanceGlobal, setStatsUnnatendanceGlobal] = useState({});
-	const [statsUnnatendance, setStatsUnnatendance] = useState({});
 	const [statsStudentExam, setStatsStudentExam] = useState({});
 	const [statsStudentHomework, setStatsStudentHomework] = useState({});
 	const [statsTeacherAsk, setStatsTeacherAsk] = useState({});
@@ -62,56 +57,18 @@ function Dashboard() {
     const [isShowing, setIsShowing] = useState(false);
 	const miUsuario =  tool.getUser()
 
-	const getStatsTeacherAttendance = async() =>{
-		setWaiting(waiting => true)
-		await messenger.poster({
-			method: 'POST',
-			value: {
-				'id_institucion': miUsuario.academicoId,
-				'anolectivo': miUsuario.usuarioAnoId,
-				'id_usuario': miUsuario.usuarioId,
-				'fechaini': fechaini,
-				'fechafin': fechafin,
-			},
-			url: myConst.roots.engine + myConst.roots.dashInitialAttendanceTeacher
-		})
-		.then((elMensaje) =>{
-			setWaiting(waiting => false)
-			if(elMensaje.rows !== "{}"){
-				setStatsTeracherAttend(antes => elMensaje.rows)
-			}
-		})
-		.catch(error =>{
-			setWaiting(waiting => false)
-			// eslint-disable-next-line
-			console.log('catch: ', error.toString())
-		});
-	}
-
-	const getStatsTeacherAttendanceDay = async() =>{
-		setWaiting(waiting => true)
-		await messenger.poster({
-			method: 'POST',
-			value: {
-				'id_institucion': miUsuario.academicoId,
-				'anolectivo': miUsuario.usuarioAnoId,
-				'id_usuario': miUsuario.usuarioId,
-				'fechaini': fechaini,
-				'fechafin': fechafin,
-			},
-			url: myConst.roots.engine + myConst.roots.dashInitialAttendanceTeacherDay
-		})
-		.then((elMensaje) =>{
-			setWaiting(waiting => false)
-			if(elMensaje.rows !== "{}"){
-				setStatsTeracherAttendDay(antes => elMensaje.rows)
-			}
-		})
-		.catch(error =>{
-			setWaiting(waiting => false)
-			// eslint-disable-next-line
-			console.log('catch: ', error.toString())
-		});
+	/**
+	 * respuestaConDatos: los endpoints de dashboard responden
+	 * {status:'error', statusCode:400, message:'0 Resultados encontrados', rows:{}}.
+	 * Comparar rows contra el string "{}" siempre era true y guardaba estados
+	 * con title/data undefined que rompían los widgets. Validar de verdad.
+	 */
+	const respuestaConDatos = (elMensaje) => {
+		return !!elMensaje &&
+			Number(elMensaje.statusCode) === 200 &&
+			!!elMensaje.rows &&
+			typeof elMensaje.rows === 'object' &&
+			Object.keys(elMensaje.rows).length > 0;
 	}
 
 	const getStatsStudentsAttendance = async() =>{
@@ -128,7 +85,7 @@ function Dashboard() {
 		})
 		.then((elMensaje) =>{
 			setWaiting(waiting => false)
-			if(elMensaje.rows !== "{}"){
+			if(respuestaConDatos(elMensaje)){
 				setStatsStudentAttend(elAyer => elMensaje.rows)
 			}
 		})
@@ -153,7 +110,7 @@ function Dashboard() {
 		})
 		.then((elMensaje) =>{
 			setWaiting(waiting => false)
-			if(elMensaje.rows !== "{}"){
+			if(respuestaConDatos(elMensaje)){
 				setStatsStudentAttendDay(elAyer => elMensaje.rows)
 			}
 		})
@@ -179,7 +136,7 @@ function Dashboard() {
 		})
 		.then((elMensaje) =>{
 			setWaiting(waiting => false)
-			if(elMensaje.rows !== "{}"){
+			if(respuestaConDatos(elMensaje)){
 				setStatsBitacora(antes => elMensaje.rows)
 			}
 		})
@@ -204,7 +161,7 @@ function Dashboard() {
 		})
 		.then((elMensaje) =>{
 			setWaiting(waiting => false)
-			if(elMensaje.rows !== "{}"){
+			if(respuestaConDatos(elMensaje)){
 				setStatsStudentExam(enAntes => elMensaje.rows)
 			}
 		})
@@ -229,7 +186,7 @@ function Dashboard() {
 		})
 		.then((elMensaje) =>{
 			setWaiting(waiting => false)
-			if(elMensaje.rows !== "{}"){
+			if(respuestaConDatos(elMensaje)){
 				setStatsStudentHomework(antiYer => elMensaje.rows)
 			}
 		})
@@ -254,7 +211,7 @@ function Dashboard() {
 		})
 		.then((elMensaje) =>{
 			setWaiting(waiting => false)
-			if(elMensaje.rows !== "{}"){
+			if(respuestaConDatos(elMensaje)){
 				setStatsTeacherAsk(antes => elMensaje.rows)
 			}
 		})
@@ -284,85 +241,13 @@ function Dashboard() {
 		})
 		.then((elMensaje) =>{
 			setWaiting(waiting => false)
-			if(elMensaje.rows !== "{}"){
+			if(respuestaConDatos(elMensaje)){
 				let preDetails = {
 					title: elMensaje.rows.title,
 					columns:columnas,
 					data: elMensaje.rows.data
 				}
 				setStatsTeacherAskDetails(antes => preDetails)
-			}
-		})
-		.catch(error =>{
-			setWaiting(waiting => false)
-			// eslint-disable-next-line
-			console.log('catch: ', error.toString())
-		});
-	}
-
-	const columnasUnnatendanceGlobal = [
-		{name:'GRUPO',selector: row => row.grupo,sortable:true},
-		{name:'CANTIDAD ESTUDIANTES',selector: row => row.cantidad,sortable:true},
-	]
-	const getStatsUnnatendanceGlobal = async() =>{
-		setWaiting(waiting => true)
-		
-		await messenger.poster({
-			method: 'POST',
-			value: {
-				'fechaini': fechaini,
-				'fechafin': fechafin,
-				'mes': mes
-			},
-			url: myConst.roots.engine + myConst.roots.dashInitialUnnatendanceGlobal
-		})
-		.then((elMensaje) =>{
-			setWaiting(waiting => false)
-			if(elMensaje.rows !== "{}"){
-				let preDetails = {
-					title: elMensaje.rows.title,
-					columns:columnasUnnatendanceGlobal,
-					data: elMensaje.rows.data
-				}
-				setStatsUnnatendanceGlobal(antes => preDetails)
-			}
-		})
-		.catch(error =>{
-			setWaiting(waiting => false)
-			// eslint-disable-next-line
-			console.log('catch: ', error.toString())
-		});
-	}
-
-	const columnasUnnatendance = [
-		{name:'GRUPO',selector: row => row.grupo,sortable:true},
-		{name:'ESTUDIANTE',selector: row => row.aeestudiantes_nombres,sortable:true},
-		{name:'DIAS CON FALTA',selector: row => row.inasistencias,sortable:true},
-		{name:'DIAS EXCUSADOS',selector: row => row.excusas,sortable:true},
-		{name:'CORREOS',selector: row => row.aeestudiantes_mail,sortable:true},
-		{name:'TELEFONOS',selector: row => row.aeestudiantes_telefono+', '+row.aeacudientes_telefono,sortable:true}
-	]
-	const getStatsUnnatendance = async() =>{
-		setWaiting(waiting => true)
-		
-		await messenger.poster({
-			method: 'POST',
-			value: {
-				'fechaini': fechaini,
-				'fechafin': fechafin,
-				'mes': mes
-			},
-			url: myConst.roots.engine + myConst.roots.dashInitialUnnatendance
-		})
-		.then((elMensaje) =>{
-			setWaiting(waiting => false)
-			if(elMensaje.rows !== "{}"){
-				let preDetails = {
-					title: elMensaje.rows.caption,
-					columns:columnasUnnatendance,
-					data: elMensaje.rows.data
-				}
-				setStatsUnnatendance(antes => preDetails)
 			}
 		})
 		.catch(error =>{
@@ -386,7 +271,7 @@ function Dashboard() {
 		})
 		.then((elMensaje) =>{
 			setWaiting(waiting => false)
-			if(elMensaje.rows !== "{}"){
+			if(respuestaConDatos(elMensaje)){
 				setStatsAlertSent(antes => elMensaje.rows)
 			}
 		})
@@ -418,7 +303,7 @@ function Dashboard() {
 		})
 		.then((elMensaje) =>{
 			setWaiting(waiting => false)
-			if(elMensaje.rows !== "{}"){
+			if(respuestaConDatos(elMensaje)){
 				let preDetails = {
 					title: elMensaje.rows.title,
 					columns:columnasStudents,
@@ -447,7 +332,7 @@ function Dashboard() {
 		})
 		.then((elMensaje) =>{
 			setWaiting(waiting => false)
-			if(elMensaje.rows !== "{}"){
+			if(respuestaConDatos(elMensaje)){
 				setStatsWP(antes => elMensaje.rows)
 			}
 		})
@@ -460,13 +345,13 @@ function Dashboard() {
 
 	const refresData = () =>{
 
+		// NOTA: este es el tablero del ESTUDIANTE. No invocar endpoints
+		// exclusivos de docente/director (guardas isDirector_and_tecaher):
+		// attendancesteacher, attendancesteacherbyday,
+		// listUnnattendance, listUnnattendanceGroup.
 		getStatsWP()
-		getStatsTeacherAttendance()
-		getStatsTeacherAttendanceDay()
 		getStatsStudentsAttendanceDay()
 		getStatsStudentsAttendance()
-		getStatsUnnatendance()
-		getStatsUnnatendanceGlobal()
 		getStatsBitacora()
 		getStatsListStudent()
 		getStatsStudentsExams()
@@ -489,6 +374,15 @@ function Dashboard() {
 		}	
 	}
 
+	// Hooks SIEMPRE antes de cualquier return condicional (regla de hooks).
+	// eslint-disable-next-line react-hooks/rules-of-hooks
+	useEffect(() => {
+		if(miUsuario.isLogged){
+			refresData()
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [fechaini, fechafin]);
+
 	if(!miUsuario.isLogged){
 		return (
 			<Fragment>
@@ -496,11 +390,6 @@ function Dashboard() {
 			</Fragment>
 		);
 	}
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-		refresData()
-    }, [fechaini, fechafin]);
 
 	return (
 		<Fragment>
@@ -600,24 +489,6 @@ function Dashboard() {
 									</div>
 								</div>
 								<div className="row mt--2">
-									<div className="col-md-5">
-										{ 
-											(statsTeracherAttend.hasOwnProperty('title'))?
-												<WidgetCirciular props={statsTeracherAttend} />
-												:
-												""										
-										}
-									</div>
-									<div className="col-md-7">
-										{ 
-											(statsTeracherAttendDay.hasOwnProperty('title'))?
-												<ChartColumn props={statsTeracherAttendDay} />
-												:
-												""
-										}
-									</div>
-								</div>
-								<div className="row mt--2">
 									<div className="col-md-7">
 										{ 
 											(statsResumeStudents.hasOwnProperty('title'))?
@@ -657,37 +528,6 @@ function Dashboard() {
 										}										
 									</div>
 								</div>
-								<div className="row mt--2">
-									<div className="col-md-3">
-										{ 
-											(statsUnnatendanceGlobal.hasOwnProperty('title'))?
-												<div className="card">
-													<div className="card-body">
-														<div className="flex-wrap justify-content-around">
-															<Listado props={statsUnnatendanceGlobal} /> 
-														</div>
-													</div>
-												</div>
-												: 
-												<div><h2 className='text-center text-danger'>Buscando datos realacionados con ausentismo en grupos</h2></div>
-										}										
-									</div>
-									<div className="col-md-9">
-									{ 
-											(statsUnnatendance.hasOwnProperty('title'))?
-												<div className="card">
-													<div className="card-body">
-														<div className="flex-wrap justify-content-around">
-															<Listado props={statsUnnatendance} /> 
-														</div>
-													</div>
-												</div>
-												: 
-												<div><h2 className='text-center text-danger'>Buscando datos realacionados con ausentismo individual</h2></div>
-										}
-									</div>
-								</div>
-
 								<div className="row mt--2">
 									<div className="col-md-6">
 										{ 
