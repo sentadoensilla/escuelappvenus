@@ -138,7 +138,7 @@ function UserHead(props) {
                                     return (
                                     <li key={i} className={(item.opciones.some(e => e.enlace.includes(miUri)))? "nav-item active" : "nav-item"}>
                                         <NavLink data-toggle="collapse"  data-target={"#menu"+multiplicador+item.aemenu_id}>
-                                            <i className={item.aemenu_icono}></i>
+                                            <i className={item.aemenu_icono || 'fa fa-folder-open'}></i>
                                             <p>{item.aemenu_nombre}</p>
                                             <span className="caret"></span>
                                         </NavLink>
@@ -149,7 +149,7 @@ function UserHead(props) {
                                                     return (
                                                         <li key={o} className={(opcion.enlace.includes(miUri))? "active text-danger" : ""}>
                                                             <NavLink to={opcion.enlace}>
-                                                                <i className={(opcion.enlace.includes(miUri))? item.opciones[o].icono+" active text-danger" : item.opciones[o].icono+""}></i>
+                                                                <i className={(opcion.enlace.includes(miUri))? (item.opciones[o].icono || 'fa fa-circle')+" active text-danger" : (item.opciones[o].icono || 'fa fa-circle')+""}></i>
                                                                 <span className="sub-item">{item.opciones[o].opcion}</span>
                                                             </NavLink>
                                                         </li>

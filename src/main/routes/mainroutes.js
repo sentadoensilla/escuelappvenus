@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { BrowserRouter, Route} from "react-router-dom";
+import { BrowserRouter, Route, Navigate} from "react-router-dom";
 import { publicRoutes,privateRoutes } from "../../services/routes";
 import { NotFound } from "../../pages/404";
 import { Forbidden } from "../../pages/forbidden";
@@ -30,6 +30,10 @@ const InstitucionesAdd = lazy(() => import(/* webpackChunkName: "instituciones" 
 // ARCHIVOS PARA RUTAS DE LA GESTIÓN DE DOCENTES
 const DocentesList = lazy(() => import(/* webpackChunkName: "docentes" */ "../../pages/docentes/docentesList"));
 const DocentesAdd = lazy(() => import(/* webpackChunkName: "docentes" */ "../../pages/docentes/docentesAdd"));
+
+// ARCHIVOS PARA RUTAS DE AVISOS INSTITUCIONALES
+const AvisosList = lazy(() => import(/* webpackChunkName: "avisos" */ "../../pages/avisos/avisosList"));
+const AvisosAdd = lazy(() => import(/* webpackChunkName: "avisos" */ "../../pages/avisos/avisosAdd"));
 
 // ARCHIVOS PARA RUTAS DE LA GESTIÓN DE ESTUDIANTES Y MATRÍCULAS
 const EstudiantesList = lazy(() => import(/* webpackChunkName: "estudiantes" */ "../../pages/estudiantes/estudiantesList"));
@@ -281,6 +285,14 @@ export const MisRutas = () => {
                     <Route path={privateRoutes.DOCENTES_LIST} element={(callUsers)? <DocentesList isLogged={callUsers} /> : <Forbidden /> } />
                     <Route path={privateRoutes.DOCENTES_ADD} element={(callUsers)? <DocentesAdd isLogged={callUsers} /> : <Forbidden /> } />
 
+                    {/* ===== Avisos institucionales ===== */}
+                    <Route path={privateRoutes.AVISOS_LIST} element={(callUsers)? <AvisosList isLogged={callUsers} /> : <Forbidden /> } />
+                    <Route path={privateRoutes.AVISOS_ADD} element={(callUsers)? <AvisosAdd isLogged={callUsers} /> : <Forbidden /> } />
+
+                    {/* ===== comunicados institucionales ===== */}
+                    <Route path={privateRoutes.COMUNICADOS_LIST} element={(callUsers)? <ComunicacionList isLogged={callUsers} /> : <Forbidden /> } />
+                    <Route path={privateRoutes.COMUNICADOS_ADD} element={(callUsers)? <ComunicacionCreate isLogged={callUsers} /> : <Forbidden /> } />
+
                     {/* ===== Gestión de estudiantes y matrículas ===== */}
                     <Route path={privateRoutes.ESTUDIANTES_SAE_LIST} element={(callUsers)? <EstudiantesList isLogged={callUsers} /> : <Forbidden /> } />
                     <Route path={privateRoutes.ESTUDIANTES_SAE_ADD} element={(callUsers)? <EstudiantesAdd isLogged={callUsers} /> : <Forbidden /> } />
@@ -308,6 +320,9 @@ export const MisRutas = () => {
                     {/* ===== Reportes / acciones SAE ===== */}
                     <Route path={privateRoutes.ESTADISTICAS_SAE} element={(callUsers)? <EstadisticasSae isLogged={callUsers} /> : <Forbidden /> } />
                     <Route path={privateRoutes.PROMOCION} element={(callUsers)? <Promocion isLogged={callUsers} /> : <Forbidden /> } />
+
+                    {/* ===== Alias de rutas SAE (copcimenuenla de logic.tabopcimenu) ===== */}
+                    <Route path="/anolec" element={<Navigate to="/gestion/anos" replace />} />
 
                 </NotFound>                
             </BrowserRouter>

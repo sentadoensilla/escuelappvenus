@@ -113,6 +113,14 @@ export const privateRoutes = {
     DOCENTES_LIST: '/docentes',                  // listado de docentes
     DOCENTES_ADD: '/docentesadd',                // alta/edición de docente
 
+    // ===== Avisos institucionales (SAE) =====
+    AVISOS_LIST: '/avisos',                      // listado de avisos institucionales
+    AVISOS_ADD: '/avisosadd',                    // alta/edición de aviso
+
+    // ===== Avisos institucionales (SAE) =====
+    COMUNICADOS_LIST: '/comunicados',                      // listado de comunicados institucionales
+    COMUNICADOS_ADD: '/comunicadosadd',  
+
     // ===== Gestión de estudiantes (SAE) =====
     ESTUDIANTES_SAE_LIST: '/estudiantes',        // listado de estudiantes
     ESTUDIANTES_SAE_ADD: '/estudiantesadd',      // alta/edición de estudiante

@@ -1,0 +1,52 @@
+id_screen	modulo	pantalla	archivo	ruta	navegador	rol	controles_principales	pruebas_realizadas	fecha_prueba	probador	estado	observaciones
+1	areas	Registrar área	areas/areasAdd.js	/areasadd	Web (PC/Móvil)	Admin/Coordinador	text,input hidden	Pendiente			PENDIENTE	
+2	areas	Listado de áreas	areas/areasList.js	/areas	Web (PC/Móvil)	Admin/Coordinador	tabla,editar,eliminar	Pendiente			PENDIENTE	
+3	asignaturas	Registrar asignatura	asignaturas/asignaturasAdd.js	/asignaturasadd	Web (PC/Móvil)	Admin/Coordinador	text,select,input hidden	Pendiente			PENDIENTE	
+4	asignaturas	Listado de asignaturas	asignaturas/asignaturasList.js	/asignaturas	Web (PC/Móvil)	Admin/Coordinador	tabla,editar,eliminar	Pendiente			PENDIENTE	
+5	avisos	Registrar/Editar aviso	avisos/avisosAdd.js	/avisosadd	Web (PC/Móvil)	201 Admin Academico, 202 Docente, 204 Administrador	text,SunEditor (wysiwyg),file (imagen/PDF),input hidden	Pendiente			PENDIENTE	
+6	avisos	Listado de avisos	avisos/avisosList.js	/avisos	Web (PC/Móvil)	201,202,204	tabla,editar,eliminar,contenido sin tags	Pendiente			PENDIENTE	
+7	campana	Registrar/Editar campaña	campana/campanaAdd.js	/campanaadd	Web (PC/Móvil)	Admin	text,number,file	Pendiente			PENDIENTE	
+8	campana	Listado de campañas	campana/campanaList.js	/campana	Web (PC/Móvil)	Admin	tabla,editar,eliminar	Pendiente			PENDIENTE	
+9	citaciones	Registrar/Editar citación	citaciones/citacionesAdd.js	/citacionesadd	Web (PC/Móvil)	Docente/Admin	text,select,DatePicker,Select multi,SunEditor,file	Pendiente			PENDIENTE	
+10	citaciones	Listado de citaciones	citaciones/citacionesList.js	/citaciones	Web (PC/Móvil)	Docente/Admin	tabla,editar,eliminar,ver	Pendiente			PENDIENTE	
+11	citaciones	Detalle citación	citaciones/citacionesView.js	/citacionesdetail/:reference	Web	Docente/Admin	ver,responder	Pendiente			PENDIENTE	
+12	citaciones	Citación pública	citaciones/citacionesOpen.js	/citacionesdetailopen/:reference	Web (sin login)	Acudiente	ver	Pendiente			PENDIENTE	
+13	competencias	Registrar competencia	competencias/competenciasAdd.js	/competenciasadd	Web (PC/Móvil)	Admin/Coordinador	text,select,textarea	Pendiente			PENDIENTE	
+14	competencias	Listado de competencias	competencias/competenciasList.js	/competencias	Web (PC/Móvil)	Admin/Coordinador	tabla,editar,eliminar	Pendiente			PENDIENTE	
+15	comunicados	Registrar/Editar comunicado	comunicados/comunicadosAdd.js	/alerts	Web (PC/Móvil)	Docente/Admin	text,DatePicker,Select multi,file,SunEditor,select	Pendiente			PENDIENTE	
+16	comunicados	Listado de comunicados	comunicados/comunicadosList.js	/alertslist	Web (PC/Móvil)	Docente/Admin	tabla,ver,eliminar	Pendiente			PENDIENTE	
+17	comunicados	Detalle comunicado	comunicados/comunicadosView.js	/alertshow/:reference	Web	Docente/Admin	ver,responder (SunEditor)	Pendiente			PENDIENTE	
+18	comunicados	Comunicado público	comunicados/comunicadosViewOpen.js	/alertsview/:reference	Web (sin login)	Acudiente	ver	Pendiente			PENDIENTE	
+19	cursos	Registrar curso	cursos/cursosAdd.js	/cursosadd	Web (PC/Móvil)	Admin/Coordinador	text,select (grado,jornada,docente,sede)	Pendiente			PENDIENTE	
+20	cursos	Listado de cursos	cursos/cursosList.js	/cursos	Web (PC/Móvil)	Admin/Coordinador	tabla,editar,eliminar	Pendiente			PENDIENTE	
+21	docentes	Registrar/Editar docente	docentes/docentesAdd.js	/docentesadd	Web (PC/Móvil)	Admin/Coordinador	text,number,date,select (tipo doc,sexo,sangre),input hidden	Pendiente			PENDIENTE	
+22	docentes	Listado de docentes	docentes/docentesList.js	/docentes	Web (PC/Móvil)	Admin/Coordinador	tabla,editar,eliminar	Pendiente			PENDIENTE	
+23	estudiantes	Registrar/Editar estudiante	estudiantes/estudiantesAdd.js	/estudiantesadd	Web (PC/Móvil)	Admin/Secretaria	text,number,date,select,file,input hidden	Pendiente			PENDIENTE	
+24	estudiantes	Listado de estudiantes	estudiantes/estudiantesList.js	/estudiantes	Web (PC/Móvil)	Admin/Secretaria	tabla,editar,eliminar	Pendiente			PENDIENTE	
+25	excusas	Listado de excusas	excusas/excusasList.js	/excusas	Web (PC/Móvil)	Docente/Admin	tabla,ver	Pendiente			PENDIENTE	
+26	excusas	Detalle excusa	excusas/excusasView.js	/excusasshow/:reference	Web	Docente/Admin	ver	Pendiente			PENDIENTE	
+27	excusas	Excusa pública	excusas/excusasViewOpen.js	/excusasopen/:reference	Web (sin login)	Acudiente	ver	Pendiente			PENDIENTE	
+28	gestion	CRUD genérico (listado)	gestion/gestionList.js	/gestion/:entidad	Web (PC/Móvil)	Admin/Coordinador	tabla genérica,editar,eliminar	Pendiente			PENDIENTE	
+29	gestion	CRUD genérico (formulario)	gestion/gestionAdd.js	/gestion/:entidad/agregar	Web (PC/Móvil)	Admin/Coordinador	text,number,date,textarea,select,boolean,hidden	Pendiente			PENDIENTE	
+30	instituciones	Registrar/Editar institución	instituciones/institucionesAdd.js	/institucionesadd	Web (PC/Móvil)	Admin	text,number,select,file (escudo),input hidden	Pendiente			PENDIENTE	
+31	instituciones	Listado de instituciones	instituciones/institucionesList.js	/instituciones	Web (PC/Móvil)	Admin	tabla,editar,eliminar	Pendiente			PENDIENTE	
+32	matriculas	Registrar/Editar matrícula	matriculas/matriculasAdd.js	/matriculasadd	Web (PC/Móvil)	Admin/Secretaria	select (estudiante,curso,institución),radio (nuevo/repitente),number,hidden	Pendiente			PENDIENTE	
+33	matriculas	Listado de matrículas	matriculas/matriculasList.js	/matriculas	Web (PC/Móvil)	Admin/Secretaria	tabla,editar,eliminar	Pendiente			PENDIENTE	
+34	menu	Registrar/Editar menú	menu/menuAdd.js	/menuadd	Web (PC/Móvil)	Admin	text,select (estado),hidden	Pendiente			PENDIENTE	
+35	menu	Listado de menús	menu/menuList.js	/menu	Web (PC/Móvil)	Admin	tabla,editar,eliminar	Pendiente			PENDIENTE	
+36	notas	Registrar nota	notas/notasAdd.js	/notasadd	Web (PC/Móvil)	Docente/Admin	number,select (competencia,estudiante),textarea,hidden	Pendiente			PENDIENTE	
+37	notas	Listado de notas	notas/notasList.js	/notas	Web (PC/Móvil)	Docente/Admin	tabla,editar,eliminar	Pendiente			PENDIENTE	
+38	observaciones	Registrar/Editar observación	observaciones/observacionesAdd.js	/observadormaestro	Web (PC/Móvil)	Docente/Coordinador	select,radio,DatePicker,Select multi,SunEditor,file,hidden	Pendiente			PENDIENTE	
+39	observaciones	Listado de observaciones	observaciones/observacionesList.js	/observador	Web (PC/Móvil)	Docente/Coordinador	tabla,editar,eliminar,ver	Pendiente			PENDIENTE	
+40	observaciones	Detalle observación	observaciones/observacionesView.js	/observadorshow/:reference	Web	Docente/Coordinador	ver,responder	Pendiente			PENDIENTE	
+41	observaciones	Observación pública	observaciones/observacionesOpen.js	/observadorshowopen/:reference	Web (sin login)	Acudiente	ver	Pendiente			PENDIENTE	
+42	tipodesempeno	Registrar/Editar tipo de desempeño	tipodesempeno/tipodesempenoAdd.js	/tipodesempenoadd	Web (PC/Móvil)	Admin	text,number,DatePicker,select,SunEditor	Pendiente			PENDIENTE	
+43	tipodesempeno	Listado de tipos de desempeño	tipodesempeno/tipodesempenoList.js	/desempenos	Web (PC/Móvil)	Admin	tabla,editar,eliminar,ver	Pendiente			PENDIENTE	
+44	tipodesempeno	Detalle tipo desempeño	tipodesempeno/tipodesempenoView.js	/tipodesempenodetail/:reference	Web	Admin	ver	Pendiente			PENDIENTE	
+45	tipodesempeno	Tipo desempeño público	tipodesempeno/tipodesempenoOpen.js	/tipodesempenoopen/:reference	Web (sin login)	Acudiente	ver	Pendiente			PENDIENTE	
+46	usuarios	Mi perfil	usuarios/miPerfil.js	/perfil	Web (PC/Móvil)	usuario logueado	text,select (depto/municipio),file,hidden	Pendiente			PENDIENTE	
+47	usuarios	Cambiar contraseña	usuarios/passwordChange.js	/cambioclave	Web (PC/Móvil)	usuario logueado	password,checkbox (ver clave)	Pendiente			PENDIENTE	
+48	usuarios	Registrar/Editar usuario (legado)	usuarios/usuariosAdd.js	/usuariosadd	Web (PC/Móvil)	Admin	text,password,checkbox,select,number,hidden	Pendiente			PENDIENTE	
+49	usuarios	Listado de usuarios	usuarios/usuariosList.js	/usuarios	Web (PC/Móvil)	Admin	tabla,editar,eliminar	Pendiente			PENDIENTE	
+50	reportes	Estadísticas de matrícula	reportes/estadisticas.js	/estadisticassae	Web (PC/Móvil)	Admin/Coordinador	gráficos,filtros	Pendiente			PENDIENTE	
+51	reportes	Promoción masiva	reportes/promocion.js	/promocion	Web (PC/Móvil)	Admin/Coordinador	acciones masivas	Pendiente			PENDIENTE	

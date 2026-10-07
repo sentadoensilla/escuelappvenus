@@ -22,6 +22,10 @@ build/
 *.bk
 *.old
 *.bak
+*.tar.bz2
+
+# Sistema operativo
+.DS_Store
 
 # Archivo backend copiado por error a la raíz del frontend
 app.js

@@ -186,6 +186,12 @@ export const roots = {
 	listaSexos:'/catalogos/sexos/listar',
 	listaTiposSangre:'/catalogos/tipossangre/listar',
 
+	// ===== Avisos institucionales (SAE) =====
+	avisoList:'/avisos/avisosrol/listar',
+	avisoNew:'/avisos/avisosrol/registrar',
+	avisoUpdate:'/avisos/avisosrol/actualizar',
+	avisoDelete:'/avisos/avisosrol/borrar',
+
 	// ===== Gestión de estudiantes y matrículas (SAE) =====
 	estudianteList:'/sae/estudiantes/listar',
 	estudianteNew:'/sae/estudiantes/registrar',
@@ -303,6 +309,9 @@ export const labels = {
 
 	institucionesAdd: [['Registrar Institución', 'New Institution'], ['Editar Institución', 'Edit Institution']],
 	institucionesList: ['Instituciones', 'Institutions'],
+
+	avisosAdd: [['Registrar Aviso', 'New Notice'], ['Editar Aviso', 'Edit Notice']],
+	avisosList: ['Avisos institucionales', 'Institutional Notices'],
 
 	docentesAdd: [['Registrar Docente', 'New Teacher'], ['Editar Docente', 'Edit Teacher']],
 	docentesList: ['Docentes', 'Teachers'],
