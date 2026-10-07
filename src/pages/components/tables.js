@@ -11,13 +11,17 @@ export default function Listado({props}){
         selectAllRowsItem: true,
         selectAllRowsItemText: 'Todos'
     };
-    
-    if(props.data.length > 0){
+    // Los dashboards pueden pasar props incompletas (p.ej. cuando la API
+    // responde error con rows: {}). Nunca asumir que data es un arreglo.
+    const data = Array.isArray(props.data) ? props.data : [];
+    const columns = Array.isArray(props.columns) ? props.columns : [];
+
+    if(data.length > 0){
         return ( 
             <div>
                 <DataTable 
-                    columns={props.columns}
-                    data={props.data}
+                    columns={columns}
+                    data={data}
                     responsive={true}
                     striped={true}
                     highlightOnHover
