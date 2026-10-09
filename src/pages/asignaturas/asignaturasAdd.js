@@ -43,7 +43,7 @@ export default function AddAsignatura(){
 
     const enmascarar = (valor) => (valor !== undefined && valor !== null && valor !== '') ? tool.encriptar(String(valor)) : ''
 
-    const { control, register, handleSubmit, formState: { errors } } = useForm({
+    const { control, register, handleSubmit, setValue, formState: { errors } } = useForm({
         defaultValues: {
             descripcion: record.descripcion || '',
             idarea: enmascarar(record.idarea),
@@ -151,9 +151,35 @@ export default function AddAsignatura(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className={errors.abreviatura ? 'form-group text-left has-error has-feedback' : 'form-group text-left has-feedback'}>
                                                                 <label htmlFor='abreviatura'>Abreviatura:</label>
-                                                                <input type="text" className="form-control" {...register("abreviatura")} />
+                                                                <input
+                                                                    id="abreviatura"
+                                                                    type="text"
+                                                                    className="form-control text-uppercase"
+                                                                    placeholder='Ej: MAT'
+                                                                    maxLength={5}
+                                                                    autoComplete="off"
+                                                                    autoCapitalize="characters"
+                                                                    title="Máximo 5 caracteres y en mayúsculas"
+                                                                    {...register("abreviatura", {
+                                                                        maxLength: 5,
+                                                                        pattern: /^[A-Z0-9]{0,5}$/,
+                                                                        onChange: (e) => {
+                                                                            const laAbreviatura = String(e.target.value || '')
+                                                                                .toUpperCase()
+                                                                                .replace(/[^A-Z0-9]/g, '')
+                                                                                .slice(0, 5)
+                                                                            if (e.target.value !== laAbreviatura) {
+                                                                                e.target.value = laAbreviatura
+                                                                            }
+                                                                            setValue('abreviatura', laAbreviatura, { shouldValidate: true })
+                                                                            return laAbreviatura
+                                                                        },
+                                                                    })}
+                                                                />
+                                                                { errors.abreviatura?.type === 'maxLength' && <small className="form-text text-danger">La abreviatura admite máximo 5 caracteres</small> }
+                                                                { errors.abreviatura?.type === 'pattern' && <small className="form-text text-danger">Sólo letras y números, máximo 5 y en mayúsculas</small> }
                                                             </div>
                                                         </div>
                                                     </div>

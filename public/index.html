@@ -17,6 +17,47 @@
 		<link rel="stylesheet" href="%REACT_APP_PUBLIC_FOLDER%/assets/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="%REACT_APP_PUBLIC_FOLDER%/assets/css/atlantis.min.css" />
 		<link rel="stylesheet" href="%REACT_APP_PUBLIC_FOLDER%/assets/css/demo.css" />
+		<!--
+			Vistas imprimibles (p.ej. /asignaturasprint): la clase "modo-impresion"
+			se agrega al <body> para que el diálogo de impresión / Guardar como PDF
+			imprima sólo el reporte, sin menú, botones ni barras de acción.
+		-->
+		<style>
+			@media print {
+				body.modo-impresion #elgrapper,
+				body.modo-impresion .main-panel,
+				body.modo-impresion .content,
+				body.modo-impresion .page-inner,
+				body.modo-impresion .container-fluid {
+					background: #ffffff !important;
+					margin: 0 !important;
+					width: 100% !important;
+					max-width: 100% !important;
+					min-height: 0 !important;
+					height: auto !important;
+					float: none !important;
+					overflow: visible !important;
+					transition: none !important;
+				}
+				body.modo-impresion .main-header,
+				body.modo-impresion .sidebar,
+				body.modo-impresion .footer,
+				body.modo-impresion .no-print,
+				body.modo-impresion .rdt_TableHeader,
+				body.modo-impresion button {
+					display: none !important;
+				}
+				body.modo-impresion #reporte-impresion {
+					padding: 0 10px !important;
+				}
+				body.modo-impresion .rdt_TableHeadRow,
+				body.modo-impresion .rdt_TableRow {
+					break-inside: avoid !important;
+					page-break-inside: avoid !important;
+				}
+				@page { size: auto; margin: 12mm; }
+			}
+		</style>
 	</head>
 	<body>
 		<noscript>Debes tener javascript habilitado en tu navegador para ver este sistema.</noscript>

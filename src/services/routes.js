@@ -138,6 +138,7 @@ export const privateRoutes = {
     AREAS_ADD: '/areasadd',                      // alta/edición de área
     ASIGNATURAS_LIST: '/asignaturas',            // listado de asignaturas
     ASIGNATURAS_ADD: '/asignaturasadd',          // alta/edición de asignatura
+    ASIGNATURAS_PRINT: '/asignaturasprint',      // listado imprimible (PDF) de asignaturas, sin acciones
 
     // ===== Indicadores de desempeño (SAE) =====
     COMPETENCIAS_LIST: '/competencias',          // listado de competencias

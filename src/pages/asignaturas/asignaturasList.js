@@ -117,6 +117,14 @@ export default function ListadoAsignaturas(){
         }
     }
 
+    /**
+     * Abre en OTRA PESTAÑA el listado de asignaturas en formato PDF
+     * (vista sin botones de acción: /asignaturasprint).
+     */
+    const generarPdf = () =>{
+        window.open(privateRoutes.ASIGNATURAS_PRINT, '_blank', 'noopener,noreferrer')
+    }
+
     useEffect(() => {
         setWaiting(waiting => true)
         setIsFetching(true)
@@ -150,9 +158,15 @@ export default function ListadoAsignaturas(){
                                         <div className="col-md-12">
                                             <div className="card">
                                                 <div className="card-header">
-                                                    <div className="d-flex align-items-center">
+                                                    <div className="d-flex align-items-center flex-wrap">
                                                         <h4 className="card-title">{ myConst.labels.asignaturasList[0] }</h4>
-                                                        <Link to={privateRoutes.ASIGNATURAS_ADD} className="btn btn-primary btn-round ml-auto">
+                                                        <button type="button" onClick={generarPdf}
+                                                            className="btn btn-danger btn-round ml-auto mr-2"
+                                                            title="Listado de asignaturas en PDF">
+                                                            <i className="fas fa-file-pdf">&nbsp;&nbsp;</i>
+                                                            Listado de asignaturas
+                                                        </button>
+                                                        <Link to={privateRoutes.ASIGNATURAS_ADD} className="btn btn-primary btn-round">
                                                             <i className="fa fa-plus">&nbsp;&nbsp;</i>
                                                             {myConst.labels.asignaturasAdd[0][0]}
                                                         </Link>
@@ -161,7 +175,7 @@ export default function ListadoAsignaturas(){
                                                 <div className="card-body">
                                                     <form onSubmit={handleSubmit}>
                                                         { (listado.length > 0)?
-                                                            <Listado props={{title:'Asignaturas',columns:columnas,data:listado}} />
+                                                            <Listado props={{title:'Asignaturas',columns:columnas,data:listado,filter:true,filterPlaceholder:'Buscar asignatura…'}} />
                                                             :
                                                             <div><h2 className='text-center text-danger'>Sin asignaturas que mostrar</h2></div> }
                                                     </form>

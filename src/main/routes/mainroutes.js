@@ -50,6 +50,7 @@ const AreasList = lazy(() => import(/* webpackChunkName: "areas" */ "../../pages
 const AreasAdd = lazy(() => import(/* webpackChunkName: "areas" */ "../../pages/areas/areasAdd"));
 const AsignaturasList = lazy(() => import(/* webpackChunkName: "asignaturas" */ "../../pages/asignaturas/asignaturasList"));
 const AsignaturasAdd = lazy(() => import(/* webpackChunkName: "asignaturas" */ "../../pages/asignaturas/asignaturasAdd"));
+const AsignaturasPrint = lazy(() => import(/* webpackChunkName: "asignaturas" */ "../../pages/asignaturas/asignaturasPrint"));
 
 // ARCHIVOS PARA RUTAS DE INDICADORES DE DESEMPEÑO
 const CompetenciasList = lazy(() => import(/* webpackChunkName: "competencias" */ "../../pages/competencias/competenciasList"));
@@ -308,6 +309,7 @@ export const MisRutas = () => {
                     <Route path={privateRoutes.AREAS_ADD} element={(callUsers)? <AreasAdd isLogged={callUsers} /> : <Forbidden /> } />
                     <Route path={privateRoutes.ASIGNATURAS_LIST} element={(callUsers)? <AsignaturasList isLogged={callUsers} /> : <Forbidden /> } />
                     <Route path={privateRoutes.ASIGNATURAS_ADD} element={(callUsers)? <AsignaturasAdd isLogged={callUsers} /> : <Forbidden /> } />
+                    <Route path={privateRoutes.ASIGNATURAS_PRINT} element={(callUsers)? <AsignaturasPrint isLogged={callUsers} /> : <Forbidden /> } />
 
                     {/* ===== Indicadores de desempeño ===== */}
                     <Route path={privateRoutes.COMPETENCIAS_LIST} element={(callUsers)? <CompetenciasList isLogged={callUsers} /> : <Forbidden /> } />
