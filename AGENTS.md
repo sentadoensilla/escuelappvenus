@@ -54,6 +54,7 @@ venus/                         # repo frontend (React)
 - **Encriptación PK/FK** — la PK (`idregistro`) se devuelve ENCRIPTADA (doble base64) y se reenvía tal cual; las FKs se devuelven CRUDAS y el frontend las enmascara con `tool.encriptar()`. Backend usa `token.encriptar`/`decriptar`.
 - **Frontend** — CRUD genérico por configuración en `src/main/crudConfig.js` + `src/pages/gestion/*`; rutas `/gestion/:entidad` y `/gestion/:entidad/agregar`.
 - **Formularios** — siempre `react-hook-form` (`register` / `Controller`). Catálogo y reglas móviles en **`controls.md`**.
+- **Fechas y estados** — se formatean en el **frontend**, no en la API: `tool.soloFecha()` (cualquier fecha → `aaaa-mm-dd`; obligatorio para `<input type="date">` al editar) y `tool.estadoGeneral()` (`public.tabestagene`: 8=Activo, 9=Inactivo). Se aplican con `columns[].format` y `fields[].col` en `crudConfig.js` (ver `.agents/frontend.md` §6.3–§6.4 y `controls.md` §4.18).
 - **Menú dinámico** — se registra en BD **esquema `logic`** (`logic.tabmenu` + `logic.tabopcimenu` + `logic.tabrollopci` + `logic.tabusuaopci`); el enlace de cada opción (`copcimenuenla`) es la ruta React SIN `/` inicial (ej. `areas`, `anolec`, `gestion/cursos`). El login (`privilegees`) lo expone como `'/' || copcimenuenla`.
 - **Conexión a BD** — en `escuelappapi/database/conex.js`: bloque comentado de producción (SSL) y bloque activo de desarrollo local (`ssl: false`).
 

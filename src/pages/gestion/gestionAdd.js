@@ -77,6 +77,10 @@ export default function GestionAdd() {
                 defaults[f.name] = (raw !== undefined && raw !== null && raw !== '') ? tool.encriptar(String(raw)) : '';
             } else if (f.type === 'boolean') {
                 defaults[f.name] = (raw === true || raw === 'true' || raw === '1') ? 'true' : 'false';
+            } else if (f.type === 'date') {
+                // La API entrega las fechas como fecha-hora ISO; el <input type="date">
+                // solo acepta 'aaaa-mm-dd', si no, el campo queda vacío al editar.
+                defaults[f.name] = tool.soloFecha(raw);
             } else {
                 defaults[f.name] = (raw !== undefined && raw !== null) ? raw : '';
             }
@@ -112,6 +116,26 @@ export default function GestionAdd() {
 
         const data = construirPayload();
         const url = myConst.roots.engine + (esEdicion ? config.endpoints.actualizar : config.endpoints.registrar);
+
+        // Confirma (o cancela) antes de registrar/actualizar.
+        const confirmacion = await swal.fire({
+            title: esEdicion ? '¿Actualizar registro?' : 'Agregar registro?',
+            text: esEdicion
+                ? `Se actualizará el registro de ${config.titulo}.`
+                : `Se registrará un nuevo registro en ${config.titulo}.`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: esEdicion ? 'Sí, actualizar' : 'Sí, registrar',
+            cancelButtonText: 'Cancelar',
+            reverseButtons: true,
+            customClass: { confirmButton: 'btn btn-primary mx-1', cancelButton: 'btn btn-danger mx-1' },
+            buttonsStyling: false,
+        });
+
+        if (!confirmacion.isConfirmed) {
+            setWaiting(false);
+            return;
+        }
 
         await messenger.poster({ method: 'POST', url, value: data })
             .then((resultado) => {
@@ -149,6 +173,10 @@ export default function GestionAdd() {
     if (isFetching) {
         return <Fragment><Waiting /></Fragment>;
     }
+
+    // Clases de columna del campo: `field.col` si la config las define; 'col-12' abarca
+    // todo el ancho del formulario y el resto se reparte a dos columnas.
+    const claseColumna = (field) => field.col || 'col-md-6 col-sm-12';
 
     const renderField = (field) => {
         switch (field.type) {
@@ -226,7 +254,7 @@ export default function GestionAdd() {
                                                 <form onSubmit={onRegister} method="POST">
                                                     <div className="row">
                                                         {config.fields.map((field, i) => (
-                                                            <div key={i} className="col-md-6 col-sm-12">
+                                                            <div key={i} className={claseColumna(field)}>
                                                                 <div className="form-group text-left has-feedback">
                                                                     <label htmlFor={field.name}>{field.label}:</label>
                                                                     {renderField(field)}

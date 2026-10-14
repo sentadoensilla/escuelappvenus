@@ -564,6 +564,31 @@ Bootstrap 4 lo trae (`.custom-control.custom-switch`), aunque no esté en la gal
 **Móvil:** **el control más confiable** en celular (abre el calendario del sistema). Úsalo por
 defecto para fechas en formularios; reserva `DatePicker` (§4.20) para vistas de escritorio.
 
+**⚠️ El `value` debe ser `aaaa-mm-dd`.** Si el valor no tiene exactamente ese formato, el
+navegador **descarta el valor y deja el campo vacío sin mostrar ningún error**. Caso real
+detectado en `/gestion/anos/agregar`: la API devuelve las columnas `date` de PostgreSQL
+serializadas como fecha-hora ISO (`2015-01-15T05:00:00.000Z`), así que al **editar** los campos
+Fecha inicio / Fecha fin aparecían en blanco.
+
+Regla: al precargar un formulario de edición, normaliza siempre la fecha con
+`tool.soloFecha()` (en `services/tools.js`), que acepta ISO, `aaaa-mm-dd`, `aaaa/mm/dd`,
+`dd/mm/aaaa` o `Date` y devuelve `aaaa-mm-dd`:
+
+```jsx
+// En el CRUD genérico (pages/gestion/gestionAdd.js) ya está resuelto para type: 'date'.
+} else if (f.type === 'date') {
+    defaults[f.name] = tool.soloFecha(raw);
+}
+```
+
+```jsx
+// En un formulario propio con react-hook-form:
+defaultValues={{ fechainicio: tool.soloFecha(listado[0]?.fechainicio) }}
+```
+
+Y en los listados, mostrar la fecha ya formateada con el `format` de la columna (§6.2 de
+`frontend.md`): `{ header: 'INICIO', key: 'fechainicio', format: (v) => tool.soloFecha(v) }`.
+
 ---
 
 ### 4.19 Hora — `input type="time"` y fecha+hora
@@ -801,6 +826,7 @@ Bootstrap alterno (`.is-invalid` + `.invalid-feedback`):
 | `<input type="text">` para celular | `type="tel" inputMode="tel"` | §4.3 |
 | `<input type="text">` para valores | `type="number" inputMode="decimal"` | §4.4 |
 | `<input type="text">` para fecha | `type="date"` (o `DatePicker`) | §4.18 / §4.20 |
+| `type="date"` con valor ISO (`...T00:00:00.000Z`) → campo vacío | precargar con `tool.soloFecha()` | §4.18 |
 | `<input type="text">` para hora | `type="time"` | §4.19 |
 | `DatePicker` solo para fecha | `input type="date"` en móvil | §4.18 |
 | `<select>` con muchísimas opciones | `react-select` con búsqueda | §4.11 |

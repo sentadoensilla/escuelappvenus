@@ -342,6 +342,78 @@ const tool = {
     },
 
     /**
+     * soloFecha: deja una fecha en formato aaaa-mm-dd (YYYY-MM-DD).
+     * La API devuelve las columnas `date` de PostgreSQL serializadas como
+     * fecha-hora ISO (ej. '2015-01-15T05:00:00.000Z'), valor que un
+     * <input type="date"> NO acepta y por eso deja el campo vacío.
+     * @param {*} value fecha (string ISO, 'aaaa-mm-dd' o Date)
+     * @returns 'aaaa-mm-dd' o '' si no hay fecha válida
+     */
+    soloFecha: function(value){
+        if (value === null || value === undefined || value === '') return '';
+        if (value instanceof Date) {
+            return isNaN(value.getTime()) ? '' : value.toISOString().slice(0, 10);
+        }
+        const texto = String(value).trim();
+        // Ya viene como aaaa-mm-dd.
+        if (/^\d{4}-\d{2}-\d{2}$/.test(texto)) return texto;
+        // ISO (con hora y/o zona): la parte de fecha es la de calendario.
+        if (/^\d{4}-\d{2}-\d{2}T/.test(texto)) return texto.slice(0, 10);
+        // 'aaaa/mm/dd' o 'dd/mm/aaaa'.
+        if (/^\d{4}\/\d{1,2}\/\d{1,2}/.test(texto)) {
+            const [y, m, d] = texto.split('/');
+            return y + '-' + m.padStart(2, '0') + '-' + d.slice(0, 2).padStart(2, '0');
+        }
+        if (/^\d{1,2}\/\d{1,2}\/\d{4}/.test(texto)) {
+            const [d, m, y] = texto.split('/');
+            return y.slice(0, 4) + '-' + m.padStart(2, '0') + '-' + d.padStart(2, '0');
+        }
+        // Último recurso: cualquier fecha que el navegador sepa interpretar.
+        const fecha = new Date(texto);
+        return isNaN(fecha.getTime()) ? '' : fecha.toISOString().slice(0, 10);
+    },
+
+    /**
+     * fechaAhora: fecha actual en formato aaaa-mm-dd.
+     * @returns 'aaaa-mm-dd'
+     */
+    fechaAhora: function(){
+        return new Date().toISOString().slice(0, 10);
+    },
+
+    // Estados generales del SAE (public.tabestagene).
+    estadosGenerales: {
+        1: 'Aceptado',
+        2: 'Eliminado',
+        4: 'Pendiente',
+        5: 'En proceso',
+        6: 'Cerrado',
+        7: 'Abierto',
+        8: 'Activo',
+        9: 'Inactivo',
+        10: 'Desafectado',
+        11: 'Desertado',
+        12: 'Renuncio',
+        13: 'Matriculado',
+        14: 'Traslado',
+        15: 'Modificado',
+        16: 'Aprobado',
+        17: 'Reprobado',
+        18: 'Promoción anticipada',
+        19: 'Promoción (Reprobados)',
+    },
+
+    /**
+     * estadoGeneral: descripción legible de un estado de public.tabestagene.
+     * @param {*} value id del estado (ej. 8)
+     * @returns 'Activo' | 'Inactivo' | ... | 'Sin estado'
+     */
+    estadoGeneral: function(value){
+        if (value === null || value === undefined || value === '') return 'Sin estado';
+        return tool.estadosGenerales[parseInt(value, 10)] || ('Estado ' + value);
+    },
+
+    /**
      * addDays: from current_date add days to that date
      * @param {date,days}  timestamp,integer
      * @returns 2023-12-11T20:26:36.915Z
