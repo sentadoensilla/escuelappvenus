@@ -10,18 +10,24 @@
  *  - kind       : 'catalogo' (endpoints /catalogos/:tabla/...) o 'sae' (endpoints /sae/...).
  *  - tabla/recurso: identificador del recurso en la API.
  *  - endpoints  : rutas relativas de la API (se concatenan con roots.engine).
- *  - columns    : [{ header, key, width? }] columnas del listado.
- *  - fields     : [{ name, label, type, required?, source?, get?, boolean? }]
+ *  - columns    : [{ header, key, width?, format? }] columnas del listado.
+ *       format: (valorCrudo, fila) => texto mostrado en la celda. Útil para
+ *               fechas (aaaa-mm-dd) y estados (id -> descripción).
+ *  - fields     : [{ name, label, type, required?, source?, get?, boolean?, col? }]
  *       type: 'text' | 'number' | 'date' | 'textarea' | 'select' | 'boolean'
  *       source (solo select): { tipo:'catalogo'|'sae'|'institucion'|'sedes', tabla?, recurso?, label }
  *       get   : clave del registro crudo que contiene el valor actual (para editar). Default = name.
  *       boolean: true -> el valor se convierte a booleano antes de enviar.
+ *       col   : clases de columna Bootstrap del campo en el formulario. Default
+ *               'col-md-6 col-sm-12'; usar 'col-12' para que el control abarque todo el ancho.
  *
  * CONVENCIÓN DE ENCRIPTACIÓN (PK/FK):
  *  - El PK viene siempre en `idregistro` ENCRIPTADO (doble base64) y se reenvía tal cual.
  *  - Las FKs (idgrado, idcurso, ...) vienen CRUDAS en el listado; el formulario las
  *    enmascara con `tool.encriptar()` antes de enviarlas. El backend las `decriptar()`.
  */
+
+import tool from '../services/tools';
 
 const cat = (titulo, tabla, columns, fields) => ({
     titulo,
@@ -72,6 +78,12 @@ const SRC_INST = { tipo: 'institucion', label: 'nombre' };
 const SRC_SEDE = { tipo: 'sedes', label: 'nombre' };
 // Etiqueta compuesta (nombre completo de docente)
 const DOCENTE_LABEL = (row) => `${row.apellido1 || ''} ${row.apellido2 || ''} ${row.nombre1 || ''} ${row.nombre2 || ''}`.trim();
+
+// Formateadores de celda reutilizables.
+// Fechas de la API (fecha-hora ISO de PostgreSQL) -> 'aaaa-mm-dd'.
+const FECHA = (valor) => tool.soloFecha(valor);
+// Estados generales del SAE (public.tabestagene) -> descripción.
+const ESTADO = (valor) => tool.estadoGeneral(valor);
 
 export const CRUD = {
     // ================= CATÁLOGOS =================
@@ -184,8 +196,11 @@ export const CRUD = {
         [{ name: 'idinstitucion', label: 'Institución', type: 'select', source: SRC_INST, required: true }, { name: 'nombre', label: 'Nombre', type: 'text', required: true }]),
 
     anos: sae('Años lectivos', 'anos',
-        [{ header: 'DESCRIPCIÓN', key: 'descripcion' }, { header: 'INICIO', key: 'fechainicio' }, { header: 'FIN', key: 'fechafin' }],
-        [{ name: 'descripcion', label: 'Descripción', type: 'text', required: true }, { name: 'fechainicio', label: 'Fecha inicio', type: 'date' }, { name: 'fechafin', label: 'Fecha fin', type: 'date' }]),
+        [{ header: 'DESCRIPCIÓN', key: 'descripcion' },
+         { header: 'INICIO', key: 'fechainicio', width: '130px', format: FECHA },
+         { header: 'FIN', key: 'fechafin', width: '130px', format: FECHA },
+         { header: 'ESTADO', key: 'idestado', width: '130px', format: ESTADO }],
+        [{ name: 'descripcion', label: 'Descripción', type: 'text', required: true, col: 'col-12' }, { name: 'fechainicio', label: 'Fecha inicio', type: 'date' }, { name: 'fechafin', label: 'Fecha fin', type: 'date' }]),
     periodos: sae('Periodos', 'periodos',
         [{ header: 'NOMBRE', key: 'nombre' }, { header: 'DESCRIPCIÓN', key: 'descripcion' }],
         [{ name: 'nombre', label: 'Nombre', type: 'text', required: true }, { name: 'descripcion', label: 'Descripción', type: 'text' }]),

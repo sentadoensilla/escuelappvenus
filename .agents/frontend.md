@@ -131,6 +131,74 @@ Definidas en `services/routes.js` (`GESTION_LIST`, `GESTION_ADD`) y montadas en 
 - **Preescolar:** ambitos, dimensiones, preasignaciones, prenotas, prenovedades (endpoints `/preescolar/*`).
 - **Reportes/acciones (páginas dedicadas):** `pages/reportes/estadisticas.js` (estadísticas de matrícula) y `pages/reportes/promocion.js` (promoción masiva). Rutas `/estadisticassae` y `/promocion`.
 
+### 6.3 Propiedades opcionales de `columns` y `fields`
+
+Además de las claves básicas de la config, se aceptan:
+
+| Propiedad | Dónde | Para qué |
+|---|---|---|
+| `columns[].width` | columnas | ancho mínimo de la celda (ej. `'130px'`). |
+| `columns[].format` | columnas | `(valorCrudo, fila) => texto`. Transforma el valor **antes** de mostrarlo y de ordenarlo. |
+| `fields[].col` | campos | clases de columna Bootstrap del campo. Default `'col-md-6 col-sm-12'` (dos por fila); `'col-12'` = todo el ancho. |
+
+`gestionList.js` aplica `format` dentro del `selector` de la columna:
+
+```js
+selector: (row) => (typeof c.format === 'function' ? c.format(row[c.key], row) : row[c.key]),
+```
+
+**Formateadores reutilizables** (definidos en `crudConfig.js` sobre helpers de `services/tools.js`):
+
+```js
+// Fechas de la API (fecha-hora ISO de PostgreSQL) -> 'aaaa-mm-dd'.
+const FECHA = (valor) => tool.soloFecha(valor);
+// Estados generales del SAE (public.tabestagene) -> descripción ('Activo', 'Inactivo', ...).
+const ESTADO = (valor) => tool.estadoGeneral(valor);
+```
+
+**Ejemplo completo — entidad `anos` (`/gestion/anos`)**, que usa las tres cosas a la vez:
+
+```js
+anos: sae('Años lectivos', 'anos',
+    [{ header: 'DESCRIPCIÓN', key: 'descripcion' },
+     { header: 'INICIO', key: 'fechainicio', width: '130px', format: FECHA },
+     { header: 'FIN', key: 'fechafin', width: '130px', format: FECHA },
+     { header: 'ESTADO', key: 'idestado', width: '130px', format: ESTADO }],
+    [{ name: 'descripcion', label: 'Descripción', type: 'text', required: true, col: 'col-12' },
+     { name: 'fechainicio', label: 'Fecha inicio', type: 'date' },
+     { name: 'fechafin', label: 'Fecha fin', type: 'date' }]),
+```
+
+Resultado: la **descripción ocupa todo el ancho** y las **dos fechas quedan debajo repartiéndose
+el espacio** (50/50, apiladas en móvil); el listado muestra las fechas en **`aaaa-mm-dd`** y el
+**estado** en texto legible.
+
+### 6.4 Fechas y estados (⭐ gotchas)
+
+Los dos problemas más repetidos al conectar listados y formularios con la API SAE:
+
+1. **Fechas.** PostgreSQL devuelve las columnas `date` a node-postgres como objetos `Date`, y
+   JSON los serializa como fecha-hora ISO (`2015-01-15T05:00:00.000Z`). Un
+   `<input type="date">` **solo acepta `aaaa-mm-dd`**: con otro formato descarta el valor y deja
+   el campo **vacío, sin error visible** (síntoma: "al editar no cargan las fechas").
+   - Formularios (edición): normalizar con **`tool.soloFecha()`**; ya está resuelto en
+     `gestionAdd.js` para los campos `type: 'date'`.
+   - Listados: usar `format: FECHA` en la columna (muestra `aaaa-mm-dd`).
+2. **Estados.** Las FKs/estados llegan **crudos** y los ids son de `public.tabestagene`
+   (`8` = Activo, `9` = Inactivo, `2` = Eliminado, …; catálogo completo en
+   `escuelappapi/.agents/database.md` §5.2). Para mostrarlos usar `format: ESTADO`
+   (`tool.estadoGeneral()`), que devuelve la descripción y cae en `'Estado <id>'` si el id no
+   está en el catálogo. El borrado lógico de la API deja el registro en `9` (Inactivo).
+
+El formato de presentación es responsabilidad del **frontend** (config del CRUD), no de la API:
+así el mismo endpoint sirve al listado y al formulario.
+
+### 6.5 Confirmación antes de registrar
+
+`gestionAdd.onRegister` **no envía** hasta que el usuario confirma: abre un `swal.fire` con
+`showCancelButton` y solo si `isConfirmed` llama a la API (si cancela, libera `waiting` y sale).
+Aplica tanto a registrar como a actualizar, en todas las entidades del CRUD genérico.
+
 ## 7. Convenciones de encriptación de PK/FK (⭐ importante)
 
 > Regla unificada entre API y frontend:
@@ -209,7 +277,7 @@ Guía obligatoria para TODOS los formularios del front. Siempre usar `react-hook
 | `input type="checkbox"` | Opción múltiple con respuesta múltiple | `usuariosAdd.js:345` (ver clave) |
 | `input type="radio"` | Opción múltiple con respuesta única | `matriculasAdd.js:190-210` (nuevo/repitente), `observacionesAdd.js:527-531` |
 | `input type="file"` | Subir imagen/archivo desde el dispositivo | `comunicadosAdd.js`, `observacionesAdd.js:544`, `miPerfil.js:727` |
-| `input type="date"` / `DatePicker` | Fechas | `comunicadosAdd.js` (date_init/date_finish), `observacionesAdd.js:591` |
+| `input type="date"` / `DatePicker` | Fechas | `comunicadosAdd.js` (date_init/date_finish), `observacionesAdd.js:591`, `pages/gestion/gestionAdd.js` (`type: 'date'`, normaliza con `tool.soloFecha`) |
 | `select` (con `Controller`) | Lista de opciones (catálogos/FK) | `matriculasAdd.js` (estudiante/curso/institución), `usuariosAdd.js` (departamento/municipio), `comunicadosAdd.js` (alcance) |
 | `Select` multi (react-select) | Opciones múltiples con búsqueda | `comunicadosAdd.js` (group/student), `observacionesAdd.js:620` |
 | `textarea` simple | Texto largo sin formato | (uso `SunEditor` para HTML; textarea simple si no hay formato) |
@@ -256,7 +324,7 @@ usuario en sesión, usar el objeto `miUsuario` (`tool.getUser()`) dentro de `onR
 ## 10. Checklist para agregar una entidad nueva
 
 1. Crear el backend (`controllers/<modulo>/<modulo>.routes.js` + Controller + .sql.js) y registrarlo en `routes/index.js` (ver `api.md`).
-2. Añadir la entrada en `src/main/crudConfig.js` con `columns` y `fields`.
+2. Añadir la entrada en `src/main/crudConfig.js` con `columns` y `fields`. Usar `format: FECHA` / `format: ESTADO` en las columnas de fecha y estado, y `col: 'col-12'` en los campos que deban ocupar todo el ancho (ver §6.3 y §6.4).
 3. Registrar menú/opción en `logic.tabmenu`/`logic.tabopcimenu` (+ `logic.tabrollopci`), con `copcimenuenla = gestion/<clave>` y `copcimenuicon = <clase Font Awesome>`. Usar `api/scripts/sync_logic_menu.js` (o editar `logic.tabopcimenu` directamente).
 4. Listo: las páginas genéricas ya la renderizan (ruta `/gestion/<clave>`).
 
@@ -268,6 +336,7 @@ usuario en sesión, usar el objeto `miUsuario` (`tool.getUser()`) dentro de `onR
 - El token JWT del backend expira en 2 minutos; conviene revisarlo al integrar el login definitivo.
 - El login actual autentica contra **SAE** (`logic.tabusua` + `logic.tabroll` + `public.tabunio`); `usuarioEmpresaId` = `public.tabinst.cinstid` encriptado y `usuarioAnoId` = `public.tabanol.canolid` encriptado. El menú sale de `logic.tabmenu`/`tabopcimenu` + `logic.tabrollopci`/`tabusuaopci` (ver `api.md` §6.1). Los dashboards heredados (agenda `data.*`) pueden no tener datos para usuarios SAE.
 - Claves de prueba (institución Patricio Symes / colpasy): institución `Institucion.2000`, secretarias/coordinadores/docentes `Docente.2000`, estudiantes/acudientes `Estudiante.2000` (almacenadas como base64 simple en `logic.tabusua.cusuallave`).
+- **Formatos de fecha y estado (rama `anolectivo`)**: las fechas y los estados **se formatean en el frontend**, no en la API. `services/tools.js` expone `soloFecha()` (cualquier fecha → `aaaa-mm-dd`), `fechaAhora()` y `estadoGeneral()` (+ mapa `estadosGenerales` de `public.tabestagene`). El CRUD genérico los aplica con `columns[].format` y `fields[].col` (ver §6.3 y §6.4). Antes de esto, al editar un año lectivo los campos Fecha inicio / Fecha fin aparecían vacíos (la API manda fecha-hora ISO y `input type="date"` exige `aaaa-mm-dd`), y el listado no mostraba el estado.
 - **Pantalla en blanco del estudiante (corregido, rama `dashstudent`)**: los endpoints
   `/totals/statsinitial/*` responden `{status:'error', statusCode:400, message:'0 Resultados encontrados', rows:{}}`
   cuando no hay datos. `dashboardStudent.js` comparaba `elMensaje.rows !== "{}"` (objeto vs string,

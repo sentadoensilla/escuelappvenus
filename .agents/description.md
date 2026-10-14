@@ -123,3 +123,28 @@ Luego prosigue con las demás características
 ==========================================================================================
 
 Los datos de Escuelapp no coinciden con los de SAE en instituciones o en estudiantes.  Para hacer pruebas; asocia los estudiantes de Escuelapp a una institución de SAE, entonces prosigue con las pruebas de login y demás
+
+==========================================================================================
+Rama `anolectivo` (frontend `escuelappvenus`) — formulario y listado de años lectivos.
+
+Lo que se hizo:
+1. En `/gestion/anos/agregar`: la **descripción** abarca todo el ancho y **fecha inicio / fecha fin**
+   quedan debajo repartiéndose el espacio. Se logró con `fields[].col` en `crudConfig.js`
+   (`'col-12'` para la descripción; el resto sigue en dos columnas) y `claseColumna()` en
+   `pages/gestion/gestionAdd.js`.
+2. Antes de registrar/actualizar, **confirmación con `swal.fire`** (con `showCancelButton`);
+   solo si el usuario confirma se llama a la API (`gestionAdd.onRegister`).
+3. **Bug corregido**: al editar un año lectivo, Fecha inicio y Fecha fin aparecían vacías.
+   Causa: `anolperiodo.sql.js` devuelve `canolinic`/`canolfina` (tipo `date`) serializadas por
+   JSON como fecha-hora ISO (`2015-01-15T05:00:00.000Z`) y `<input type="date">` solo acepta
+   `aaaa-mm-dd` (descarta el valor en silencio). Solución: normalizar con `tool.soloFecha()`
+   al precargar los campos `type: 'date'`.
+4. **Listado `/gestion/anos`**: fechas en formato `aaaa-mm-dd` y nueva columna **ESTADO**
+   (`tabanol.canolesta AS idestado` → descripción de `public.tabestagene`: 8=Activo, 9=Inactivo).
+   Se añadió `columns[].format` (soporte nuevo en `gestionList.js`).
+
+Helpers nuevos en `src/services/tools.js`: `soloFecha()`, `fechaAhora()` y `estadoGeneral()`
+(con el mapa `estadosGenerales` de `public.tabestagene`).
+
+Convención que queda: **el formato de fechas y estados es responsabilidad del frontend**
+(config del CRUD), no de la API. Ver `.agents/frontend.md` §6.3, §6.4 y `controls.md` §4.18.

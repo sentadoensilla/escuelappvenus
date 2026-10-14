@@ -97,3 +97,15 @@ primero planifica y luego corrige
 Utiliza git para hacer commit a la rama llamada dashstudent dentro de api y de venus, con el comentario relacionado a lo que hiciste y haz push
 Actualiza los archivos .md con la solucion que diste para actualizar el contexto
 ---------------------------------------------------------------------------------------------------------------
+Lee los archivos .md del proyecto para que entres en contexto
+utiliza git para crear una rama llamada anolectivo dentro de venus
+en la ruta /gestion/anos/agregar necesito reorganizar los controles
+    1. el control descripcion debe abarcar todo el ancho del espacio
+    2. los controles fecha inicio y fecha fin deben estar debajo de descripcion diviendose el espacio
+    3. utiliza swal para confirmar o cancelar antes de registrar
+En la ruta /gestion/anos/agregar cuando estamos editando un registro, no nos carga la fecha inicio y fecha fin
+En la ruta /gestion/anos el formato de la fecha debe ser aaaa-mm-dd
+En la ruta /gestion/anos el listado debe mostrar el estado de cada año lectivo
+Actualiza los .md con lo que acabas de hacer para mantener el contexto actualizado
+Usando la herramienta git has commit y luego has push
+---------------------------------------------------------------------------------------------------------------

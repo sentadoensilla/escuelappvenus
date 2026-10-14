@@ -31,9 +31,11 @@ export default function GestionList() {
     const miUsuario = tool.getUser();
 
     // Columnas de la tabla (del config) + columna de acciones.
+    // `c.format` permite transformar el valor crudo de la API antes de mostrarlo
+    // (ej. fechas -> 'aaaa-mm-dd', estados -> descripción).
     const columnas = (config ? config.columns : []).map((c) => ({
         name: c.header,
-        selector: (row) => row[c.key],
+        selector: (row) => (typeof c.format === 'function' ? c.format(row[c.key], row) : row[c.key]),
         sortable: true,
         minWidth: c.width || '160px',
         wrap: true,
