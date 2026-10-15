@@ -68,9 +68,9 @@ export default function EstadisticasSae() {
                                                 <div className="card-body">
                                                     <div className="d-flex align-items-center">
                                                         <div className="avatar avatar-stats">
-                                                            <div className="stats-icon"><i className="fas fa-chart-bar"></i></div>
+                                                            <div className="stats-icon"><i className="bi bi-bar-chart"></i></div>
                                                         </div>
-                                                        <div className="ml-3">
+                                                        <div className="ms-3">
                                                             <div className="numbers">
                                                                 <p className="card-category">{t.titulo}</p>
                                                                 <h4 className="card-title">{t.valor ?? 0}</h4>

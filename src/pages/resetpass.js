@@ -92,7 +92,7 @@ export default function ResetPassword() {
 									</div>
 									<div className='card-body'>
 										<form onSubmit={handleSubmit} method='POST'>
-											<div className="form-group {(errorMessage!='')? 'has-error' : ''; } text-left">
+											<div className="form-group {(errorMessage!='')? 'has-error' : ''; } text-start">
 												<label htmlFor='miusuario'>Email:</label>
 												<input
 													type='text'
@@ -110,12 +110,12 @@ export default function ResetPassword() {
 											<div className='card-action text-center'>
 												<button
 													type='submit'
-													className={waiting? 'btn is-loading btn-success ml-1' : 'btn btn-success ml-1'}
+													className={waiting? 'btn is-loading btn-success ms-1' : 'btn btn-success ms-1'}
 													disabled={waiting}
 												>
 													Recordar
 												</button>
-												<button type='reset' className='btn btn-border btn-light ml-1'>
+												<button type='reset' className='btn btn-border btn-light ms-1'>
 													Cancelar
 												</button>
 											</div>

@@ -196,7 +196,7 @@ export default function AddMenu(){
                                                 <div className="card-body">
                                                     <form id={elFade.form} onSubmit={handleSubmit(onRegister)} method='POST' className="">
                                                         { (id !== "undefined" && id !== null) ? <input type="hidden" value={id} {...register("idregistro")} /> : "" }
-                                                        <div className="form-group  text-left has-feedback">
+                                                        <div className="form-group  text-start has-feedback">
                                                             <label htmlFor='nombre'>Nombre:</label>
                                                             <input type="text" className="form-control" placeholder='Usuarios'
                                                             {...register("nombre", {
@@ -207,7 +207,7 @@ export default function AddMenu(){
                                                             { errors.nombre?.type === 'minLength' && <small className="form-text text-danger">El menú está corto</small> }													
                                                         </div>
 
-                                                        <div className="form-group  text-left has-feedback">
+                                                        <div className="form-group  text-start has-feedback">
                                                             <label htmlFor='descripcion'>Descripción:</label>
                                                             <input type="text" className="form-control" placeholder='En este menu estan todas las opciones para gestionar los usuarios'
                                                             {...register("descripcion", {
@@ -218,9 +218,9 @@ export default function AddMenu(){
                                                             { errors.descripcion?.type === 'minLength' && <small className="form-text text-danger">La descripción está corto</small> }													
                                                         </div>
 
-                                                        <div className="form-group  text-left has-feedback">
+                                                        <div className="form-group  text-start has-feedback">
                                                             <label htmlFor='icono'>Icono:</label>
-                                                            <input type="text" className="form-control" placeholder='fas fa-user'
+                                                            <input type="text" className="form-control" placeholder='bi bi-person'
                                                             {...register("icono", {
                                                                 required:true,
                                                                 minLength: 4
@@ -229,7 +229,7 @@ export default function AddMenu(){
                                                             { errors.icono?.type === 'minLength' && <small className="form-text text-danger">El icono está corto</small> }													
                                                         </div>
 
-                                                        <div className="form-group  text-left has-feedback">
+                                                        <div className="form-group  text-start has-feedback">
                                                             <label htmlFor='orden'>Orden:</label>
                                                             <input 
                                                                 type="text" className="form-control" placeholder='4'
@@ -243,7 +243,7 @@ export default function AddMenu(){
                                                             { errors.orden?.type === 'pattern' && <small className="form-text text-danger">Sólo números, ejemplo: 4</small> }
                                                         </div>
 
-                                                        <div className="form-group form-floating-label text-left has-feedback">
+                                                        <div className="form-group form-floating-label text-start has-feedback">
                                                             <Controller
                                                                 name="idestado"
                                                                 control={control}
@@ -267,7 +267,7 @@ export default function AddMenu(){
                                                         <div className='card-action text-center'>
                                                             <button
                                                                 type='submit'
-                                                                className={waiting? 'btn is-loading btn-warning ml-1' : 'btn btn-primary ml-1'}
+                                                                className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
                                                                 disabled={errorMessage.message||waiting}
                                                             >
                                                                 Registrar

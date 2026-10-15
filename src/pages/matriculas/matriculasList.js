@@ -36,15 +36,15 @@ export default function ListadoMatriculas(){
         {button:true,
             cell: (miListado) => {
                 return (<div className="form-button-action">
-                    <button type="button" data-toggle="tooltip"
+                    <button type="button" data-bs-toggle="tooltip"
                         onClick={() => editElement(miListado)}
-                        title="Editar matrícula" className="btn btn-rounded btn-outline-primary btn-xs mr-1"
+                        title="Editar matrícula" className="btn btn-rounded btn-outline-primary btn-xs me-1"
                         data-original-title="Editar matrícula">
                         <i className="la flaticon-pencil"></i>
                     </button>
-                    <button type="button" data-toggle="tooltip"
+                    <button type="button" data-bs-toggle="tooltip"
                         onClick={() => dispatch({type:'delete', reference: miListado.idregistro}) }
-                        title="Eliminar matrícula" className="btn btn-rounded btn-outline-danger btn-xs mr-1"
+                        title="Eliminar matrícula" className="btn btn-rounded btn-outline-danger btn-xs me-1"
                         data-original-title="Eliminar matrícula">
                         <i className="la flaticon-interface-5"></i>
                     </button>
@@ -155,8 +155,8 @@ export default function ListadoMatriculas(){
                                                 <div className="card-header">
                                                     <div className="d-flex align-items-center">
                                                         <h4 className="card-title">{ myConst.labels.matriculasList[0] }</h4>
-                                                        <Link to={privateRoutes.MATRICULAS_ADD} className="btn btn-primary btn-round ml-auto">
-                                                            <i className="fa fa-plus">&nbsp;&nbsp;</i>
+                                                        <Link to={privateRoutes.MATRICULAS_ADD} className="btn btn-primary btn-round ms-auto">
+                                                            <i className="bi bi-plus-lg">&nbsp;&nbsp;</i>
                                                             {myConst.labels.matriculasAdd[0][0]}
                                                         </Link>
                                                     </div>

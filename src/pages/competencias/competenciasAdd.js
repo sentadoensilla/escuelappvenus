@@ -125,8 +125,8 @@ export default function AddCompetencia(){
                                             <div className="card-header">
                                                 <div className="d-flex align-items-center">
                                                     <h4 className="card-title">{titulo}</h4>
-                                                    <Link to={privateRoutes.COMPETENCIAS_LIST} className="btn btn-primary btn-round ml-auto">
-                                                        <i className="fa fa-list">&nbsp;&nbsp;</i>
+                                                    <Link to={privateRoutes.COMPETENCIAS_LIST} className="btn btn-primary btn-round ms-auto">
+                                                        <i className="bi bi-list-ul">&nbsp;&nbsp;</i>
                                                         {myConst.labels.competenciasList[0]}
                                                     </Link>
                                                 </div>
@@ -137,7 +137,7 @@ export default function AddCompetencia(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="idarea">Área:</label>
                                                                 <Controller name="idarea" control={control}
                                                                     render={({ field }) => (
@@ -149,7 +149,7 @@ export default function AddCompetencia(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='idgrado'>Grado:</label>
                                                                 <input type="text" className="form-control" {...register("idgrado")} />
                                                             </div>
@@ -158,13 +158,13 @@ export default function AddCompetencia(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='codigo'>Código:</label>
                                                                 <input type="text" className="form-control" {...register("codigo")} />
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="idasignatura">Asignatura:</label>
                                                                 <Controller name="idasignatura" control={control}
                                                                     render={({ field }) => (
@@ -177,14 +177,14 @@ export default function AddCompetencia(){
                                                         </div>
                                                     </div>
 
-                                                    <div className="form-group text-left has-feedback">
+                                                    <div className="form-group text-start has-feedback">
                                                         <label htmlFor='descripcion'>Descripción de la competencia:</label>
                                                         <input type="text" className="form-control"
                                                         {...register("descripcion", { required:true })} />
                                                         { errors.descripcion?.type === 'required' && <small className="form-text text-danger">Falta la descripción de la competencia</small> }
                                                     </div>
 
-                                                    <div className="form-group text-left has-feedback">
+                                                    <div className="form-group text-start has-feedback">
                                                         <label htmlFor='observacion'>Observación:</label>
                                                         <textarea className="form-control" rows="3" {...register("observacion")} />
                                                     </div>
@@ -192,7 +192,7 @@ export default function AddCompetencia(){
                                                     <div className='card-action text-center my-5'>
                                                         <button
                                                             type='submit'
-                                                            className={waiting? 'btn is-loading btn-warning ml-1' : 'btn btn-primary ml-1'}
+                                                            className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
                                                             disabled={waiting}
                                                         >
                                                             { titulo }

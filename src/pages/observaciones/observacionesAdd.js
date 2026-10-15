@@ -439,8 +439,8 @@ export default function AddBitacora(){
                                             <div className="card-header">
                                                 <div className="d-flex align-items-center">
                                                     <h4 className="card-title">{titulo}</h4>
-                                                    <Link to={privateRoutes.OBSERVADOR_LIST} className="btn btn-primary btn-round ml-auto">
-                                                        <i className="fa fa-list">&nbsp;&nbsp;</i>
+                                                    <Link to={privateRoutes.OBSERVADOR_LIST} className="btn btn-primary btn-round ms-auto">
+                                                        <i className="bi bi-list-ul">&nbsp;&nbsp;</i>
                                                         {myConst.labels.observacionesList[0]}
                                                     </Link>                                                    
                                                 </div>
@@ -449,7 +449,7 @@ export default function AddBitacora(){
                                                 <form id={elFade.form} onSubmit={handleSubmit(onRegister)} method='POST' className="">
                                                     { (id !== "undefined" && id !== null) ? <input type="hidden" value={id} {...register("idregistro")} /> : "" }
 
-                                                    <div className="form-group text-left has-feedback">
+                                                    <div className="form-group text-start has-feedback">
                                                         <label htmlFor="descripcion" className="placeholder">Descripción de la observación</label>
                                                         <Controller
                                                             name="descripcion"
@@ -535,7 +535,7 @@ export default function AddBitacora(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="file" className="placeholder">Cargar archivo: </label>
                                                                 <Controller
                                                                     name="file"
@@ -567,10 +567,10 @@ export default function AddBitacora(){
                                                                             <div className="row align-items-center">
                                                                                 <div className="col-icon">
                                                                                     <div className="icon-big text-center icon-danger bubble-shadow-small">
-                                                                                        <i className="fas fa-file-pdf"></i>
+                                                                                        <i className="bi bi-file-earmark-pdf"></i>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div className="col col-stats ml-3 ml-sm-0">
+                                                                                <div className="col col-stats ms-3 ml-sm-0">
                                                                                     <div className="numbers">
                                                                                         <h4 className="card-title">{ selectedFile.name }</h4>
                                                                                         <p className="card-category">{ (selectedFile.size / (1024*1024)).toFixed(1) } Mb</p>
@@ -586,7 +586,7 @@ export default function AddBitacora(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='date_register'>Fecha de la observación:</label>
                                                                 <Controller 
                                                                     control={control}
@@ -606,7 +606,7 @@ export default function AddBitacora(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="asignatura" className="placeholder">Asignatura: </label>
                                                         
                                                                 <Controller
@@ -634,7 +634,7 @@ export default function AddBitacora(){
 
                                                     <div className="row">
                                                         <div className="col-12">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="group" className="placeholder">Grupo: </label>                                                           
                                                                 <Controller
                                                                     name="group"
@@ -660,10 +660,10 @@ export default function AddBitacora(){
                                                         </div>
                                                     </div>
 
-                                                    <div className="form-group text-left has-feedback">
+                                                    <div className="form-group text-start has-feedback">
                                                         {
                                                             haveStudents && (
-                                                                <div className="form-group text-left has-feedback">
+                                                                <div className="form-group text-start has-feedback">
                                                                     <label htmlFor="student" className="placeholder">Estudiantes: </label>
                                                             
                                                                     <Controller
@@ -693,7 +693,7 @@ export default function AddBitacora(){
                                                     <div className='card-action text-center my-5'>
                                                         <button
                                                             type='submit'
-                                                            className={waiting? 'btn is-loading btn-warning ml-1' : 'btn btn-primary ml-1'}
+                                                            className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
                                                             disabled={errorMessage.message||waiting}
                                                         >
                                                             { titulo }

@@ -1,8 +1,7 @@
 import { UserProvider } from './services/context/UserContext'
 import './App.css';
 import { MisRutas } from './main/routes/mainroutes';
-import 'bootstrap/dist/js/bootstrap.min.js';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// Bootstrap 5.3 + Bootstrap Icons se cargan desde public/index.html (assets locales).
 // eslint-disable-next-line
 // import Index from './pages/login';
 

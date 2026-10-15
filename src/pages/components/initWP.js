@@ -177,13 +177,13 @@ export const WidgetWhatsapp = (props) => {
                                                 <div className="card-body">
                                                     <ul className="nav nav-pills nav-info" id="pills-tab" role="tablist">
                                                         <li className="nav-item">
-                                                            <a className="nav-link active" id="v-pills-home-nobd" data-toggle="pill" href="#v-pills-init" role="tab" aria-controls="pills-home" aria-selected="true">Inicialmente</a>
+                                                            <a className="nav-link active" id="v-pills-home-nobd" data-bs-toggle="pill" href="#v-pills-init" role="tab" aria-controls="pills-home" aria-selected="true">Inicialmente</a>
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link" id="pills-profile-tab" data-toggle="pill" href="#v-pills-howmany" role="tab" aria-controls="pills-profile" aria-selected="false">¿Cuántos mensajes puedo enviar?</a>
+                                                            <a className="nav-link" id="pills-profile-tab" data-bs-toggle="pill" href="#v-pills-howmany" role="tab" aria-controls="pills-profile" aria-selected="false">¿Cuántos mensajes puedo enviar?</a>
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link" id="pills-contact-tab" data-toggle="pill" href="#v-pills-guide" role="tab" aria-controls="pills-contact" aria-selected="false">Instrucciones</a>
+                                                            <a className="nav-link" id="pills-contact-tab" data-bs-toggle="pill" href="#v-pills-guide" role="tab" aria-controls="pills-contact" aria-selected="false">Instrucciones</a>
                                                         </li>
                                                     </ul>
                                                     <div className="tab-content mt-2 mb-3" id="pills-tabContent">
@@ -258,7 +258,7 @@ export const WidgetWhatsapp = (props) => {
                                                         (elQR.message === "")?  
                                                         <img src={myConst.essentials.qrprime} style={{width:'260px'}}/>
                                                         :
-                                                        <div className="flex-1 ml-3 pt-1">
+                                                        <div className="flex-1 ms-3 pt-1">
                                                             <QRCode value={elQR.message} />
                                                             <h5 className="text-danger">{elQR.namba}</h5>
                                                         </div>
@@ -275,9 +275,9 @@ export const WidgetWhatsapp = (props) => {
                                                     </div>
                                                     <button
                                                         type='button'
-                                                        className={props.waiting? 'btn is-loading btn-success ml-1' : 'btn btn-success ml-1'}
+                                                        className={props.waiting? 'btn is-loading btn-success ms-1' : 'btn btn-success ms-1'}
                                                         onClick={() => {getQR({elNumero})}}
-                                                    ><i className="fab fa-whatsapp"></i> Cargar QR</button>
+                                                    ><i className="bi bi-whatsapp"></i> Cargar QR</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -322,7 +322,7 @@ export const WidgetWhatsapp = (props) => {
                                                                     type='button'
                                                                     className={props.waiting? 'btn is-loading btn-dark btn-sm' : 'btn btn-dark btn-sm'}
                                                                     onClick={() => {deleteContact({elNumero:item.emisor})}}
-                                                                ><i className="fas fa-window-close"></i> Eliminar</button>                                                                                    
+                                                                ><i className="bi bi-x-square"></i> Eliminar</button>                                                                                    
                                                             </small>
                                                         </p>
                                                     </div>
@@ -358,7 +358,7 @@ export const WidgetWhatsapp = (props) => {
                                                                     type='button'
                                                                     className={props.waiting? 'btn is-loading btn-dark btn-sm' : 'btn btn-dark btn-sm'}
                                                                     onClick={() => {deleteContact({elNumero:item.emisor})}}
-                                                                ><i className="fas fa-window-close"></i> Eliminar</button>                                                                                    
+                                                                ><i className="bi bi-x-square"></i> Eliminar</button>                                                                                    
                                                             </small>
                                                         </p>
                                                         <p className="text-muted mb-0">
@@ -367,7 +367,7 @@ export const WidgetWhatsapp = (props) => {
                                                                 type='button'
                                                                 className={props.waiting? 'btn is-loading btn-danger btn-sm' : 'btn btn-danger btn-sm'}
                                                                 onClick={() => {getQR({elNumero:item.emisor})}}
-                                                            ><i className="fab fa-whatsapp"></i> Cargar QR</button>
+                                                            ><i className="bi bi-whatsapp"></i> Cargar QR</button>
                                                             </small>
                                                         </p>
                                                     </div>
@@ -381,13 +381,13 @@ export const WidgetWhatsapp = (props) => {
                         :
                         <div key="nonambanever" className="d-flex">
                             <div className="avatar avatar-offline">
-                                <span className="avatar-title rounded-circle border border-white bg-danger"><i className="fab fa-whatsapp"> </i> </span>
+                                <span className="avatar-title rounded-circle border border-white bg-danger"><i className="bi bi-whatsapp"> </i> </span>
                             </div>
-                            <div className="flex-1 ml-3 pt-1">
-                                <h6 className="text-uppercase fw-bold mb-1">No hay números activados <span className="text-success pl-3"></span></h6>
+                            <div className="flex-1 ms-3 pt-1">
+                                <h6 className="text-uppercase fw-bold mb-1">No hay números activados <span className="text-success ps-3"></span></h6>
                                 <span className="text-muted">Estos whatsapp son indispensables, sigue las instrucciones</span>
                             </div>
-                            <div className="float-right pt-1">
+                            <div className="float-end pt-1">
                                 <small className="text-muted"></small>
                             </div>
                         </div>

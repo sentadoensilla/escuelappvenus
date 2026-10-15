@@ -601,7 +601,7 @@ export default function Addlider(){
                                                 <form id={elFade.form} onSubmit={handleSubmit(onRegister)} method='POST' className="">
                                                     { (reference !== "undefined" && reference !== null) ? <input type="hidden" value={reference} {...register("personal")} /> : "" }
                                                    
-                                                    <div className="form-group  text-left has-feedback">
+                                                    <div className="form-group  text-start has-feedback">
                                                         <label htmlFor='nombres'>Nombre completo:</label>
                                                         <input type="text" className="form-control" placeholder='Ana'
 
@@ -614,9 +614,9 @@ export default function Addlider(){
                                                         { errors.nombres?.type === 'minLength' && <small className="form-text text-danger">El nombre está corto</small> }													
                                                     </div>
 
-                                                    <div className="form-group text-left has-feedback">
+                                                    <div className="form-group text-start has-feedback">
                                                         <div className="row">
-                                                            <div className="col text-left has-feedback">
+                                                            <div className="col text-start has-feedback">
                                                                 <label htmlFor='indicativo'>Indicativo:</label>
                                                                 <img id={'img'+elIndicativo.country} src={"assets/img/flags/"+elIndicativo.aka+".png"} className='mg-2' />
                                                                 <Controller
@@ -647,7 +647,7 @@ export default function Addlider(){
                                                                     )}
                                                                 />
                                                             </div>
-                                                            <div className="col text-left has-feedback">
+                                                            <div className="col text-start has-feedback">
                                                                 <label htmlFor='celular'>Whatsapp:</label>
                                                                 <input type="text" className="form-control" placeholder='3117696973'
                                                                 {...register("celular", {
@@ -663,7 +663,7 @@ export default function Addlider(){
                                                     </div>
 
 
-                                                    <div className="form-group  text-left has-feedback">
+                                                    <div className="form-group  text-start has-feedback">
                                                         <label htmlFor='correo'>Correo:</label>
                                                         <input type="text" className="form-control" placeholder='mivotante@hotmail.com'
                                                         {...register("correo", {
@@ -672,7 +672,7 @@ export default function Addlider(){
                                                         { errors.correo?.type === 'pattern' && <small className="form-text text-danger">El correo está mal escrito</small> }
                                                     </div>
 
-                                                    <div className="form-group  form-floating-label text-left  has-feedback">
+                                                    <div className="form-group  form-floating-label text-start  has-feedback">
                                                         <Controller
                                                             name="eldepto"
                                                             control={control}
@@ -695,7 +695,7 @@ export default function Addlider(){
                                                         { errors.eldepto?.type === 'required' && <small className="form-text text-danger">¿Cuál es el departamento de votación?</small> }
                                                     </div>
 
-                                                    <div className="form-group  form-floating-label text-left  has-feedback">
+                                                    <div className="form-group  form-floating-label text-start  has-feedback">
                                                     <Controller
                                                         name="mupio"
                                                         control={control}
@@ -718,7 +718,7 @@ export default function Addlider(){
                                                         { errors.mupio?.type === 'required' && <small className="form-text text-danger">¿Cuál es el municipio o localidad?</small> }
                                                     </div>
 
-                                                    <div className="form-group text-left has-feedback">
+                                                    <div className="form-group text-start has-feedback">
                                                         <label htmlFor="ruta" className="placeholder">Volante del tarjetón (Cargar la imagen)</label>
                                                         <Controller
                                                             name="ruta"
@@ -743,7 +743,7 @@ export default function Addlider(){
                                                     <div className='card-action text-center'>
                                                         <button
                                                             type='submit'
-                                                            className={waiting? 'btn is-loading btn-warning ml-1' : 'btn btn-primary ml-1'}
+                                                            className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
                                                             disabled={errorMessage.message||waiting}
                                                         >
                                                             Guardar

@@ -157,8 +157,8 @@ export default function AddInstitucion(){
                                             <div className="card-header">
                                                 <div className="d-flex align-items-center">
                                                     <h4 className="card-title">{titulo}</h4>
-                                                    <Link to={privateRoutes.INSTITUCIONES_LIST} className="btn btn-primary btn-round ml-auto">
-                                                        <i className="fa fa-list">&nbsp;&nbsp;</i>
+                                                    <Link to={privateRoutes.INSTITUCIONES_LIST} className="btn btn-primary btn-round ms-auto">
+                                                        <i className="bi bi-list-ul">&nbsp;&nbsp;</i>
                                                         {myConst.labels.institucionesList[0]}
                                                     </Link>
                                                 </div>
@@ -169,7 +169,7 @@ export default function AddInstitucion(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='nombre'>Nombre de la institución:</label>
                                                                 <input type="text" className="form-control" placeholder='Colegio...'
                                                                 {...register("nombre", { required:true })} />
@@ -177,7 +177,7 @@ export default function AddInstitucion(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='codigodane'>Código DANE:</label>
                                                                 <input type="text" className="form-control" placeholder='276109000855'
                                                                 {...register("codigodane")} />
@@ -187,14 +187,14 @@ export default function AddInstitucion(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='nit'>NIT:</label>
                                                                 <input type="text" className="form-control" placeholder='800256881-3'
                                                                 {...register("nit")} />
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='direccion'>Dirección:</label>
                                                                 <input type="text" className="form-control" placeholder='Calle ...'
                                                                 {...register("direccion")} />
@@ -204,14 +204,14 @@ export default function AddInstitucion(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='telefono'>Teléfono:</label>
                                                                 <input type="text" className="form-control" placeholder='601 1234567'
                                                                 {...register("telefono")} />
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='email'>Correo electrónico:</label>
                                                                 <input type="text" className="form-control" placeholder='contacto@colegio.edu.co'
                                                                 {...register("email")} />
@@ -219,7 +219,7 @@ export default function AddInstitucion(){
                                                         </div>
                                                     </div>
 
-                                                    <div className="form-group text-left has-feedback">
+                                                    <div className="form-group text-start has-feedback">
                                                         <label htmlFor='lema'>Lema:</label>
                                                         <input type="text" className="form-control" placeholder='Lema institucional'
                                                         {...register("lema")} />
@@ -227,7 +227,7 @@ export default function AddInstitucion(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="idzona">Zona de residencia:</label>
                                                                 <Controller
                                                                     name="idzona"
@@ -242,7 +242,7 @@ export default function AddInstitucion(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="idcaracter">Carácter del colegio:</label>
                                                                 <Controller
                                                                     name="idcaracter"
@@ -260,7 +260,7 @@ export default function AddInstitucion(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="idespecialidad">Especialidad:</label>
                                                                 <Controller
                                                                     name="idespecialidad"
@@ -275,7 +275,7 @@ export default function AddInstitucion(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="idmetodo">Método institucional:</label>
                                                                 <Controller
                                                                     name="idmetodo"
@@ -293,7 +293,7 @@ export default function AddInstitucion(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="iddepartamento">Departamento:</label>
                                                                 <Controller
                                                                     name="iddepartamento"
@@ -308,7 +308,7 @@ export default function AddInstitucion(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="idciudad">Ciudad / municipio:</label>
                                                                 <Controller
                                                                     name="idciudad"
@@ -327,7 +327,7 @@ export default function AddInstitucion(){
                                                     <div className='card-action text-center my-5'>
                                                         <button
                                                             type='submit'
-                                                            className={waiting? 'btn is-loading btn-warning ml-1' : 'btn btn-primary ml-1'}
+                                                            className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
                                                             disabled={waiting}
                                                         >
                                                             { titulo }

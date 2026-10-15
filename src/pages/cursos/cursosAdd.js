@@ -131,8 +131,8 @@ export default function AddCurso(){
                                             <div className="card-header">
                                                 <div className="d-flex align-items-center">
                                                     <h4 className="card-title">{titulo}</h4>
-                                                    <Link to={privateRoutes.CURSOS_LIST} className="btn btn-primary btn-round ml-auto">
-                                                        <i className="fa fa-list">&nbsp;&nbsp;</i>
+                                                    <Link to={privateRoutes.CURSOS_LIST} className="btn btn-primary btn-round ms-auto">
+                                                        <i className="bi bi-list-ul">&nbsp;&nbsp;</i>
                                                         {myConst.labels.cursosList[0]}
                                                     </Link>
                                                 </div>
@@ -143,7 +143,7 @@ export default function AddCurso(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='nombre'>Nombre del curso:</label>
                                                                 <input type="text" className="form-control" placeholder='1-A'
                                                                 {...register("nombre", { required:true })} />
@@ -151,7 +151,7 @@ export default function AddCurso(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="idinstitucion">Institución:</label>
                                                                 <Controller name="idinstitucion" control={control}
                                                                     render={({ field }) => (
@@ -166,7 +166,7 @@ export default function AddCurso(){
 
                                                     <div className="row">
                                                         <div className="col-md-4 col-lg-4">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="idgrado">Grado:</label>
                                                                 <Controller name="idgrado" control={control}
                                                                     render={({ field }) => (
@@ -178,7 +178,7 @@ export default function AddCurso(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-4 col-lg-4">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="idjornada">Jornada:</label>
                                                                 <Controller name="idjornada" control={control}
                                                                     render={({ field }) => (
@@ -190,7 +190,7 @@ export default function AddCurso(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-4 col-lg-4">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="idano">Año lectivo:</label>
                                                                 <Controller name="idano" control={control}
                                                                     render={({ field }) => (
@@ -205,13 +205,13 @@ export default function AddCurso(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='limiteestudiantes'>Límite de estudiantes:</label>
                                                                 <input type="number" className="form-control" {...register("limiteestudiantes")} />
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="idsede">Sede:</label>
                                                                 <Controller name="idsede" control={control}
                                                                     render={({ field }) => (
@@ -227,7 +227,7 @@ export default function AddCurso(){
                                                     <div className='card-action text-center my-5'>
                                                         <button
                                                             type='submit'
-                                                            className={waiting? 'btn is-loading btn-warning ml-1' : 'btn btn-primary ml-1'}
+                                                            className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
                                                             disabled={waiting}
                                                         >
                                                             { titulo }

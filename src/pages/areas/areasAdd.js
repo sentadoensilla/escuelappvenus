@@ -98,8 +98,8 @@ export default function AddArea(){
                                             <div className="card-header">
                                                 <div className="d-flex align-items-center">
                                                     <h4 className="card-title">{titulo}</h4>
-                                                    <Link to={privateRoutes.AREAS_LIST} className="btn btn-primary btn-round ml-auto">
-                                                        <i className="fa fa-list">&nbsp;&nbsp;</i>
+                                                    <Link to={privateRoutes.AREAS_LIST} className="btn btn-primary btn-round ms-auto">
+                                                        <i className="bi bi-list-ul">&nbsp;&nbsp;</i>
                                                         {myConst.labels.areasList[0]}
                                                     </Link>
                                                 </div>
@@ -108,14 +108,14 @@ export default function AddArea(){
                                                 <form id={elFade.form} onSubmit={handleSubmit(onRegister)} method='POST' className="">
                                                     { (id !== "undefined" && id !== null) ? <input type="hidden" value={id} {...register("idregistro")} /> : "" }
 
-                                                    <div className="form-group text-left has-feedback">
+                                                    <div className="form-group text-start has-feedback">
                                                         <label htmlFor='descripcion'>Descripción del área:</label>
                                                         <input type="text" className="form-control" placeholder='Matemáticas'
                                                         {...register("descripcion", { required:true })} />
                                                         { errors.descripcion?.type === 'required' && <small className="form-text text-danger">¿Cómo se llama el área?</small> }
                                                     </div>
 
-                                                    <div className="form-group text-left has-feedback">
+                                                    <div className="form-group text-start has-feedback">
                                                         <label htmlFor='comentario'>Comentario:</label>
                                                         <textarea className="form-control" rows="3" {...register("comentario")} />
                                                     </div>
@@ -123,7 +123,7 @@ export default function AddArea(){
                                                     <div className='card-action text-center my-5'>
                                                         <button
                                                             type='submit'
-                                                            className={waiting? 'btn is-loading btn-warning ml-1' : 'btn btn-primary ml-1'}
+                                                            className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
                                                             disabled={waiting}
                                                         >
                                                             { titulo }

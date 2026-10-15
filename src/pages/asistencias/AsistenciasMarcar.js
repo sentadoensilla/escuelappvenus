@@ -406,15 +406,15 @@ export default function SendAttendance(){
                                     <div className="col-md-12">
                                         <div className="card">
                                             <div className="card-header">
-                                                <div className="d-flex align-items-center text-right">
+                                                <div className="d-flex align-items-center text-end">
                                                     
                                                     <Link to={privateRoutes.EXCUSAS_TEACHER} className="btn btn-secondary btn-round">
-                                                        <i className="far fa-envelope-open">&nbsp;&nbsp;</i>
+                                                        <i className="bi bi-envelope-open">&nbsp;&nbsp;</i>
                                                         {myConst.labels.excusasList[0]}
                                                     </Link> &nbsp;&nbsp;                                                   
 
                                                     <Link to={privateRoutes.ASISTENCIA_TEACHERREPORTE} className="btn btn-primary btn-round">
-                                                        <i className="fa fa-list">&nbsp;&nbsp;</i>
+                                                        <i className="bi bi-list-ul">&nbsp;&nbsp;</i>
                                                         {myConst.labels.asistenciaList[0][0]}
                                                     </Link>  
                                                 </div>
@@ -423,7 +423,7 @@ export default function SendAttendance(){
                                                 <form id={elFade.form} onSubmit={handleSubmit(onRegister)} method='POST' className="">
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group  text-left has-feedback">
+                                                            <div className="form-group  text-start has-feedback">
                                                                 <label htmlFor='date_init'>Asignatura:</label>
 
                                                                 <Controller
@@ -450,7 +450,7 @@ export default function SendAttendance(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group  text-left has-feedback">
+                                                            <div className="form-group  text-start has-feedback">
                                                                 <label htmlFor='date_finish'>Fecha:</label>
                                                                 <Controller 
                                                                     control={control}
@@ -473,7 +473,7 @@ export default function SendAttendance(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="group" className="placeholder">Grupo: </label>
                                                            
                                                                 <Controller
@@ -519,9 +519,9 @@ export default function SendAttendance(){
                                                                             // eslint-disable-next-line
                                                                             miExcusa = listadoExcusas.map((laExcusa,e) => {
                                                                                 if(studend.value.toString() === laExcusa.idestudiante.toString()){
-                                                                                    return <Link to={privateRoutes.EXCUSAS_VIEW+'/'+laExcusa.idexcusa} className="btn btn-success btn-round ml-auto"
+                                                                                    return <Link to={privateRoutes.EXCUSAS_VIEW+'/'+laExcusa.idexcusa} className="btn btn-success btn-round ms-auto"
                                                                                         target="_blank" rel="noopener noreferrer">  
-                                                                                                    <i className="far fa-envelope-open">&nbsp;&nbsp;</i>
+                                                                                                    <i className="bi bi-envelope-open">&nbsp;&nbsp;</i>
                                                                                                      Excusa ({laExcusa.tipoexcusa})
                                                                                                 </Link>
                                                                                 }
@@ -532,11 +532,11 @@ export default function SendAttendance(){
                                                                             return (
                                                                                 <tr key={studend.value} className='toggle'>
                                                                                     <td>{ (s+1) }</td>
-                                                                                    <td className='h3 text-left'>
+                                                                                    <td className='h3 text-start'>
                                                                                         {studend.label+'    '}
                                                                                         {miExcusa}
                                                                                     </td>
-                                                                                    <td className='align-bottom text-right'>
+                                                                                    <td className='align-bottom text-end'>
                                                                                         <Select
                                                                                             key={s}
                                                                                             name={'estudiante-'+studend.value}
@@ -558,13 +558,13 @@ export default function SendAttendance(){
                                                     <div className='card-action text-center'>
                                                         <button
                                                             type='submit'
-                                                            className={waiting? 'btn is-loading btn-warning ml-1' : 'btn btn-success ml-1'}
+                                                            className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-success ms-1'}
                                                             disabled={errorMessage.message||waiting}
                                                         >
                                                             { titulo }
                                                         </button>&nbsp;&nbsp;
                                                         <button
-                                                            className={waiting? 'btn is-loading btn-warning ml-1' : 'btn btn-danger ml-1'}
+                                                            className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-danger ms-1'}
                                                             type='button'
                                                             disabled={errorMessage.message||waiting}
                                                             onClick={deleteAttendance}

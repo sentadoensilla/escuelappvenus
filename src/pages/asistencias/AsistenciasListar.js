@@ -400,12 +400,12 @@ export default function ShowAttendance(){
                                                 <div className="d-flex align-items-right">
                                                     
                                                     <Link to={privateRoutes.EXCUSAS_TEACHER} className="btn btn-secondary btn-round">
-                                                        <i className="far fa-envelope-open">&nbsp;&nbsp;</i>
+                                                        <i className="bi bi-envelope-open">&nbsp;&nbsp;</i>
                                                         {myConst.labels.excusasList[0]}
                                                     </Link> &nbsp;&nbsp;                                                   
 
                                                     <Link to={privateRoutes.ASISTENCIA_TEACHER} className="btn btn-danger btn-round">
-                                                        <i className="far fa-check-circle">&nbsp;&nbsp;</i>
+                                                        <i className="bi bi-check-circle">&nbsp;&nbsp;</i>
                                                         {myConst.labels.asistenciaAdd[0][0]}
                                                     </Link>  
                                                 </div>
@@ -414,7 +414,7 @@ export default function ShowAttendance(){
                                                 <form id={elFade.form} onSubmit={handleSubmit(getAttendance)} method='POST' className="">
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group  text-left has-feedback">
+                                                            <div className="form-group  text-start has-feedback">
                                                                 <label htmlFor='date_init'>Asignatura: (Dejar libre para ver la asistencia global de un grupo)</label>
                                                                 <Controller
                                                                     name="asignatura"                                                                    
@@ -441,7 +441,7 @@ export default function ShowAttendance(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group  text-left has-feedback">
+                                                            <div className="form-group  text-start has-feedback">
                                                                 <label htmlFor='mes'>Mes:</label>
                                                                 <Controller
                                                                     name="mes"
@@ -468,7 +468,7 @@ export default function ShowAttendance(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="group" className="placeholder">Grupo: </label>
                                                                 <Controller
                                                                     name="group"                                                                    
@@ -493,7 +493,7 @@ export default function ShowAttendance(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6 text-center">
-                                                            <div className="form-group text-right">
+                                                            <div className="form-group text-end">
 
                                                                 <button
                                                                     type='submit'
@@ -501,7 +501,7 @@ export default function ShowAttendance(){
                                                                     disabled={errorMessage.message||waiting}
                                                                     onClick={getAttendance}
                                                                 >
-                                                                    <i className="fas fa-glasses">&nbsp;&nbsp;</i>
+                                                                    <i className="bi bi-eyeglasses">&nbsp;&nbsp;</i>
                                                                     Ver reporte
                                                                 </button>&nbsp;&nbsp;
                                                                 <button
@@ -510,7 +510,7 @@ export default function ShowAttendance(){
                                                                     disabled={errorMessage.message||waiting}
                                                                     onClick={downloadAttendance}
                                                                 >
-                                                                    <i className="fas fa-cloud-download-alt">&nbsp;&nbsp;</i>
+                                                                    <i className="bi bi-cloud-arrow-down">&nbsp;&nbsp;</i>
                                                                     Descargar reporte
                                                                 </button>
                                                             </div>

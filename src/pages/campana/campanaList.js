@@ -33,15 +33,15 @@ export default function ListadoCampana(){
         {button:true,
             cell: (miListado) => (
                 <div className="form-button-action">
-                    <button type="button" data-toggle="tooltip"  
+                    <button type="button" data-bs-toggle="tooltip"  
                         onClick={() => editElement(miListado)} 
-                        title="" className="btn btn-rounded btn-outline-primary btn-xs mr-1" 
+                        title="" className="btn btn-rounded btn-outline-primary btn-xs me-1" 
                         data-original-title="Edtar elemento">
                         <i className="la flaticon-pencil"></i>
                     </button>
-                    <button type="button" data-toggle="tooltip" 
+                    <button type="button" data-bs-toggle="tooltip" 
                         onClick={() => dispatch({type:'delete', reference: miListado.idcampana})} 
-                        title="" className="btn btn-rounded btn-outline-danger btn-xs mr-1" 
+                        title="" className="btn btn-rounded btn-outline-danger btn-xs me-1" 
                         data-original-title="Eliminar elemento">
                         <i className="la flaticon-interface-5"></i>
                     </button>
@@ -191,8 +191,8 @@ export default function ListadoCampana(){
                                         <img src={myConst.essentials.logohorizontal} alt="navbar brand" className="navbar-brand" />
                                         Listado de campañas
                                     </h4>
-                                    <Link to={privateRoutes.CAMPANA_ADD} className="btn btn-primary btn-round ml-auto">
-                                        <i className="fa fa-plus">&nbsp;&nbsp;</i>
+                                    <Link to={privateRoutes.CAMPANA_ADD} className="btn btn-primary btn-round ms-auto">
+                                        <i className="bi bi-plus-lg">&nbsp;&nbsp;</i>
                                         Campaña 
                                     </Link>
                                 </div>

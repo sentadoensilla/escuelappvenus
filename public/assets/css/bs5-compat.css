@@ -1,0 +1,45 @@
+/*!
+ * bs5-compat.css — Compatibilidad Bootstrap 4 → Bootstrap 5.3 (Escuelapp)
+ *
+ * Reintroduce utilidades/clases que se eliminaron o renombraron en Bootstrap 5,
+ * para no romper el markup existente (ni clases generadas dinámicamente desde la
+ * BD, p. ej. iconos/menús). Se carga DESPUÉS de bootstrap.min.css y atlantis.min.css.
+ *
+ * Nota: el código fuente ya se migró a las clases BS5 (ms-*, me-*, text-start,
+ * text-end, float-start, float-end). Estas reglas son una red de seguridad.
+ */
+
+/* Formularios: Bootstrap 5 eliminó .form-group */
+.form-group { margin-bottom: 1rem; }
+
+/* Input group: Bootstrap 5 eliminó los wrappers .input-group-prepend/.input-group-append */
+.input-group-prepend,
+.input-group-append { display: flex; }
+.input-group-prepend { margin-right: -1px; }
+.input-group-append { margin-left: -1px; }
+.input-group-prepend .input-group-text { border-right: 0; }
+
+/* Alineación de texto (BS4 text-left/right → BS5 text-start/end) */
+.text-left { text-align: left !important; }
+.text-right { text-align: right !important; }
+
+/* Float (BS4 float-left/right → BS5 float-start/end) */
+.float-left { float: left !important; }
+.float-right { float: right !important; }
+
+/* Espaciado lateral renombrado (BS4 ml-*/mr-* → BS5 ms-*/me-*) */
+.ml-0{margin-left:0!important}.ml-1{margin-left:.25rem!important}.ml-2{margin-left:.5rem!important}.ml-3{margin-left:1rem!important}.ml-4{margin-left:1.5rem!important}.ml-5{margin-left:3rem!important}.ml-auto{margin-left:auto!important}
+.mr-0{margin-right:0!important}.mr-1{margin-right:.25rem!important}.mr-2{margin-right:.5rem!important}.mr-3{margin-right:1rem!important}.mr-4{margin-right:1.5rem!important}.mr-5{margin-right:3rem!important}.mr-auto{margin-right:auto!important}
+
+/* Accesibilidad (BS4 .sr-only → BS5 .visually-hidden) */
+.sr-only {
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	padding: 0 !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	clip: rect(0, 0, 0, 0) !important;
+	white-space: nowrap !important;
+	border: 0 !important;
+}

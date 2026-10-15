@@ -35,14 +35,14 @@ export default function ListadoAsignaturas(){
         {button:true,
             cell: (miListado) => {
                 return (<div className="form-button-action">
-                    <button type="button" data-toggle="tooltip"
+                    <button type="button" data-bs-toggle="tooltip"
                         onClick={() => editElement(miListado)}
-                        title="Editar asignatura" className="btn btn-rounded btn-outline-primary btn-xs mr-1">
+                        title="Editar asignatura" className="btn btn-rounded btn-outline-primary btn-xs me-1">
                         <i className="la flaticon-pencil"></i>
                     </button>
-                    <button type="button" data-toggle="tooltip"
+                    <button type="button" data-bs-toggle="tooltip"
                         onClick={() => dispatch({type:'delete', reference: miListado.idregistro}) }
-                        title="Eliminar asignatura" className="btn btn-rounded btn-outline-danger btn-xs mr-1">
+                        title="Eliminar asignatura" className="btn btn-rounded btn-outline-danger btn-xs me-1">
                         <i className="la flaticon-interface-5"></i>
                     </button>
                 </div>)
@@ -161,13 +161,13 @@ export default function ListadoAsignaturas(){
                                                     <div className="d-flex align-items-center flex-wrap">
                                                         <h4 className="card-title">{ myConst.labels.asignaturasList[0] }</h4>
                                                         <button type="button" onClick={generarPdf}
-                                                            className="btn btn-danger btn-round ml-auto mr-2"
+                                                            className="btn btn-danger btn-round ms-auto me-2"
                                                             title="Listado de asignaturas en PDF">
-                                                            <i className="fas fa-file-pdf">&nbsp;&nbsp;</i>
+                                                            <i className="bi bi-file-earmark-pdf">&nbsp;&nbsp;</i>
                                                             Listado de asignaturas
                                                         </button>
                                                         <Link to={privateRoutes.ASIGNATURAS_ADD} className="btn btn-primary btn-round">
-                                                            <i className="fa fa-plus">&nbsp;&nbsp;</i>
+                                                            <i className="bi bi-plus-lg">&nbsp;&nbsp;</i>
                                                             {myConst.labels.asignaturasAdd[0][0]}
                                                         </Link>
                                                     </div>

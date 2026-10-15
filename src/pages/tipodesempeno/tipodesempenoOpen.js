@@ -114,7 +114,7 @@ export default function ObservacionViewOpen() {
                                                         <i class="flaticon-users"></i>
                                                     </div>
                                                 </div>
-                                                <div class="col col-stats ml-3 ml-sm-0">
+                                                <div class="col col-stats ms-3 ml-sm-0">
                                                     <div class="numbers">
                                                         <p class="card-category">Estudiantes</p>
                                                         <h4 class="card-title">{ element.nombresestudiantes.toString().replaceAll(',', ', ') }</h4>
@@ -135,7 +135,7 @@ export default function ObservacionViewOpen() {
                                                         <i class="flaticon-users"></i>
                                                     </div>
                                                 </div>
-                                                <div class="col col-stats ml-3 ml-sm-0">
+                                                <div class="col col-stats ms-3 ml-sm-0">
                                                     <div class="numbers">
                                                         <p class="card-category">Grupo</p>
                                                         <h4 class="card-title">{ element.grupo.toString().replaceAll(',', ', ') }</h4>
@@ -154,7 +154,7 @@ export default function ObservacionViewOpen() {
                                                         <i class="flaticon-agenda-1"></i>
                                                     </div>
                                                 </div>
-                                                <div class="col col-stats ml-3 ml-sm-0">
+                                                <div class="col col-stats ms-3 ml-sm-0">
                                                     <div class="numbers">
                                                         <p class="card-category">Asignatura</p>
                                                         <h4 class="card-title">{ element.asignatura }</h4>
@@ -173,7 +173,7 @@ export default function ObservacionViewOpen() {
                                                         <i class="flaticon-pen"></i>
                                                     </div>
                                                 </div>
-                                                <div class="col col-stats ml-3 ml-sm-0">
+                                                <div class="col col-stats ms-3 ml-sm-0">
                                                     <div class="numbers">
                                                         <p class="card-category">Docente</p>
                                                         <h4 class="card-title">{ element.usuarioregistrador }</h4>
@@ -194,7 +194,7 @@ export default function ObservacionViewOpen() {
                                                         <i class="flaticon-alarm-1"></i>
                                                     </div>
                                                 </div>
-                                                <div class="col col-stats ml-3 ml-sm-0">
+                                                <div class="col col-stats ms-3 ml-sm-0">
                                                     <div class="numbers">
                                                         <p class="card-category">Aviso</p>
                                                         <h4 class="card-title">{ (element.aviso)? 'SI' : 'No' }</h4>
@@ -213,7 +213,7 @@ export default function ObservacionViewOpen() {
                                                         <i class="flaticon-folder"></i>
                                                     </div>
                                                 </div>
-                                                <div class="col col-stats ml-3 ml-sm-0">
+                                                <div class="col col-stats ms-3 ml-sm-0">
                                                     <div class="numbers">
                                                         <p class="card-category">Año lectivo</p>
                                                         <h4 class="card-title">{ element.anolectivo }</h4>
@@ -232,7 +232,7 @@ export default function ObservacionViewOpen() {
                                                         <i class="flaticon-calendar"></i>
                                                     </div>
                                                 </div>
-                                                <div class="col col-stats ml-3 ml-sm-0">
+                                                <div class="col col-stats ms-3 ml-sm-0">
                                                     <div class="numbers">
                                                         <p class="card-category">Fecha de la observación:</p>
                                                         <h4 class="card-title">{ element.fechaobservacion }</h4>

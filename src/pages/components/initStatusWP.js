@@ -47,18 +47,18 @@ export const WidgetWhatsappStatus = (props) => {
                                     (miUsuario.picProfile==="") ?
                                         <div key="checkflyer" className="d-flex">
                                             <div className="avatar avatar-offline">
-                                                <span className="avatar-title rounded-circle border border-white bg-danger"><i className="fas fa-user-edit"> </i> </span>
+                                                <span className="avatar-title rounded-circle border border-white bg-danger"><i className="bi bi-person-gear"> </i> </span>
                                             </div>
-                                            <div className="flex-1 ml-3 pt-1">
-                                                <span className="text-uppercase text-danger fw-bold mb-1">Lo primero es cargar el volante del tarjetón<span className="text-success pl-3"></span></span>
+                                            <div className="flex-1 ms-3 pt-1">
+                                                <span className="text-uppercase text-danger fw-bold mb-1">Lo primero es cargar el volante del tarjetón<span className="text-success ps-3"></span></span>
                                                 <span className="text-muted">Ir a Configuración -&gt; Configuración de usuarios, se hace una sola vez</span>
-                                                <span className="float-right pt-1">
+                                                <span className="float-end pt-1">
                                                     <small className="text-muted">
                                                         <Link
                                                             type='button'
                                                             className='btn btn-danger btn-sm'
                                                             to={privateRoutes.USUARIO_PROFILE}
-                                                        ><i className="fas fa-user-edit"></i> Cargar Volante
+                                                        ><i className="bi bi-person-gear"></i> Cargar Volante
                                                         </Link>
                                                     </small>
                                                 </span>
@@ -71,18 +71,18 @@ export const WidgetWhatsappStatus = (props) => {
                                 }
                                 <div key="checknamba" className="d-flex">
                                     <div className="avatar avatar-offline">
-                                        <span className="avatar-title rounded-circle border border-white bg-danger"><i className="fab fa-whatsapp"> </i> </span>
+                                        <span className="avatar-title rounded-circle border border-white bg-danger"><i className="bi bi-whatsapp"> </i> </span>
                                     </div>
-                                    <div className="flex-1 ml-3 pt-1">
-                                        <span className="text-uppercase text-danger fw-bold mb-1">Diariamente debes tener al menos 1 whatsapp cargado<span className="text-success pl-3"></span></span>
+                                    <div className="flex-1 ms-3 pt-1">
+                                        <span className="text-uppercase text-danger fw-bold mb-1">Diariamente debes tener al menos 1 whatsapp cargado<span className="text-success ps-3"></span></span>
                                         <span className="text-muted">Ir a Configuración -&gt; Whatsapp, debe hacerlo una vez al dia</span>
-                                        <span className="float-right pt-1">
+                                        <span className="float-end pt-1">
                                             <small className="text-muted">
                                                 <Link
                                                     type='button'
                                                     className='btn btn-danger btn-sm'
                                                     to={privateRoutes.EMISORES}
-                                                ><i className="fab fa-whatsapp"></i> Cargar QR
+                                                ><i className="bi bi-whatsapp"></i> Cargar QR
                                                 </Link>
                                             </small>
                                         </span>
@@ -105,7 +105,7 @@ export const WidgetWhatsappStatus = (props) => {
                                                         <div>
                                                             <h5 className="text-success">{item.emisor} <small><span><b> Conectado</b></span></small></h5>
                                                             <p className="text-info">
-                                                                <i className="fas fa-user-plus"></i> {item.newvoters} Votantes registrados hoy
+                                                                <i className="bi bi-person-plus"></i> {item.newvoters} Votantes registrados hoy
                                                             </p>
                                                         </div>
                                                         <h3 className="text-success fw-bold">
@@ -123,7 +123,7 @@ export const WidgetWhatsappStatus = (props) => {
                                                                 <button
                                                                     type='button'
                                                                     className='btn btn-info btn-sm'
-                                                                ><i className="fas fa-bullhorn"></i> {item.publicidadenviados} Publicidades</button>                                                                                    
+                                                                ><i className="bi bi-megaphone"></i> {item.publicidadenviados} Publicidades</button>                                                                                    
                                                             </small>
                                                         </p>
                                                         <p className="text-muted mb-0">
@@ -131,7 +131,7 @@ export const WidgetWhatsappStatus = (props) => {
                                                                 <button
                                                                 type='button'
                                                                 className='btn btn-success btn-sm'
-                                                            ><i className="fas fa-paper-plane"></i> {item.volantesenviados} Volantes</button>
+                                                            ><i className="bi bi-send"></i> {item.volantesenviados} Volantes</button>
                                                             </small>
                                                         </p>
                                                     </div>
@@ -148,7 +148,7 @@ export const WidgetWhatsappStatus = (props) => {
                                                         <div>
                                                             <h5 className="text-danger">{item.emisor} <small><span><b> Debe cargar QR</b></span></small></h5>
                                                             <p className="text-danger">
-                                                                <i className="fas fa-user-plus"></i> {item.newvoters} Votantes registrados hoy,  
+                                                                <i className="bi bi-person-plus"></i> {item.newvoters} Votantes registrados hoy,  
                                                                 
                                                             </p>  
                                                         </div>
@@ -168,7 +168,7 @@ export const WidgetWhatsappStatus = (props) => {
                                                                     type='button'
                                                                     className='btn btn-danger btn-sm'
                                                                     to={privateRoutes.EMISORES}
-                                                                ><i className="fab fa-whatsapp"></i> Cargar QR
+                                                                ><i className="bi bi-whatsapp"></i> Cargar QR
                                                                 </Link>                                                                                    
                                                             </small>
                                                         </p>
@@ -178,7 +178,7 @@ export const WidgetWhatsappStatus = (props) => {
                                                                 type='button'
                                                                 className='btn btn-danger btn-sm'
                                                                 to={privateRoutes.EMISORES}
-                                                            ><i className="fab fa-whatsapp"></i> Cargar QR
+                                                            ><i className="bi bi-whatsapp"></i> Cargar QR
                                                             </Link>
                                                             </small>
                                                         </p>
@@ -196,19 +196,19 @@ export const WidgetWhatsappStatus = (props) => {
                                 <div className="card-body">
                                     <div key="nonamba" className="d-flex">
                                         <div className="avatar avatar-offline">
-                                            <span className="avatar-title rounded-circle border border-white bg-danger"><i className="fab fa-whatsapp"> </i> </span>
+                                            <span className="avatar-title rounded-circle border border-white bg-danger"><i className="bi bi-whatsapp"> </i> </span>
                                         </div>
-                                        <div className="flex-1 ml-3 pt-1">
-                                            <h6 className="text-uppercase fw-bold mb-1">No hay Whatsapp registrados <span className="text-success pl-3"></span></h6>
+                                        <div className="flex-1 ms-3 pt-1">
+                                            <h6 className="text-uppercase fw-bold mb-1">No hay Whatsapp registrados <span className="text-success ps-3"></span></h6>
                                             <span className="text-muted">Ir a Configuración -&gt; Whatsapp, debe hacerlo una vez al dia</span>
                                         </div>
-                                        <div className="float-right pt-1">
+                                        <div className="float-end pt-1">
                                             <small className="text-muted">
                                                 <Link
                                                     type='button'
                                                     className='btn btn-danger btn-sm'
                                                     to={privateRoutes.EMISORES}
-                                                ><i className="fab fa-whatsapp"></i> Cargar QR
+                                                ><i className="bi bi-whatsapp"></i> Cargar QR
                                                 </Link>
                                             </small>
                                         </div>

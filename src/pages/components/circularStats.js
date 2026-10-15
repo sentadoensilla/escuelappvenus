@@ -47,7 +47,7 @@ const WidgetCirciular = ({props}) => {
                     </div>
                     {
                         (props.link)?
-                            <div className="text-right">
+                            <div className="text-end">
                                 <Link className='btn btn-success' to={props.link}>Más...</Link>
                             </div>
                         :

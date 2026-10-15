@@ -251,20 +251,20 @@ export default function ComunicadoViewResponse() {
                                     </div>
                             }
                             <p className='card-category'>
-                                <span className="stamp stamp-md bg-danger mr-3">
-									<i className="fa fa-users"></i>
+                                <span className="stamp stamp-md bg-danger me-3">
+									<i className="bi bi-people"></i>
 								</span>
                                 Grupos: { comunicado.group.toString().replaceAll(',', ', ') }
                             </p>
                             <p className='card-category'>
-                                <span className="stamp stamp-md bg-success mr-3">
-									<i className="far fa-calendar-alt"></i>
+                                <span className="stamp stamp-md bg-success me-3">
+									<i className="bi bi-calendar-event"></i>
 								</span>                            
                                 Disponible desde: { comunicado.date_init }
                             </p>
                             <p className='card-category'>
-                                <span className="stamp stamp-md bg-error mr-3">
-									<i className="far fa-calendar-alt"></i>
+                                <span className="stamp stamp-md bg-error me-3">
+									<i className="bi bi-calendar-event"></i>
 								</span>
                                 Disponible hasta: { comunicado.date_finish }
                             </p>
@@ -276,7 +276,7 @@ export default function ComunicadoViewResponse() {
                                         <div className="col-md-12 my-5">
                                             <h4 className="card-title">Responder:</h4>
                                             <form id={elFade.form} onSubmit={handleSubmit(onRegister)} method='POST' className="">
-                                                <div className="form-group text-left has-feedback">
+                                                <div className="form-group text-start has-feedback">
                                                     <Controller
                                                         name="comunicate"
                                                         control={control}
@@ -347,7 +347,7 @@ export default function ComunicadoViewResponse() {
                                                 <div className='card-action text-center'>
                                                     <button
                                                         type='submit'
-                                                        className={waiting? 'btn is-loading btn-warning ml-1' : 'btn btn-primary ml-1'}
+                                                        className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
                                                         disabled={errorMessage.message||waiting}
                                                     >
                                                     Responder

@@ -150,12 +150,12 @@ function Agree() {
 														<form onSubmit={meCaso} method='POST'>
 															<button
 																type='submit'
-																className={waiting? 'btn is-loading btn-success ml-1' : 'btn btn-success ml-1'}
+																className={waiting? 'btn is-loading btn-success ms-1' : 'btn btn-success ms-1'}
 																disabled={waiting}
 															>
 																Acepto
 															</button>
-															<button type='reset' className='btn btn-border btn-light ml-1'>
+															<button type='reset' className='btn btn-border btn-light ms-1'>
 																Cancelar
 															</button>
 														</form>

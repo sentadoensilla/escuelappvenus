@@ -264,8 +264,8 @@ export default function AddTipoDesempeno(){
                                             <div className="card-header">
                                                 <div className="d-flex align-items-center">
                                                     <h4 className="card-title">{titulo}</h4>
-                                                    <Link to={privateRoutes.TIPODESEMPENO_LIST} className="btn btn-primary btn-round ml-auto">
-                                                        <i className="fa fa-list">&nbsp;&nbsp;</i>
+                                                    <Link to={privateRoutes.TIPODESEMPENO_LIST} className="btn btn-primary btn-round ms-auto">
+                                                        <i className="bi bi-list-ul">&nbsp;&nbsp;</i>
                                                         {myConst.labels.tipoDesempenoList[0]}
                                                     </Link>                                                    
                                                 </div>
@@ -276,7 +276,7 @@ export default function AddTipoDesempeno(){
 
                                                     <div className="row">
                                                         <div className="col-12">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="group" className="placeholder">Nombre del tipo de desempeño: </label>                                                           
                                                                 <input
                                                                     type='text'
@@ -295,7 +295,7 @@ export default function AddTipoDesempeno(){
                                                     <div className='card-action text-center my-5'>
                                                         <button
                                                             type='submit'
-                                                            className={waiting? 'btn is-loading btn-warning ml-1' : 'btn btn-primary ml-1'}
+                                                            className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
                                                             disabled={errorMessage.message||waiting}
                                                         >
                                                             { titulo }

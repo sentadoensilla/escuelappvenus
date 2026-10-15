@@ -24,9 +24,9 @@ export const Foot = () => {
                         </li>
                     </ul>
                 </nav>
-                <div className='copyright ml-auto'>
+                <div className='copyright ms-auto'>
                     2022, Array S.A.S. 
-                    <i className='fa fa-heart heart text-danger'></i> Original by 
+                    <i className='bi bi-heart heart text-danger'></i> Original by 
                     <a href='https://www.themekita.com' target="_blank" rel="noreferrer">ThemeKita</a>
                 </div>
             </div>

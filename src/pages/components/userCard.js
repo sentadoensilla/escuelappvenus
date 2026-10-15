@@ -18,7 +18,7 @@ function UserCard() {
 
     return (
         <div className="user">
-            <div className="avatar-sm float-left mr-2">
+            <div className="avatar-sm float-start me-2">
                 <div className="avatar avatar-online">
                     <span className={'avatar-title rounded-circle border border-'+colorProfile+' bg-'+colorProfile}>
                         {miUsuario.usuarioNick.substring(0,2)}
@@ -26,7 +26,7 @@ function UserCard() {
                 </div> 
             </div>
             <div className="info">
-                <a data-toggle="collapse" href="#collapseUserInfo" aria-expanded="true">
+                <a data-bs-toggle="collapse" href="#collapseUserInfo" aria-expanded="true">
                     <span>
                         { miUsuario.usuarioNick.split("@")[0] }
                         <span className="user-level">{ miUsuario.usuarioRollNombre }</span>

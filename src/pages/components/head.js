@@ -71,11 +71,11 @@ function UserHead(props) {
                     <NavLink to={miUsuario.usuarioIndex} className="logo">
                         <img src={myConst.essentials.logo} alt="navbar brand" className="navbar-brand" />
                     </NavLink>
-                    <button className="navbar-toggler sidenav-toggler ml-auto"
+                    <button className="navbar-toggler sidenav-toggler ms-auto"
                         onClick={toggleMenu}
                         type="button" 
-                        data-toggle="collapse" 
-                        data-target="collapse" 
+                        data-bs-toggle="collapse" 
+                        data-bs-target="collapse" 
                         aria-expanded="false" 
                         aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon">
@@ -127,8 +127,8 @@ function UserHead(props) {
                         <UserCard />
                         <ul className="nav nav-primary">
                             <li className={(miUri.includes(menuInicio))? "nav-item active" : "nav-item"}>
-                                <NavLink to={miUsuario.usuarioIndex} data-toggle="collapse" className="collapsed" aria-expanded="false">
-                                    <i className="fas fa-home"></i>
+                                <NavLink to={miUsuario.usuarioIndex} data-bs-toggle="collapse" className="collapsed" aria-expanded="false">
+                                    <i className="bi bi-house"></i>
                                     <p>Inicio</p>
                                     <span className="caret"></span>
                                 </NavLink>
@@ -137,8 +137,8 @@ function UserHead(props) {
                                 miMenu.map( (item,i) => {
                                     return (
                                     <li key={i} className={(item.opciones.some(e => e.enlace.includes(miUri)))? "nav-item active" : "nav-item"}>
-                                        <NavLink data-toggle="collapse"  data-target={"#menu"+multiplicador+item.aemenu_id}>
-                                            <i className={item.aemenu_icono || 'fa fa-folder-open'}></i>
+                                        <NavLink data-bs-toggle="collapse"  data-bs-target={"#menu"+multiplicador+item.aemenu_id}>
+                                            <i className={tool.icono(item.aemenu_icono || 'bi bi-folder2-open')}></i>
                                             <p>{item.aemenu_nombre}</p>
                                             <span className="caret"></span>
                                         </NavLink>
@@ -149,7 +149,7 @@ function UserHead(props) {
                                                     return (
                                                         <li key={o} className={(opcion.enlace.includes(miUri))? "active text-danger" : ""}>
                                                             <NavLink to={opcion.enlace}>
-                                                                <i className={(opcion.enlace.includes(miUri))? (item.opciones[o].icono || 'fa fa-circle')+" active text-danger" : (item.opciones[o].icono || 'fa fa-circle')+""}></i>
+                                                                <i className={(opcion.enlace.includes(miUri))? tool.icono(item.opciones[o].icono || 'bi bi-circle')+" active text-danger" : tool.icono(item.opciones[o].icono || 'bi bi-circle')+""}></i>
                                                                 <span className="sub-item">{item.opciones[o].opcion}</span>
                                                             </NavLink>
                                                         </li>
@@ -163,7 +163,7 @@ function UserHead(props) {
                             }
                             <li onClick={LogOut} className="nav-item danger" role="button">
                                 <a>
-                                    <i className="text-white fas fa-power-off"></i>
+                                    <i className="text-white bi bi-power"></i>
                                     <p className="text-center text-white">{ myConst.labels.logOut[0] }</p>
                                 </a>
                             </li>

@@ -110,11 +110,11 @@ export default function AsignaturasPrint(){
 
                 <div className="text-center mt-3 no-print">
                     <button type="button" className="btn btn-primary btn-round" onClick={imprimirDeNuevo}>
-                        <i className="fas fa-file-pdf">&nbsp;&nbsp;</i>
+                        <i className="bi bi-file-earmark-pdf">&nbsp;&nbsp;</i>
                         Guardar como PDF
                     </button>
-                    <Link to={privateRoutes.ASIGNATURAS_LIST} className="btn btn-border btn-light btn-round ml-1">
-                        <i className="fa fa-list">&nbsp;&nbsp;</i>
+                    <Link to={privateRoutes.ASIGNATURAS_LIST} className="btn btn-border btn-light btn-round ms-1">
+                        <i className="bi bi-list-ul">&nbsp;&nbsp;</i>
                         { myConst.labels.asignaturasList[0] }
                     </Link>
                 </div>

@@ -76,7 +76,7 @@ export default function Promocion() {
                                                 <form onSubmit={promover} method="POST">
                                                     <div className="row">
                                                         <div className="col-md-6">
-                                                            <div className="form-group text-left">
+                                                            <div className="form-group text-start">
                                                                 <label>Curso origen:</label>
                                                                 <select className="form-control" value={origen} onChange={(e) => setOrigen(e.target.value)}>
                                                                     <option value="">Seleccione curso origen</option>
@@ -85,7 +85,7 @@ export default function Promocion() {
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6">
-                                                            <div className="form-group text-left">
+                                                            <div className="form-group text-start">
                                                                 <label>Curso destino:</label>
                                                                 <select className="form-control" value={destino} onChange={(e) => setDestino(e.target.value)}>
                                                                     <option value="">Seleccione curso destino</option>

@@ -7,13 +7,13 @@ export default function Waiting() {
                 <div className="modal-dialog modal-sm">
                     <div className="modal-content">
                         <div className="spinner-grow text-primary" role="status">
-                            <span className="sr-only"> Cargando...</span>
+                            <span className="visually-hidden"> Cargando...</span>
                         </div>
                         <div className="spinner-grow text-secondary" role="status">
-                            <span className="sr-only">Cargando...</span>
+                            <span className="visually-hidden">Cargando...</span>
                         </div>
                         <div className="spinner-grow text-success" role="status">
-                            <span className="sr-only">Cargando...</span>
+                            <span className="visually-hidden">Cargando...</span>
                         </div>
                     </div>
                 </div>

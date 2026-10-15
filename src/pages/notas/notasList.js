@@ -35,14 +35,14 @@ export default function ListadoNotas(){
         {button:true,
             cell: (miListado) => {
                 return (<div className="form-button-action">
-                    <button type="button" data-toggle="tooltip"
+                    <button type="button" data-bs-toggle="tooltip"
                         onClick={() => editElement(miListado)}
-                        title="Editar nota" className="btn btn-rounded btn-outline-primary btn-xs mr-1">
+                        title="Editar nota" className="btn btn-rounded btn-outline-primary btn-xs me-1">
                         <i className="la flaticon-pencil"></i>
                     </button>
-                    <button type="button" data-toggle="tooltip"
+                    <button type="button" data-bs-toggle="tooltip"
                         onClick={() => dispatch({type:'delete', reference: miListado.idregistro}) }
-                        title="Eliminar nota" className="btn btn-rounded btn-outline-danger btn-xs mr-1">
+                        title="Eliminar nota" className="btn btn-rounded btn-outline-danger btn-xs me-1">
                         <i className="la flaticon-interface-5"></i>
                     </button>
                 </div>)
@@ -152,8 +152,8 @@ export default function ListadoNotas(){
                                                 <div className="card-header">
                                                     <div className="d-flex align-items-center">
                                                         <h4 className="card-title">{ myConst.labels.notasList[0] }</h4>
-                                                        <Link to={privateRoutes.NOTAS_ADD} className="btn btn-primary btn-round ml-auto">
-                                                            <i className="fa fa-plus">&nbsp;&nbsp;</i>
+                                                        <Link to={privateRoutes.NOTAS_ADD} className="btn btn-primary btn-round ms-auto">
+                                                            <i className="bi bi-plus-lg">&nbsp;&nbsp;</i>
                                                             {myConst.labels.notasAdd[0][0]}
                                                         </Link>
                                                     </div>

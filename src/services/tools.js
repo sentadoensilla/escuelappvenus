@@ -1,5 +1,6 @@
 import jwtDecode from 'jwt-decode'
 import { Buffer } from 'buffer';
+import iconosFuente from './icons';
 window.Buffer = Buffer
 // ESTA LINEA SIRVE PARA UTILIZAR JQUERY CUANDO SE IMPORTE ESTA LIBRERIA
 window.$ = window.jQuery = require('jquery')
@@ -641,7 +642,9 @@ const tool = {
         navigator.geolocation.getCurrentPosition(position, error, options)
     }, */
 
-
+    /* Traduce una clase de icono heredada (FontAwesome "fa fa-home" o "educate-icon
+       educate-event") a Bootstrap Icons ("bi bi-house"). Implementado en ./icons.js. */
+    icono: iconosFuente.icono
 }
 
 export default tool;

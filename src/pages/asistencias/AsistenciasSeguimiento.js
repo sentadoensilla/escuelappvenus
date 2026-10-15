@@ -94,18 +94,18 @@ export default function ViewAttendanceByTeacher(){
                         horario.data.detalles.forEach((detail,d) =>{
                             console.log('detail: ', horario.data.detalles)
 
-                            let asistieron = <span><i className="fas fa-exclamation-triangle text-warning">&nbsp;&nbsp;</i>&nbsp;Sin Registros</span>
+                            let asistieron = <span><i className="bi bi-exclamation-triangle text-warning">&nbsp;&nbsp;</i>&nbsp;Sin Registros</span>
                             if(detail.asistieron!==null){
                                 asistieron = <span>
-                                    &nbsp;&nbsp; <i className="fa fa-check-square text-success">&nbsp;&nbsp;</i>
+                                    &nbsp;&nbsp; <i className="bi bi-check-square text-success">&nbsp;&nbsp;</i>
                                     &nbsp;{detail.asistieron}
-                                    &nbsp;&nbsp; <i className="fas fa-window-close text-danger">&nbsp;&nbsp;</i>
+                                    &nbsp;&nbsp; <i className="bi bi-x-square text-danger">&nbsp;&nbsp;</i>
                                     &nbsp;{detail.faltaron}
                                 </span>
                             }
                             
                             misDias[detail.dia] = <td title={detail.docente.toLocaleUpperCase()}>
-                                <span><i className="fas fa-book-reader text-muted">&nbsp;&nbsp;</i>&nbsp;&nbsp;
+                                <span><i className="bi bi-book text-muted">&nbsp;&nbsp;</i>&nbsp;&nbsp;
                                     {detail.asignatura.toLocaleUpperCase()}</span><br/>
                                 {asistieron}<br/>
                             </td>                                        
@@ -226,12 +226,12 @@ export default function ViewAttendanceByTeacher(){
                                                 <div className="d-flex align-items-right">
                                                     
                                                     <Link to={privateRoutes.EXCUSAS_TEACHER} className="btn btn-secondary btn-round">
-                                                        <i className="far fa-envelope-open">&nbsp;&nbsp;</i>
+                                                        <i className="bi bi-envelope-open">&nbsp;&nbsp;</i>
                                                         {myConst.labels.excusasList[0]}
                                                     </Link> &nbsp;&nbsp;                                                   
 
                                                     <Link to={privateRoutes.ASISTENCIA_TEACHER} className="btn btn-danger btn-round">
-                                                        <i className="far fa-check-circle">&nbsp;&nbsp;</i>
+                                                        <i className="bi bi-check-circle">&nbsp;&nbsp;</i>
                                                         {myConst.labels.asistenciaAdd[0][0]}
                                                     </Link>  
                                                 </div>
@@ -240,7 +240,7 @@ export default function ViewAttendanceByTeacher(){
                                                 <form id={elFade.form} onSubmit={handleSubmit(getAttendance)} method='POST' className="">
                                                     <div className="row">
                                                         <div className="col-md-4 col-lg-4">
-                                                            <div className="form-group  text-left has-feedback">
+                                                            <div className="form-group  text-start has-feedback">
                                                                 <label htmlFor='date_init'>Fecha inicial:</label>
                                                                 <Controller 
                                                                     control={control}
@@ -260,7 +260,7 @@ export default function ViewAttendanceByTeacher(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-4 col-lg-4">
-                                                            <div className="form-group  text-left has-feedback">
+                                                            <div className="form-group  text-start has-feedback">
                                                                 <label htmlFor='date_finish'>Fecha final:</label>
                                                                 <Controller 
                                                                     control={control}
@@ -280,7 +280,7 @@ export default function ViewAttendanceByTeacher(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-4 col-lg-4">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="group" className="placeholder">Grupo: </label>
                                                                 <Controller
                                                                     name="group"                                                                    

@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+# escuelappvenus
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Frontend de **Escuelapp** (paquete npm `venus`): SPA en **React 18** (Create React App) con
+`react-router-dom` 6, `react-hook-form` 7 y la plantilla visual **Atlantis** sobre **Bootstrap 5.3**
+(iconos **Bootstrap Icons**). Consume la API de `escuelappapi`.
 
-## Available Scripts
+**Documentación completa: [`ARQUITECTURA.md`](ARQUITECTURA.md)** · documento único de interfaz
+(controles React+HTML, widgets Atlantis, iconos y anexo `react-hook-form`):
+[`CATALOGO_CONTROLES.md`](CATALOGO_CONTROLES.md).
 
-In the project directory, you can run:
+## Instalación y ejecución
 
-### `npm start`
+```bash
+npm install
+cp .env.example .env      # REACT_APP_BACKEND_URL apuntando al backend
+npm start                 # http://localhost:3000
+npm run build             # build de producción
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Estructura (resumen)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- `src/main/` — `constants.js` (endpoints), `crudConfig.js` (CRUD genérico), `routes/mainroutes.js` (rutas).
+- `src/services/` — `tools.js`, `messenger.js`, `routes.js`, `context/UserContext.js`.
+- `src/pages/` — `gestion/` (CRUD genérico `/gestion/:entidad`) + módulos por entidad + dashboards.
 
-### `npm test`
+El menú de navegación es **dinámico**: se resuelve en la BD del backend (esquemas `logic`/`engine`) y llega
+en el `nav` del login; cada `enlace` debe coincidir con una ruta React.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Verificación
 
-### `npm run build`
+```bash
+node -e "require('@babel/parser').parse(require('fs').readFileSync('src/App.js','utf8'),{sourceType:'module',plugins:['jsx']})"
+npm start   # o npm run build
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## ⚠️ NOTA NO NEGOCIABLE PARA EL AGENTE CODER
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> **Es OBLIGATORIO actualizar [`ARQUITECTURA.md`](ARQUITECTURA.md) (y
+> [`CATALOGO_CONTROLES.md`](CATALOGO_CONTROLES.md) si tocas la interfaz/formularios) después de CADA
+> cambio o modificación** en este repositorio (páginas, rutas,
+> `crudConfig`, endpoints, dependencias, convenciones, etc.).
+> Un cambio **no se considera terminado** hasta que la documentación refleje el estado real del código.
+> Antes de cerrar cualquier tarea: corrige lo desactualizado y actualiza la fecha en el encabezado.

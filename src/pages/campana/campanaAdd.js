@@ -187,7 +187,7 @@ export default function AddCampana(){
                             <div className="card-body">
                                 <form id={elFade.form} onSubmit={handleSubmit(onRegister)} method='POST' className="">
                                     { (id !== "undefined" && id !== null) ? <input type="hidden" value={id} {...register("idcampana")} /> : "" }
-                                    <div className="form-group  text-left has-feedback">
+                                    <div className="form-group  text-start has-feedback">
                                         <label htmlFor='nombre'>Correo oficial de la campaña:</label>
                                         <input type="text" className="form-control" placeholder='micandidato@gmail.com'
                                         {...register("correo", {
@@ -198,7 +198,7 @@ export default function AddCampana(){
                                         { errors.correo?.type === 'pattern' && <small className="form-text text-danger">El correo está mal escrito</small> }
                                     </div>
                                     
-                                    <div className="form-group  text-left has-feedback">
+                                    <div className="form-group  text-start has-feedback">
                                         <label htmlFor='celular'>Teléfono oficial de la campaña (Con Whatsapp):</label>
                                         <input type="text" className="form-control" placeholder='3117696973'
                                         {...register("celular", {
@@ -210,7 +210,7 @@ export default function AddCampana(){
                                         { errors.celular?.type === 'pattern' && <small className="form-text text-danger">Sólo números, ejemplo: 3117696973</small> }
                                     </div>
                                     
-                                    <div className="form-group form-floating-label text-left has-feedback">
+                                    <div className="form-group form-floating-label text-start has-feedback">
                                         <select className="form-control input-border-bottom" {...register("selanzaal", {
                                             required:true
                                         })}>
@@ -221,7 +221,7 @@ export default function AddCampana(){
                                         { errors.selanzaal?.type === 'required' && <small className="form-text text-danger">¿A qué se lanza?</small> }
                                     </div>
 
-                                    <div className="form-group form-floating-label text-left has-feedback">
+                                    <div className="form-group form-floating-label text-start has-feedback">
                                         <select className="form-control input-border-bottom" {...register("miplan", {
                                             required:true
                                         })}>
@@ -232,7 +232,7 @@ export default function AddCampana(){
                                         { errors.miplan?.type === 'required' && <small className="form-text text-danger">Elija un plan para el servicio</small> }
                                     </div>
 
-                                    <div className="form-group  text-left has-feedback">
+                                    <div className="form-group  text-start has-feedback">
                                         <label htmlFor='nombre'>Nombre de la campaña:</label>
                                         <input type="text" className="form-control" placeholder='Diogenes de Jesus Gobernador'
                                         {...register("campana", {
@@ -243,7 +243,7 @@ export default function AddCampana(){
                                         { errors.campana?.type === 'minLength' && <small className="form-text text-danger">El nombre está corto</small> }													
                                     </div>
                                     
-                                    <div className="form-group  text-left has-feedback">
+                                    <div className="form-group  text-start has-feedback">
                                         <label htmlFor='nombre'>Lema o slogan de la campaña:</label>
                                         <input type="text" className="form-control" placeholder='El cambio que necesita nuestra región'
                                         {...register("lema", {
@@ -254,7 +254,7 @@ export default function AddCampana(){
                                         { errors.lema?.type === 'minLength' && <small className="form-text text-danger">¡El lema está corto, le hace falta calle, por favor inspírese!</small> }
                                     </div>
                                     
-                                    <div className="form-group  text-left has-feedback">
+                                    <div className="form-group  text-start has-feedback">
                                         <label htmlFor='tarjeton'>Tarjetón:</label>
                                         <input type="text" className="form-control" placeholder='PU 07'
                                         {...register("tarjeton", {
@@ -263,7 +263,7 @@ export default function AddCampana(){
                                         { errors.tarjeton?.type === 'required' && <small className="form-text text-danger">¿Cuál es la opción de votación?</small> }
                                     </div>
                                     
-                                    <div className="form-group  form-floating-label text-left  has-feedback">
+                                    <div className="form-group  form-floating-label text-start  has-feedback">
                                         <select className="form-control input-border-bottom"  {...register("elpartido", {
                                             required:true
                                         })}>
@@ -274,14 +274,14 @@ export default function AddCampana(){
                                         { errors.elpartido?.type === 'required' && <small className="form-text text-danger">¿A qué partido pertenece la campaña?</small> }
                                     </div>
                                     
-                                    <div className="form-group text-left ">
+                                    <div className="form-group text-start ">
                                         <label htmlFor='cupon'>Cupón:</label>
                                         <input type="text" className="form-control" placeholder="Si tiene un cupón de descuento, escríbalo aquí"
                                         {...register("cupon")}
                                         />
                                     </div>
 
-                                    <div className="form-group form-floating-label text-left has-feedback">
+                                    <div className="form-group form-floating-label text-start has-feedback">
                                         <select className="form-control input-border-bottom" {...register('estado', {
                                             required:true
                                         })}>
@@ -295,7 +295,7 @@ export default function AddCampana(){
                                     <div className='card-action text-center'>
                                         <button
                                             type='submit'
-                                            className={waiting? 'btn is-loading btn-warning ml-1' : 'btn btn-primary ml-1'}
+                                            className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
                                             disabled={errorMessage.message||waiting}
                                         >
                                             OK

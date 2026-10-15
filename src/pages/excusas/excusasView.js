@@ -234,10 +234,10 @@ export default function ExcusasViewResponse() {
                                 <div className='col align-items-center'>
                                     <div className="col-icon">
                                         <div className="icon-big text-center icon-success bubble-shadow-small">
-                                            <i className="fas fa-users text-warning h3"></i>
+                                            <i className="bi bi-people text-warning h3"></i>
                                         </div>
                                     </div>
-                                    <div className="col col-stats ml-3 ml-sm-0 text-center">
+                                    <div className="col col-stats ms-3 ml-sm-0 text-center">
                                         <p>Grupo: </p> <p>{ element.grupo.toString().replaceAll(',', ', ') }</p>
                                     </div>
                                 </div>
@@ -245,32 +245,32 @@ export default function ExcusasViewResponse() {
                                 <div className='col align-items-center'>
                                     <div className="col-icon">
                                         <div className="icon-big text-center icon-success bubble-shadow-small">
-                                            <i className="fas fa-calendar-minus text-danger h3"></i>
+                                            <i className="bi bi-calendar-minus text-danger h3"></i>
                                         </div>
                                     </div>
-                                    <div className="col col-stats ml-3 ml-sm-0 text-center">
+                                    <div className="col col-stats ms-3 ml-sm-0 text-center">
                                         <p> Excusa desde:</p> <p>{ element.desde }</p>
                                     </div>
                                 </div>
                                 <div className='col align-items-center'>
                                     <div className="col-icon">
                                         <div className="icon-big text-center bubble-shadow-small">
-                                            <i className="fas fa-calendar-plus text-success h3"></i>
+                                            <i className="bi bi-calendar-plus text-success h3"></i>
                                         </div>
                                     </div>
-                                    <div className="col col-stats ml-3 ml-sm-0 text-center">
+                                    <div className="col col-stats ms-3 ml-sm-0 text-center">
                                         <p> Excusa hasta: </p> <p>{ element.hasta }</p>
                                     </div>
                                 </div>
                                 <div className='col align-items-center'>
                                     <div className="col-icon">
                                         <div className="icon-big text-center bubble-shadow-small">
-                                            <i className="fas fa-envelope text-danger h3"></i>&nbsp;
-                                            <i className="fab fa-whatsapp text-success h3"></i>
+                                            <i className="bi bi-envelope text-danger h3"></i>&nbsp;
+                                            <i className="bi bi-whatsapp text-success h3"></i>
 
                                         </div>
                                     </div>
-                                    <div className="col col-stats ml-3 ml-sm-0 text-center">
+                                    <div className="col col-stats ms-3 ml-sm-0 text-center">
                                         <p> Contactos: </p> 
                                         <p>{ element.contacto }</p>
                                     </div>
@@ -279,10 +279,10 @@ export default function ExcusasViewResponse() {
                             <div className='row align-items-center'>
                                 <div className="col-icon">
                                     <div className="icon-big text-center icon-success bubble-shadow-small">
-                                        <i className="far fa-folder-open text-primary h3"></i>
+                                        <i className="bi bi-folder2-open text-primary h3"></i>
                                     </div>
                                 </div>
-                                <div className="col col-stats ml-3 ml-sm-0">
+                                <div className="col col-stats ms-3 ml-sm-0">
                                     <p>Asignaturas: { element.asignatura.toString().replaceAll(',', ', ') }</p>
                                 </div>
                             </div>
@@ -293,7 +293,7 @@ export default function ExcusasViewResponse() {
                                         <div className="col-md-12 my-5">
                                             <h4 className="card-title">Responder:</h4>
                                             <form id={elFade.form} onSubmit={handleSubmit(onRegister)} method='POST' className="">
-                                                <div className="form-group text-left has-feedback">
+                                                <div className="form-group text-start has-feedback">
                                                     <Controller
                                                         name="comunicate"
                                                         control={control}
@@ -364,7 +364,7 @@ export default function ExcusasViewResponse() {
                                                 <div className='card-action text-center'>
                                                     <button
                                                         type='submit'
-                                                        className={waiting? 'btn is-loading btn-warning ml-1' : 'btn btn-primary ml-1'}
+                                                        className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
                                                         disabled={errorMessage.message||waiting}
                                                     >
                                                     Responder

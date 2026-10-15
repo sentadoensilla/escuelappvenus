@@ -1,19 +1,550 @@
-# Catálogo de controles ReactJS con `react-hook-form` — Venus / Escuelapp
+# Catálogo de controles y widgets — Escuelapp (React + HTML + Bootstrap 5.3 + Atlantis)
 
-> Guía de referencia para **revisar y corregir formularios**. Para cada situación hay un
-> control recomendado, el ejemplo mínimo con `react-hook-form` y una nota de compatibilidad
-> con **smartphone**. Cuando en una revisión se pida "cambia este control por otro más
-> adecuado", el reemplazo sale de aquí.
+Catálogo de referencia para construir la interfaz de `escuelappvenus` (web **y móvil**, incluido iPhone).
+Para **cada situación** hay la receta **HTML** y **React**, con las clases de **Bootstrap 5.3**, los
+**Bootstrap Icons** (`bi bi-*`) y los bloques de la plantilla **Atlantis**.
 
-**Base visual:** plantilla **Atlantis** (`/Users/sentadoensilla/side projects/Venus/atlantis`)
-sobre **Bootstrap 4.6.2**. En el front se cargan ambos CSS (`public/index.html`):
-- `assets/css/bootstrap.min.css` → clases Bootstrap (`.form-control`, `.form-check`, `.custom-*`, `.input-group`, `.btn`, grid).
-- `assets/css/atlantis.min.css` → clases Atlantis (`.form-group`, `.form-floating-label`, `.input-solid`, `.selectgroup`, `.form-radio-*`, `.btn-round`, …).
+**Última actualización:** _(fecha — actualizar tras cada cambio)_
 
-**Librerías disponibles** (`venus/package.json`): `react-hook-form` 7.40, `react-select` 5.8,
-`react-datepicker` 4.8, `react-dropzone` 14.2, `suneditor-react` 3.5, `bootstrap` 4.6.2.
+> **Documento único de interfaz** de `escuelappvenus`: complementa a [`ARQUITECTURA.md`](ARQUITECTURA.md)
+> (arquitectura del frontend) y a [`../escuelappapi/AGENTS.md`](../escuelappapi/AGENTS.md) (guía maestra).
+> Incluye el anexo con el catálogo detallado de `react-hook-form`.
 
 ---
+
+## 0. Cómo usar este catálogo
+
+1. Identifica la **situación** (texto, selección, archivo, fecha…).
+2. Copia la receta **React** (con `react-hook-form`) o **HTML** (si es estática).
+3. Respeta las **reglas móviles** (§5) y los **estados/validación** (§3.10).
+4. Iconos: usa siempre **Bootstrap Icons** (`bi bi-*`). Para clases heredadas de FontAwesome de la BD,
+   el front las traduce con `tool.icono()` (§2.2).
+
+Convenciones de nombres y clases:
+- Formularios: `form-label`, `form-control`, `form-select`, `form-check`, `form-check-input`, `form-check-label`.
+- Espaciado: `mb-3`, `mt-*`, `ms-*`, `me-*` (Bootstrap 5: `ml-*`→`ms-*`, `mr-*`→`me-*`).
+- Rejilla: `row`, `col-12`, `col-md-6`, `col-lg-4`.
+- Atlantis: `card`, `card-body`, `btn btn-round`, `form-floating-label`, `input-solid`, `selectgroup`.
+
+---
+
+## 1. Fundamentos
+
+| Capa | Versión / uso |
+|---|---|
+| Bootstrap | **5.3.3** (CSS + bundle JS con Popper) — `public/assets/css/bootstrap.min.css`, `public/assets/js/core/bootstrap.min.js` |
+| Iconos | **Bootstrap Icons 1.11.3** — `public/assets/css/bootstrap-icons.css` + `public/assets/fonts/bootstrap-icons/` |
+| Compatibilidad BS4→BS5 | `public/assets/css/bs5-compat.css` (reintroduce `form-group`, `ml-*`, `text-left`, etc.) |
+| Plantilla | **Atlantis** (`atlantis.min.css`), sobre Bootstrap 5.3 |
+| Formularios | `react-hook-form` 7.40 (+ `react-select`, `react-datepicker`, `react-dropzone`, `suneditor-react`) |
+
+Carga de assets: en `public/index.html` se enlazan, en orden:
+`bootstrap.min.css` → `bootstrap-icons.css` → `atlantis.min.css` → `bs5-compat.css` → `demo.css`.
+
+---
+
+## 2. Migración Bootstrap 4 → 5.3
+
+### 2.1 Renombres de clases/atributos (ya migrado en `src`)
+
+| Bootstrap 4 | Bootstrap 5.3 | Nota |
+|---|---|---|
+| `data-toggle` | `data-bs-toggle` | JavaScript (collapse, modal, dropdown, tooltip…). |
+| `data-target` | `data-bs-target` | |
+| `data-dismiss` | `data-bs-dismiss` | |
+| `text-left` / `text-right` | `text-start` / `text-end` | También `text-md-left` → `text-md-start`. |
+| `float-left` / `float-right` | `float-start` / `float-end` | |
+| `ml-*` / `mr-*` | `ms-*` / `me-*` | Margen inicio/fin (LTR). |
+| `pl-*` / `pr-*` | `ps-*` / `pe-*` | |
+| `form-group` | _(sin equivalente; usar `mb-3`)_ | `bs5-compat.css` conserva `.form-group`. |
+| `form-row` | `row g-*` | |
+| `custom-select` | `form-select` | |
+| `custom-control` / `custom-checkbox` | `form-check` | |
+| `input-group-prepend/append` | `.input-group-text` directo | `bs5-compat.css` conserva los wrappers. |
+| `sr-only` | `visually-hidden` | |
+| `btn-block` | `w-100` | |
+| `badge-pill` | `rounded-pill` | |
+| `no-gutters` | `g-0` | |
+| `dropdown-menu-right` | `dropdown-menu-end` | |
+| `.close` (botón modal) | `.btn-close` | |
+| jQuery plugins (BS4) | Vanilla JS (BS5) | BS5 no requiere jQuery; los plugins de Atlantis siguen usando jQuery. |
+
+### 2.2 Mapa de iconos FontAwesome → Bootstrap Icons
+
+El código ya usa `bi bi-*`. Para iconos **dinámicos** (menús guardados en la BD con clases `fa fa-*`),
+el frontend los traduce en tiempo de render con **`tool.icono(clase)`** (`src/services/tools.js`):
+
+```jsx
+<i className={tool.icono(item.aemenu_icono || 'bi bi-folder2-open')}></i>
+```
+
+| FontAwesome | Bootstrap Icons | | FontAwesome | Bootstrap Icons |
+|---|---|---|---|---|
+| `fa-plus` | `bi-plus-lg` | | `fa-user` | `bi-person` |
+| `fa-list` | `bi-list-ul` | | `fa-user-plus` | `bi-person-plus` |
+| `fa-whatsapp` | `bi-whatsapp` | | `fa-user-edit` | `bi-person-gear` |
+| `fa-glasses` | `bi-eyeglasses` | | `fa-trash-alt` | `bi-trash` |
+| `fa-window-close` | `bi-x-square` | | `fa-times` | `bi-x-lg` |
+| `fa-file-pdf` | `bi-file-earmark-pdf` | | `fa-power-off` | `bi-power` |
+| `fa-users` | `bi-people` | | `fa-pencil-alt` | `bi-pencil` |
+| `fa-envelope-open` | `bi-envelope-open` | | `fa-paper-plane` | `bi-send` |
+| `fa-envelope` | `bi-envelope` | | `fa-money-bill-alt` | `bi-cash` |
+| `fa-calendar-alt` | `bi-calendar-event` | | `fa-heart` | `bi-heart` |
+| `fa-calendar-plus` | `bi-calendar-plus` | | `fa-eye` | `bi-eye` |
+| `fa-calendar-minus` | `bi-calendar-minus` | | `fa-exclamation-triangle` | `bi-exclamation-triangle` |
+| `fa-home` | `bi-house` | | `fa-edit` | `bi-pencil-square` |
+| `fa-folder-open` | `bi-folder2-open` | | `fa-cog` | `bi-gear` |
+| `fa-check-circle` | `bi-check-circle` | | `fa-check-square` | `bi-check-square` |
+| `fa-circle` | `bi-circle` | | `fa-chart-bar` | `bi-bar-chart` |
+| `fa-search` | `bi-search` | | `fa-bullhorn` | `bi-megaphone` |
+| `fa-question-circle` | `bi-question-circle` | | `fa-book-reader` | `bi-book` |
+| `fa-map-pin` | `bi-geo-alt` | | `fa-ban` | `bi-slash-circle` |
+| `fa-door-open` | `bi-door-open` | | `fa-grin-beam-sweat` | `bi-emoji-frown` |
+| `fa-cloud-download-alt` | `bi-cloud-arrow-down` | | `fa-10x` _(utilidad de tamaño)_ | `fs-1` (acción de tamaños BS5) |
+
+---
+
+## 3. Catálogo de controles por situación
+
+> En los ejemplos React se usa `react-hook-form`: `const { register, control, formState:{errors}, handleSubmit } = useForm()`.
+
+### 3.1 Texto — `text`, `email`, `tel`, `number`, `password`, `hidden`
+
+**HTML**
+```html
+<div class="mb-3">
+  <label class="form-label" for="nombre">Nombre</label>
+  <input type="text" class="form-control" id="nombre" placeholder="Nombres y apellidos">
+</div>
+```
+
+**React**
+```jsx
+<div className="mb-3">
+  <label className="form-label" htmlFor="nombre">Nombre</label>
+  <input id="nombre" className="form-control"
+         {...register("nombre", { required: true, minLength: 3 })} />
+  {errors.nombre?.type === "required" && <small className="text-danger">Campo obligatorio</small>}
+</div>
+```
+
+| Variante | `type` | Móvil / notas |
+|---|---|---|
+| Email | `email` | `autoComplete="email"`, `inputMode="email"`, teclado con `@`. |
+| Teléfono/celular | `tel` | `autoComplete="tel"`, `inputMode="tel"`, `enterKeyHint="done"`. Para WhatsApp usar `tel`. |
+| Número | `number` | `inputMode="numeric"`, `step`, `min`, `max`. En iPhone evita la rueda; preferir `inputMode`. |
+| Contraseña | `password` | Ver §3.1.1. |
+| Oculto | `hidden` | Ver §3.1.2. |
+
+#### 3.1.1 Contraseña con ver/ocultar
+```jsx
+<div className="input-group mb-3">
+  <input type={ver ? "text" : "password"} className="form-control"
+         autoComplete="new-password" {...register("clave", { required: true })} />
+  <button type="button" className="btn btn-outline-secondary" onClick={() => setVer(!ver)}
+          aria-label="Mostrar u ocultar contraseña">
+    <i className={ver ? "bi bi-eye-slash" : "bi bi-eye"}></i>
+  </button>
+</div>
+```
+
+#### 3.1.2 Campos ocultos (PK/FK y contexto)
+La **PK** (`idregistro`) viaja **ya encriptada**; las **FK** viajan **crudas** y se enmascaran con
+`tool.encriptar()` antes de enviar.
+```jsx
+<input type="hidden" {...register("idregistro")} />
+<input type="hidden" {...register("idestado")} />
+```
+
+### 3.2 Texto largo — `textarea` y WYSIWYG
+
+**textarea (HTML)**
+```html
+<div class="mb-3">
+  <label class="form-label" for="obs">Observaciones</label>
+  <textarea class="form-control" id="obs" rows="3"></textarea>
+</div>
+```
+
+**textarea (React)** — con contador de caracteres opcional:
+```jsx
+<div className="mb-3">
+  <label className="form-label" htmlFor="obs">Observaciones</label>
+  <textarea id="obs" rows={3} className="form-control"
+            {...register("observacion", { maxLength: 500 })} />
+</div>
+```
+
+**WYSIWYG (SunEditor)** — texto enriquecido (HTML). Se usa en avisos, comunicados, observador, excusas.
+```jsx
+import SunEditor from 'suneditor-react';
+import 'suneditor/dist/css/suneditor.min.css';
+
+<Controller name="contenido" control={control} rules={{ required: true }}
+  render={({ field }) => (
+    <SunEditor
+      setContents={field.value}
+      onChange={field.onChange}
+      setOptions={{
+        height: 220, buttonList: [
+          ['undo','redo'], ['bold','italic','underline','strike'],
+          ['font','fontSize','formatBlock'], ['align','list'],
+          ['table','link','image'], ['removeFormat']
+        ]
+      }}
+    />
+  )} />
+```
+
+### 3.3 Radios
+
+**HTML**
+```html
+<div class="mb-3">
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="sexo" id="sexo-m" value="M" checked>
+    <label class="form-check-label" for="sexo-m">Masculino</label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="sexo" id="sexo-f" value="F">
+    <label class="form-check-label" for="sexo-f">Femenino</label>
+  </div>
+</div>
+```
+
+**React**
+```jsx
+{["Masculino","Femenino"].map((op, i) => (
+  <div className="form-check" key={i}>
+    <input className="form-check-input" type="radio" value={op} id={`sexo-${i}`}
+           {...register("sexo", { required: true })} />
+    <label className="form-check-label" htmlFor={`sexo-${i}`}>{op}</label>
+  </div>
+))}
+```
+
+#### 3.3.1 Radios con iconos (BS5 `btn-check`)
+```jsx
+<div className="btn-group" role="group" aria-label="Vista">
+  <input type="radio" className="btn-check" name="vista" id="v-lista" value="lista"
+         {...register("vista")} />
+  <label className="btn btn-outline-primary" htmlFor="v-lista"><i className="bi bi-list-ul"></i></label>
+
+  <input type="radio" className="btn-check" name="vista" id="v-tarjetas" value="tarjetas"
+         {...register("vista")} />
+  <label className="btn btn-outline-primary" htmlFor="v-tarjetas"><i className="bi bi-grid-3x3-gap"></i></label>
+</div>
+```
+
+#### 3.3.2 Radios con imágenes
+```jsx
+<div className="btn-group" role="group">
+  {[{id:"A", img:"/assets/img/a.png"},{id:"B", img:"/assets/img/b.png"}].map((o) => (
+    <React.Fragment key={o.id}>
+      <input type="radio" className="btn-check" id={`img-${o.id}`} value={o.id}
+             {...register("modelo")} />
+      <label className="btn btn-outline-secondary p-1" htmlFor={`img-${o.id}`}>
+        <img src={o.img} alt={o.id} style={{ height: 48, width: 'auto' }} />
+      </label>
+    </React.Fragment>
+  ))}
+</div>
+```
+
+### 3.4 Checkbox, switch, con iconos e imágenes
+
+**Checkbox**
+```jsx
+<div className="form-check">
+  <input className="form-check-input" type="checkbox" id="acepto" {...register("acepto", { required: true })} />
+  <label className="form-check-label" htmlFor="acepto">Acepto los términos</label>
+</div>
+```
+
+**Checkbox con icono** (`btn-check`)
+```jsx
+<input type="checkbox" className="btn-check" id="favorito" {...register("favorito")} />
+<label className="btn btn-outline-warning" htmlFor="favorito"><i className="bi bi-star"></i></label>
+```
+
+**Checkbox con imagen** (igual que radio con imagen, cambiando `type="checkbox"`).
+
+**Switch (on/off)** — BS5 usa `form-switch`:
+```jsx
+<div className="form-check form-switch">
+  <input className="form-check-input" type="checkbox" role="switch" id="activo" {...register("activo")} />
+  <label className="form-check-label" htmlFor="activo">Activo</label>
+</div>
+```
+
+**Grupo de "pills" (Atlantis `.selectgroup`)** — varios checkboxes como botones:
+```html
+<div class="selectgroup selectgroup-pills">
+  <label class="selectgroup-item">
+    <input type="checkbox" class="selectgroup-input" checked>
+    <span class="selectgroup-button"><i class="bi bi-1-circle"></i> 1°</span>
+  </label>
+</div>
+```
+
+### 3.5 Archivos — `file` y arrastre
+
+**input file** (React con preview y límite de 3 MB)
+```jsx
+<Controller name="soporte" control={control}
+  render={({ field }) => (
+    <input type="file" className="form-control" accept="image/*,application/pdf"
+           onChange={e => field.onChange(e.target.files[0])} />
+  )} />
+```
+En **móvil**, para tomar foto directa: `accept="image/*" capture="environment"` (cámara trasera) o
+`capture="user"` (frontal). Para cámara + galería, omitir `capture`.
+
+**Arrastre y suelta (`react-dropzone`)**
+```jsx
+import { useDropzone } from 'react-dropzone';
+
+const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({
+  accept: { 'image/*': [], 'application/pdf': [] },
+  maxSize: 3 * 1024 * 1024,
+  onDrop: (files) => setValue("archivo", files[0])
+});
+
+<div {...getRootProps()}
+     className={`border rounded p-4 text-center ${isDragActive ? "border-primary bg-light" : "border-secondary"}`}>
+  <input {...getInputProps()} />
+  <i className="bi bi-cloud-arrow-up fs-2 text-muted"></i>
+  <p className="mb-0">{isDragActive ? "Suelta el archivo aquí" : "Arrastra un archivo o toca para elegir"}</p>
+</div>
+```
+> En iPhone el arrastre no existe: el `getRootProps()` debe seguir permitiendo **tap** para abrir el selector nativo.
+
+Subida real: `messenger.posterFile({ url, datos: FormData })` (§6 de `ARQUITECTURA.md`).
+
+### 3.6 Selección — select, múltiple, con filtro y con AJAX
+
+**select nativo (simple)**
+```jsx
+<Controller name="grado" control={control} rules={{ required: true }}
+  render={({ field }) => (
+    <select className="form-select" {...field}>
+      <option value="">Seleccione…</option>
+      {grados.map(g => <option key={g.idregistro} value={g.idregistro}>{g.nombre}</option>)}
+    </select>
+  )} />
+```
+
+**select múltiple (nativo)**
+```jsx
+<select className="form-select" multiple size={5} {...register("materias")}>
+  {materias.map(m => <option key={m.idregistro} value={m.idregistro}>{m.nombre}</option>)}
+</select>
+```
+
+**select con filtro (`react-select`)** — para listas largas con búsqueda:
+```jsx
+import Select from 'react-select';
+
+<Controller name="ciudad" control={control}
+  render={({ field }) => (
+    <Select
+      classNamePrefix="rs"
+      isClearable isSearchable
+      placeholder="Buscar ciudad…"
+      options={ciudades.map(c => ({ value: c.idregistro, label: c.nombre }))}
+      value={opciones.find(o => o.value === field.value) || null}
+      onChange={(opt) => field.onChange(opt?.value)}
+    />
+  )} />
+```
+
+**select con filtro y AJAX** (opciones cargadas del servidor; opcional con `AsyncSelect`):
+```jsx
+const cargarOpciones = async (input) => {
+  const r = await messenger.poster({ url: roots.engine + "/catalogos/ciudades/listar",
+                                     datos: { filtro: input } });
+  return (r.rows || []).map(c => ({ value: c.idregistro, label: c.nombre }));
+};
+
+<AsyncSelect cacheOptions defaultOptions loadOptions={cargarOpciones}
+             onChange={(opt) => setValue("ciudad", opt?.value)} />
+```
+> En móvil, `react-select` funciona bien; asegúrate de `menuPortalTarget={document.body}` si hay recortes por `overflow`.
+
+**select dependiente (cascada)**: al cambiar "Departamento" se recargan los "Municipios" (§7 de `ARQUITECTURA.md`).
+
+### 3.7 Fechas, hora, color y rango
+
+**Fecha nativa** (obligatorio normalizar con `tool.soloFecha()` al editar → `aaaa-mm-dd`)
+```jsx
+<input type="date" className="form-control" {...register("fecha")} />
+<input type="month" className="form-control" {...register("periodo")} />
+```
+En iPhone, `type="date"`/`type="month"` abren el **rodillo nativo** (mejor UX que un datepicker propio).
+
+**Hora / fecha-hora**
+```jsx
+<input type="time" className="form-control" {...register("hora")} />
+<input type="datetime-local" className="form-control" {...register("cuando")} />
+```
+
+**DatePicker (`react-datepicker`)** — cuando se requiere control fino (rangos, locales):
+```jsx
+import DatePicker, { registerLocale } from 'react-datepicker';
+import es from 'date-fns/locale/es';
+import 'react-datepicker/dist/react-datepicker.css';
+registerLocale('es', es);
+
+<Controller name="fecha" control={control}
+  render={({ field }) => (
+    <DatePicker className="form-control" locale="es" dateFormat="yyyy-MM-dd"
+      selected={field.value ? new Date(field.value) : null}
+      onChange={(d) => field.onChange(d)} />
+  )} />
+```
+
+**Color / rango**
+```jsx
+<input type="color" className="form-control form-control-color" {...register("color")} />
+<input type="range" className="form-range" min="0" max="100" {...register("avance")} />
+```
+
+### 3.8 Grupos de entrada y botones
+
+**`input-group`** (prefijo, ícono o botón)
+```jsx
+<div className="input-group mb-3">
+  <span className="input-group-text"><i className="bi bi-search"></i></span>
+  <input className="form-control" placeholder="Buscar…" {...register("q")} />
+  <button className="btn btn-primary" type="submit">Buscar</button>
+</div>
+```
+
+**Botones** (Atlantis `btn-round`, con iconos Bootstrap)
+```jsx
+<button className="btn btn-primary btn-round" type="submit">
+  <i className="bi bi-check-lg me-1"></i> Guardar
+</button>
+<button className="btn btn-danger btn-border btn-round" type="button">
+  <i className="bi bi-x-lg me-1"></i> Cancelar
+</button>
+```
+
+### 3.9 Listas dinámicas (`useFieldArray`)
+```jsx
+const { fields, append, remove } = useFieldArray({ control, name: "telefonos" });
+
+{fields.map((f, i) => (
+  <div className="input-group mb-2" key={f.id}>
+    <input className="form-control" {...register(`telefonos.${i}.numero`)} />
+    <button type="button" className="btn btn-outline-danger" onClick={() => remove(i)}>
+      <i className="bi bi-trash"></i>
+    </button>
+  </div>
+))}
+<button type="button" className="btn btn-outline-primary btn-sm" onClick={() => append({ numero: "" })}>
+  <i className="bi bi-plus-lg"></i> Agregar
+</button>
+```
+
+### 3.10 Validación y estados
+
+- Mensajes: `<small className="text-danger">…</small>` bajo el campo; o `is-invalid` en el `form-control`.
+- Éxito/neutral: `.is-valid`. Feedback bajo el campo con `.valid-feedback` / `.invalid-feedback`.
+- Alertas de formulario: usar `sweetalert2` al guardar (`Swal.fire`).
+- Accesibilidad: `aria-invalid`, `aria-describedby=<id-del-mensaje>`.
+
+```jsx
+<input className={`form-control ${errors.correo ? "is-invalid" : ""}`} {...register("correo")} />
+{errors.correo && <div className="invalid-feedback d-block">Correo inválido</div>}
+```
+
+---
+
+## 4. Bloques y widgets de la plantilla Atlantis
+
+La plantilla base está en `/Users/sentadoensilla/side projects/Venus/atlantis` (documentación en
+`atlantis/documentation/components/*.html`). Todos se pueden usar sobre Bootstrap 5.3.
+
+| Widget / bloque | Clases principales | Uso típico | Fuente Atlantis |
+|---|---|---|---|
+| **Cards** | `.card`, `.card-header`, `.card-body`, `.card-footer`, `.card-title` | Contenedor de formularios/dashboards | `components/card.html` |
+| **Botones** | `.btn`, `.btn-round`, `.btn-border`, `.btn-primary/…` | Acciones | `components/buttons.html` |
+| **Alertas** | `.alert`, `.alert-success/warning/danger`, `.alert-dismissible` | Mensajes (BS5: botón `.btn-close`) | `components/alerts.html` |
+| **Badges** | `.badge`, `.badge-primary/…`, `.rounded-pill` | Estados/contadores | `components/badge.html` |
+| **Breadcrumb** | `.breadcrumb`, `.breadcrumb-item` | Navegación jerárquica | `components/breadcrumb.html` |
+| **Collapse** | `data-bs-toggle="collapse"`, `.collapse`, `.collapse.show` | Paneles plegables | `components/collapse.html` |
+| **Colores** | utilidades `text-*`, `bg-*` | Temas | `components/colors.html` |
+| **Dropdowns** | `.dropdown`, `.dropdown-menu`, `data-bs-toggle="dropdown"` | Menús | `components/dropdowns.html` |
+| **Formularios** | `.form-control`, `.form-select`, `.form-check`, `.form-floating-label`, `.input-solid`, `.selectgroup` | Controles (§3) | `components/forms.html` |
+| **Layouts / Backgrounds** | `.wrapper`, `.main-panel`, `.sidebar`, utilidades grid | Estructura de página | `components/layoutsbackground.html` |
+| **Loaders** | spinner `border`/`grow`, `react-loading` | Esperas | `components/loaders.html` |
+| **Modal** | `.modal`, `data-bs-toggle="modal"`, `data-bs-target="#id"` | Diálogos | `components/modal.html` |
+| **Navbar** | `.navbar`, `.navbar-expand-lg`, `data-bs-toggle="collapse"` | Encabezado | `components/navbar.html` |
+| **Navs / Tabs** | `.nav`, `.nav-tabs`, `data-bs-toggle="pill"` | Pestañas | `components/navs.html` |
+| **Pagination** | `.pagination`, `.page-item`, `.page-link` | Listados paginados | `components/pagination.html` |
+| **Popovers** | `data-bs-toggle="popover"` | Ayuda contextual (requiere init JS BS5) | `components/popovers.html` |
+| **Progress** | `.progress`, `.progress-bar` | Avance | `components/progress.html` |
+| **Tablas** | `.table`, `.table-striped`, `.table-hover` (o `Listado`/`react-data-table-component`) | Datos | `components/tables.html` |
+| **Tooltips** | `data-bs-toggle="tooltip"` | Texto emergente (**inicializar con `new bootstrap.Tooltip(el)`**) | `components/tooltips.html` |
+| **Typografía** | `h1..h6`, `.lead`, `.text-muted`, `.fw-bold` | Textos | `components/typography.html` |
+
+> **Nota BS5:** los widgets interactivos (tooltip, popover, dropdown, modal, collapse) se activan por
+> `data-bs-*`; los de JS puro (tooltip/popover) requieren inicialización explícita: 
+> `[...document.querySelectorAll('[data-bs-toggle="tooltip"]')].forEach(el => new window.bootstrap.Tooltip(el));`
+
+---
+
+## 5. Reglas responsive / smartphone (incluido iPhone)
+
+1. **Fuente en inputs ≥ 16 px** (`font-size:16px`) para **evitar el zoom automático** al enfocar en iOS.
+2. **`inputMode` correcto** por tipo: `email`, `tel`, `numeric`, `decimal`, `url`, `search`.
+3. **`autoComplete`** explícito (`name`, `email`, `tel`, `new-password`, `one-time-code`) para autollenado.
+4. **`enterKeyHint`** (`next`, `done`, `search`, `send`) para el botón "Intro" del teclado.
+5. **Botones/targets táctiles ≥ 44×44 px** (Apple HIG) y separación suficiente.
+6. **No uses `hover`** como único disparador; ofrece tap.
+7. **Columnas**: mobile-first; en pantallas pequeñas todo a `col-12`; oculta columnas de tablas a medida que
+   la pantalla se reduce (columnas `hide` en el `Listado`/`react-data-table-component`).
+8. **Modales**: en móvil, ocupan casi todo el ancho; usa `.modal-dialog-scrollable` para contenido largo.
+9. **Imágenes**: `max-width:100%; height:auto`; `loading="lazy"`.
+10. **`react-select`**: `menuPortalTarget={document.body}` para evitar recortes por `overflow`.
+11. **Fechas**: prefiere `type="date"` nativo en móvil; reserva `react-datepicker` para escritorio/rangos.
+12. **`react-dropzone`**: garantiza tap-to-pick (el drag no existe en iOS).
+13. **Probado en iPhone** (Safari): cuidar `-webkit-` y el `100vh` (usar `100dvh` cuando aplique).
+14. **Gestos/scroll**: el sidebar Atlantis alterna `nav_open`/`sidebar_minimize`; probar el toggler
+    (`.sidenav-toggler`, `data-bs-toggle="collapse"`) en móvil.
+
+---
+
+## 6. Integración con `react-hook-form`
+
+- Inputs nativos: `{...register("campo", { required, minLength, pattern })}`.
+- Componentes controlados (react-select, DatePicker, SunEditor, dropzone): `<Controller name control render>`.
+- Errores: `formState.errors.campo`; mostrar con `.invalid-feedback`/`text-danger`.
+- Envío: `handleSubmit(onSubmit)`; feedback con `sweetalert2`; navegación con `useNavigate`.
+- Ver el **Anexo — Catálogo detallado de `react-hook-form`** al final de este documento.
+
+Ejemplo mínimo:
+```jsx
+const { control, register, handleSubmit, formState:{ errors } } = useForm();
+const onSubmit = async (data) => { /* messenger.poster(...) */ };
+
+<form onSubmit={handleSubmit(onSubmit)}>
+  <input className="form-control mb-2" placeholder="Nombre"
+         {...register("nombre", { required: true })} />
+  {errors.nombre && <small className="text-danger d-block mb-2">Obligatorio</small>}
+  <button className="btn btn-primary btn-round" type="submit">Guardar</button>
+</form>
+```
+
+---
+
+---
+
+## Anexo — Catálogo detallado de `react-hook-form`
+
+> Sección unificada desde el antiguo `CONTROLES.md`. Patrones por control con
+> `react-hook-form` (register/Controller), validación y reglas responsive.
 
 ## 0. Cómo usar este catálogo en una revisión
 
@@ -876,3 +1407,17 @@ Cambiar por   : §4.21 input type="file" con accept + capture + validate 3MB y p
 ```
 
 Con eso el cambio se aplica directo desde este catálogo.
+
+---
+
+---
+
+## ⚠️ NOTA NO NEGOCIABLE PARA EL AGENTE CODER
+
+> **Es OBLIGATORIO actualizar este archivo `CATALOGO_CONTROLES.md` después de CADA cambio** que afecte los
+> controles o widgets (nuevos tipos de control, cambios de librería/versión, reglas de responsive, mapeo
+> de iconos, migraciones de Bootstrap, etc.).
+> Un cambio **no se considera terminado** hasta que este documento refleje el estado real del código.
+> Si el cambio modifica la estructura del frontend, actualiza también [`ARQUITECTURA.md`](ARQUITECTURA.md);
+> Este es el **único** catálogo de interfaz del frontend. Antes de cerrar cualquier tarea: corrige lo
+> desactualizado y actualiza la fecha en el encabezado.

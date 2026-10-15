@@ -23,7 +23,7 @@ function UserHeadOff() {
                     <a href={publicRoutes.LOGIN} className="logo">
                         <img src={myConst.essentials.logo} alt="navbar brand" className="navbar-brand" />
                     </a>
-                    <button className="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <button className="navbar-toggler sidenav-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon">
                             <i className="icon-menu"></i>
                         </span>
@@ -43,8 +43,8 @@ function UserHeadOff() {
                             <form className="navbar-left navbar-form nav-search mr-md-3">
                                 <div className="input-group">
                                     <div className="input-group-prepend">
-                                        <button type="submit" className="btn btn-search pr-1">
-                                            <i className="fa fa-search search-icon"></i>
+                                        <button type="submit" className="btn btn-search pe-1">
+                                            <i className="bi bi-search search-icon"></i>
                                         </button>
                                     </div>
                                     <input type="text" placeholder="Buscar..." className="form-control" />
@@ -53,8 +53,8 @@ function UserHeadOff() {
                         </div>
                         <ul className="navbar-nav topbar-nav ml-md-auto align-items-center">
                             <li className="nav-item toggle-nav-search hidden-caret">
-                                <a className="nav-link" data-toggle="collapse" href="#search-nav" role="button" aria-expanded="false" aria-controls="search-nav">
-                                    <i className="fa fa-search"></i>
+                                <a className="nav-link" data-bs-toggle="collapse" href="#search-nav" role="button" aria-expanded="false" aria-controls="search-nav">
+                                    <i className="bi bi-search"></i>
                                 </a>
                             </li>
                             <li className="nav-item dropdown hidden-caret">
@@ -70,11 +70,11 @@ function UserHeadOff() {
                 <div className="sidebar-wrapper scrollbar scrollbar-inner">
                     <div className="sidebar-content">
                     <div className="user">
-                <div className="avatar-sm float-left mr-2">
+                <div className="avatar-sm float-start me-2">
                     <img src={miUsuario.picProfile||userDefaul.picProfile} alt="..." className="avatar-img rounded-circle" />
                 </div>
                 <div className="info">
-                    <a data-toggle="collapse" href="#collapseUserInfo" aria-expanded="true">
+                    <a data-bs-toggle="collapse" href="#collapseUserInfo" aria-expanded="true">
                         <span>
                             { miUsuario.usuarioNombre||userDefaul.usuarioNombre }
                             <span className="user-level">{ miUsuario.usuarioRollNombre||userDefaul.usuarioRollNombre }</span>
@@ -90,8 +90,8 @@ function UserHeadOff() {
 
                         <ul className="nav nav-primary">
                             <li className="nav-item active">
-                                <Link to={publicRoutes.LOGIN} data-toggle="collapse" className="collapsed" aria-expanded="false">
-                                    <i className="fas fa-home"></i>
+                                <Link to={publicRoutes.LOGIN} data-bs-toggle="collapse" className="collapsed" aria-expanded="false">
+                                    <i className="bi bi-house"></i>
                                     <p>Inicio</p>
                                     <span className="caret"></span>
                                 </Link>

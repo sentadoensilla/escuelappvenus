@@ -144,7 +144,7 @@ export default function Login() {
 										</div>
 										<div className='card-body'>
 											<form onSubmit={handleSubmit} method='POST'>
-												<div className="form-group {(errorMessage!='')? 'has-error' : ''; } text-left">
+												<div className="form-group {(errorMessage!='')? 'has-error' : ''; } text-start">
 													<label htmlFor='miusuario'>Usuario o Email:</label>
 													<input
 														type='text'
@@ -158,7 +158,7 @@ export default function Login() {
 														autoComplete='off'
 													/>
 												</div>
-												<div className="form-group {(errorMessage!='')? 'has-error' : ''; } text-left">
+												<div className="form-group {(errorMessage!='')? 'has-error' : ''; } text-start">
 													<label htmlFor='clave'>Clave:</label>
 													<input
 														type={ (esAceptado)? 'text': 'password' }
@@ -171,7 +171,7 @@ export default function Login() {
 														placeholder='*********'
 													/>
 												</div>
-												<div className="form-check text-left ">
+												<div className="form-check text-start ">
 													<label htmlFor='verclave' 
 														onClick={() => {setEsAceptado(!esAceptado)}}
 														className="form-check-label"
@@ -191,12 +191,12 @@ export default function Login() {
 												<div className='card-action text-center'>
 													<button
 														type='submit'
-														className={waiting? 'btn is-loading btn-success ml-1' : 'btn btn-success ml-1'}
+														className={waiting? 'btn is-loading btn-success ms-1' : 'btn btn-success ms-1'}
 														disabled={errorMessage||waiting}
 													>
 														Ingresar
 													</button>
-													<button type='reset' className='btn btn-border btn-light ml-1'>
+													<button type='reset' className='btn btn-border btn-light ms-1'>
 														Cancelar
 													</button>
 												</div>

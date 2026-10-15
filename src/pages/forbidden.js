@@ -21,7 +21,7 @@ export const Forbidden = () => {
                                     <ul className="nav nav-pills nav-danger  nav-pills-no-bd nav-pills-icons justify-content-center" id="pills-tab-with-icon" role="tablist">
                                         <li className="nav-item">
                                             <a className="nav-link active" id="pills-home-tab-icon" 
-                                            data-toggle="pill" href="#pills-home-icon" 
+                                            data-bs-toggle="pill" href="#pills-home-icon" 
                                             role="tab" aria-controls="pills-home-icon" 
                                             aria-selected="true"
                                             style={{fontSize:'48pt'}}>

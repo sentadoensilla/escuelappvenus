@@ -169,7 +169,7 @@ export default function Addlider(){
                                             <div className="card-body">
                                                 <form id={elFade.form} onSubmit={handleSubmit(onRegister)} method='POST' className="">
 
-                                                    <div className="form-group  text-left has-feedback">                                                        
+                                                    <div className="form-group  text-start has-feedback">                                                        
                                                         <label htmlFor='clavenow'>Clave actual:</label>
                                                         <input type={meter} className="form-control" 
                                                         id="clavenow" name="clavenow" placeholder='Miclave-23'
@@ -185,7 +185,7 @@ export default function Addlider(){
                                                         { errors.clavenow?.type === 'pattern' && <small className="form-text text-danger">Al menos 1 mayuscula, 1 minuscula, 1 digito, 1 simbolo (:.-_@!) </small> }
                                                     </div>
 
-                                                    <div className="form-group  text-left has-feedback">                                                        
+                                                    <div className="form-group  text-start has-feedback">                                                        
                                                         <label htmlFor='clave'>Clave Nueva:</label>
                                                         <input type={meter} className="form-control" 
                                                         id="clave" name="clave" placeholder='Miclave-23'
@@ -201,7 +201,7 @@ export default function Addlider(){
                                                         { errors.clave?.type === 'maxLength' && <small className="form-text text-danger">La clave es muy larga</small> }
                                                         { errors.clave?.type === 'pattern' && <small className="form-text text-danger">Al menos 1 mayuscula, 1 minuscula, 1 digito, 1 simbolo (:.-_@!) </small> }
                                                     </div>
-                                                    <div className="form-group text-left has-feedback">
+                                                    <div className="form-group text-start has-feedback">
                                                         <label htmlFor='reclave'>Repetir clave nueva:</label>
                                                         <input type={meter} className="form-control" 
                                                         id="reclave" name="reclave" placeholder='Miclave-23'
@@ -219,7 +219,7 @@ export default function Addlider(){
                                                     <div className='card-action text-center'>
                                                         <button
                                                             type='submit'
-                                                            className={waiting? 'btn is-loading btn-warning ml-1' : 'btn btn-primary ml-1'}
+                                                            className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
                                                             disabled={errorMessage.message||waiting}
                                                         >
                                                             Guardar

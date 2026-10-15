@@ -20,24 +20,24 @@ export default function HeadRibbon() {
                             </h5>
                         </div>
                         <div className='ml-md-auto py-2 py-md-0'>
-                            <Link to={publicRoutes.REGISTER} className='btn btn-primary btn-round mr-2'>
+                            <Link to={publicRoutes.REGISTER} className='btn btn-primary btn-round me-2'>
                                 <span className="btn-label">
-									<i className="fas fa-user-plus"></i>
+									<i className="bi bi-person-plus"></i>
 								</span>
                                  Crear cuenta
                             </Link>
-                            <Link to={publicRoutes.LOGIN} className='btn btn-success btn-round mr-2'>
+                            <Link to={publicRoutes.LOGIN} className='btn btn-success btn-round me-2'>
                                 <span className="btn-label">
-									<i className="fas fa-door-open"></i>
+									<i className="bi bi-door-open"></i>
 								</span>
                                  Ingresar
                             </Link>
                             <Link
                                 to={publicRoutes.RESET_PASSWORD}
-                                className='btn btn-white btn-border btn-round mr-2'
+                                className='btn btn-white btn-border btn-round me-2'
                             >
                                 <span className="btn-label">
-									<i className="fas fa-grin-beam-sweat"></i>
+									<i className="bi bi-emoji-frown"></i>
 								</span>
                                  Olvidé mi clave
                             </Link>                            

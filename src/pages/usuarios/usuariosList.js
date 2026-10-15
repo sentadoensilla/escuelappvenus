@@ -33,17 +33,17 @@ export default function Listadolider(){
         {button:true,
             cell: (miListado) => (
                 <div className="form-button-action">
-                    <button type="button" data-toggle="tooltip"  
+                    <button type="button" data-bs-toggle="tooltip"  
                         onClick={() => editElement(miListado)} 
-                        title="" className="btn btn-rounded btn-primary btn-xs mr-1" 
+                        title="" className="btn btn-rounded btn-primary btn-xs me-1" 
                         data-original-title="Edtar elemento">
-                        <i className="fas fa-pencil-alt"></i>
+                        <i className="bi bi-pencil"></i>
                     </button>
-                    <button type="button" data-toggle="tooltip" 
+                    <button type="button" data-bs-toggle="tooltip" 
                         onClick={() => dispatch({type:'delete', reference: miListado.idusuario, campana: miListado.idcampana})} 
-                        title="" className="btn btn-rounded btn-danger btn-xs mr-1" 
+                        title="" className="btn btn-rounded btn-danger btn-xs me-1" 
                         data-original-title="Eliminar elemento">
-                        <i className="fas fa-trash-alt"></i>
+                        <i className="bi bi-trash"></i>
                     </button>
                 </div>                
             )}
@@ -218,8 +218,8 @@ export default function Listadolider(){
                                                     <img src={myConst.essentials.logohorizontal} alt="navbar brand" className="navbar-brand" />
                                                     Mis lideres
                                                 </h4>
-                                                <Link to={privateRoutes.USUARIO_ADD} className="btn btn-primary btn-round ml-auto">
-                                                    <i className="fa fa-plus">&nbsp;&nbsp;</i>
+                                                <Link to={privateRoutes.USUARIO_ADD} className="btn btn-primary btn-round ms-auto">
+                                                    <i className="bi bi-plus-lg">&nbsp;&nbsp;</i>
                                                     lider 
                                                 </Link>
                                             </div>

@@ -128,8 +128,8 @@ export default function AddNota(){
                                             <div className="card-header">
                                                 <div className="d-flex align-items-center">
                                                     <h4 className="card-title">{titulo}</h4>
-                                                    <Link to={privateRoutes.NOTAS_LIST} className="btn btn-primary btn-round ml-auto">
-                                                        <i className="fa fa-list">&nbsp;&nbsp;</i>
+                                                    <Link to={privateRoutes.NOTAS_LIST} className="btn btn-primary btn-round ms-auto">
+                                                        <i className="bi bi-list-ul">&nbsp;&nbsp;</i>
                                                         {myConst.labels.notasList[0]}
                                                     </Link>
                                                 </div>
@@ -140,7 +140,7 @@ export default function AddNota(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="idasigcurs">Asignación:</label>
                                                                 <Controller name="idasigcurs" control={control}
                                                                     render={({ field }) => (
@@ -152,7 +152,7 @@ export default function AddNota(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="idcompetencia">Competencia:</label>
                                                                 <Controller name="idcompetencia" control={control}
                                                                     render={({ field }) => (
@@ -167,7 +167,7 @@ export default function AddNota(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="idperiodo">Periodo:</label>
                                                                 <Controller name="idperiodo" control={control}
                                                                     render={({ field }) => (
@@ -179,7 +179,7 @@ export default function AddNota(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="idmatricula">Matrícula:</label>
                                                                 <Controller name="idmatricula" control={control}
                                                                     render={({ field }) => (
@@ -194,7 +194,7 @@ export default function AddNota(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='valor'>Valor:</label>
                                                                 <input type="number" step="0.01" className="form-control"
                                                                 {...register("valor", { required:true })} />
@@ -202,14 +202,14 @@ export default function AddNota(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='fecha'>Fecha:</label>
                                                                 <input type="date" className="form-control" {...register("fecha")} />
                                                             </div>
                                                         </div>
                                                     </div>
 
-                                                    <div className="form-group text-left has-feedback">
+                                                    <div className="form-group text-start has-feedback">
                                                         <label htmlFor='observacion'>Observación:</label>
                                                         <textarea className="form-control" rows="3" {...register("observacion")} />
                                                     </div>
@@ -217,7 +217,7 @@ export default function AddNota(){
                                                     <div className='card-action text-center my-5'>
                                                         <button
                                                             type='submit'
-                                                            className={waiting? 'btn is-loading btn-warning ml-1' : 'btn btn-primary ml-1'}
+                                                            className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
                                                             disabled={waiting}
                                                         >
                                                             { titulo }

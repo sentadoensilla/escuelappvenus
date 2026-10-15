@@ -16,7 +16,7 @@ function Navigator() {
         elMenu.forEach( (item,i) => {
             preItem = preItem + `
                 <li className="nav-item">
-                    <a data-toggle="collapse" href={"#menu"+multiplicador+item.aemenu_id}>
+                    <a data-bs-toggle="collapse" href={"#menu"+multiplicador+item.aemenu_id}>
                         <i className={item.aemenu_icono}></i>
                         <p>{item.aemenu_nombre}</p>
                         <span className="caret"></span>
@@ -50,11 +50,11 @@ function Navigator() {
                 <div className="sidebar-wrapper scrollbar scrollbar-inner">
                     <div className="sidebar-content">
                         <div className="user">
-                            <div className="avatar-sm float-left mr-2">
+                            <div className="avatar-sm float-start me-2">
                                 <img src="../../public/assets/img/profile.jpg" alt="..." className="avatar-img rounded-circle" />
                             </div>
                             <div className="info">
-                                <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+                                <a data-bs-toggle="collapse" href="#collapseExample" aria-expanded="true">
                                     <span>
                                         Hizrian
                                         <span className="user-level">Administrator</span>
@@ -87,8 +87,8 @@ function Navigator() {
                         <ul className="nav nav-primary">
                             <li className="nav-item active">
                                 <Link to={miUsuario.usuarioIndex}>
-                                    <a data-toggle="collapse" className="collapsed" aria-expanded="false">
-                                        <i className="fas fa-home"></i>
+                                    <a data-bs-toggle="collapse" className="collapsed" aria-expanded="false">
+                                        <i className="bi bi-house"></i>
                                         <p>Inicio</p>
                                         <span className="caret"></span>
                                     </a>

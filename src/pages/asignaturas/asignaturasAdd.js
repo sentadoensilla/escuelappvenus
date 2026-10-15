@@ -120,8 +120,8 @@ export default function AddAsignatura(){
                                             <div className="card-header">
                                                 <div className="d-flex align-items-center">
                                                     <h4 className="card-title">{titulo}</h4>
-                                                    <Link to={privateRoutes.ASIGNATURAS_LIST} className="btn btn-primary btn-round ml-auto">
-                                                        <i className="fa fa-list">&nbsp;&nbsp;</i>
+                                                    <Link to={privateRoutes.ASIGNATURAS_LIST} className="btn btn-primary btn-round ms-auto">
+                                                        <i className="bi bi-list-ul">&nbsp;&nbsp;</i>
                                                         {myConst.labels.asignaturasList[0]}
                                                     </Link>
                                                 </div>
@@ -130,7 +130,7 @@ export default function AddAsignatura(){
                                                 <form id={elFade.form} onSubmit={handleSubmit(onRegister)} method='POST' className="">
                                                     { (id !== "undefined" && id !== null) ? <input type="hidden" value={id} {...register("idregistro")} /> : "" }
 
-                                                    <div className="form-group text-left has-feedback">
+                                                    <div className="form-group text-start has-feedback">
                                                         <label htmlFor='descripcion'>Descripción de la asignatura:</label>
                                                         <input type="text" className="form-control" placeholder='Álgebra'
                                                         {...register("descripcion", { required:true })} />
@@ -139,7 +139,7 @@ export default function AddAsignatura(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="idarea">Área:</label>
                                                                 <Controller name="idarea" control={control}
                                                                     render={({ field }) => (
@@ -151,7 +151,7 @@ export default function AddAsignatura(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className={errors.abreviatura ? 'form-group text-left has-error has-feedback' : 'form-group text-left has-feedback'}>
+                                                            <div className={errors.abreviatura ? 'form-group text-start has-error has-feedback' : 'form-group text-start has-feedback'}>
                                                                 <label htmlFor='abreviatura'>Abreviatura:</label>
                                                                 <input
                                                                     id="abreviatura"
@@ -201,7 +201,7 @@ export default function AddAsignatura(){
                                                     <div className='card-action text-center my-5'>
                                                         <button
                                                             type='submit'
-                                                            className={waiting? 'btn is-loading btn-warning ml-1' : 'btn btn-primary ml-1'}
+                                                            className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
                                                             disabled={waiting}
                                                         >
                                                             { titulo }

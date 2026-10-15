@@ -34,14 +34,14 @@ export default function ListadoAvisos() {
         { name: 'FECHA', selector: row => row.fecharegistro, maxWidth: '150px', sortable: true },
         { button: true, cell: (fila) => (
             <div className="form-button-action">
-                <button type="button" data-toggle="tooltip"
+                <button type="button" data-bs-toggle="tooltip"
                     onClick={() => editElement(fila)} title="Editar aviso"
-                    className="btn btn-rounded btn-outline-primary btn-xs mr-1">
+                    className="btn btn-rounded btn-outline-primary btn-xs me-1">
                     <i className="la flaticon-pencil"></i>
                 </button>
-                <button type="button" data-toggle="tooltip"
+                <button type="button" data-bs-toggle="tooltip"
                     onClick={() => dispatch({ type: 'delete', reference: fila.idregistro })}
-                    title="Eliminar aviso" className="btn btn-rounded btn-outline-danger btn-xs mr-1">
+                    title="Eliminar aviso" className="btn btn-rounded btn-outline-danger btn-xs me-1">
                     <i className="la flaticon-interface-5"></i>
                 </button>
             </div>
@@ -147,8 +147,8 @@ export default function ListadoAvisos() {
                                             <div className="card-header">
                                                 <div className="d-flex align-items-center">
                                                     <h4 className="card-title">{myConst.labels.avisosList[0]}</h4>
-                                                    <Link to={privateRoutes.AVISOS_ADD} className="btn btn-primary btn-round ml-auto">
-                                                        <i className="fa fa-plus">&nbsp;&nbsp;</i>
+                                                    <Link to={privateRoutes.AVISOS_ADD} className="btn btn-primary btn-round ms-auto">
+                                                        <i className="bi bi-plus-lg">&nbsp;&nbsp;</i>
                                                         {myConst.labels.avisosAdd[0][0]}
                                                     </Link>
                                                 </div>

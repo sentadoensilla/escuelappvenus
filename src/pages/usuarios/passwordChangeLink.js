@@ -206,7 +206,7 @@ export default function changePassPendejo(){
 												{
 													(elFormu)?
 														<form id={elFade.form} onSubmit={handleSubmit(onRegister)} method='POST' className="">
-															<div className="form-group  text-left has-feedback">                                                        
+															<div className="form-group  text-start has-feedback">                                                        
 																<label htmlFor='clave'>Clave Nueva:</label>
 																<input type={meter} className="form-control" 
 																id="clave" name="clave" placeholder='Miclave-23'
@@ -222,7 +222,7 @@ export default function changePassPendejo(){
 																{ errors.clave?.type === 'maxLength' && <small className="form-text text-danger">La clave es muy larga</small> }
 																{ errors.clave?.type === 'pattern' && <small className="form-text text-danger">Al menos 1 mayuscula, 1 minuscula, 1 digito, 1 simbolo (:.-_@!) </small> }
 															</div>
-															<div className="form-group text-left has-feedback">
+															<div className="form-group text-start has-feedback">
 																<label htmlFor='reclave'>Repetir clave nueva:</label>
 																<input type={meter} className="form-control" 
 																id="reclave" name="reclave" placeholder='Miclave-23'
@@ -240,7 +240,7 @@ export default function changePassPendejo(){
 															<div className='card-action text-center'>
 																<button
 																	type='submit'
-																	className={waiting? 'btn is-loading btn-warning ml-1' : 'btn btn-primary ml-1'}
+																	className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
 																	disabled={waiting}
 																>
 																	Cambiar
@@ -251,7 +251,7 @@ export default function changePassPendejo(){
 														<div className="row">
 															<div className="col-5 text-center">
 																<div className="icon-big text-center">
-																	<i className="text-danger fas fa-ban fa-10x"></i>
+																	<i className="text-danger bi bi-slash-circle fs-1"></i>
 																</div>
 															</div>
 															<div className="col-7 col-stats">
@@ -263,10 +263,10 @@ export default function changePassPendejo(){
 																		que debiste utilizarlo. <br/>
 																		<Link
 																			to={publicRoutes.RESET_PASSWORD}
-																			className='btn btn-success btn-round mr-2'
+																			className='btn btn-success btn-round me-2'
 																		>
 																			<span className="btn-label">
-																				<i className="fas fa-grin-beam-sweat"></i>
+																				<i className="bi bi-emoji-frown"></i>
 																			</span>
 																			Solicitar cambio, otra vez!
 																		</Link>

@@ -120,32 +120,32 @@ export default function CitacionesView() {
                             <div className='col h1 my-5'
                             dangerouslySetInnerHTML={{__html: sanitized }}></div>
                             <p className='card-category'>
-                                <span className="stamp stamp-md bg-danger mr-3">
-									<i className="fa fa-users"></i>
+                                <span className="stamp stamp-md bg-danger me-3">
+									<i className="bi bi-people"></i>
 								</span>
                                 Grupo: { element.grupo.toString().replaceAll(',', ', ') }
                             </p>
                             <p className='card-category'>
-                                <span className="stamp stamp-md bg-primary mr-3">
-									<i className="fa fa-user-edit"></i>
+                                <span className="stamp stamp-md bg-primary me-3">
+									<i className="bi bi-person-gear"></i>
 								</span>
                                 Estudiantes: { element.estudiante }
                             </p>
                             <p className='card-category'>
-                                <span className="stamp stamp-md bg-warning mr-3">
-									<i className="fa fa-question-circle"></i>
+                                <span className="stamp stamp-md bg-warning me-3">
+									<i className="bi bi-question-circle"></i>
 								</span>
                                 Motivo: { element.motivocitacion }
                             </p>
                             <p className='card-category'>
-                                <span className="stamp stamp-md bg-primary mr-3">
-									<i className="far fa-calendar-alt"></i>
+                                <span className="stamp stamp-md bg-primary me-3">
+									<i className="bi bi-calendar-event"></i>
 								</span>                                
                                 Fecha de la citación: { element.fechacitacion }
                             </p>
                             <p className='card-category'>
-                                <span className="stamp stamp-md bg-danger mr-3">
-									<i className="fas fa-map-pin"></i>
+                                <span className="stamp stamp-md bg-danger me-3">
+									<i className="bi bi-geo-alt"></i>
 								</span>                                
                                 Lugar de la citación: { element.lugar }
                             </p>

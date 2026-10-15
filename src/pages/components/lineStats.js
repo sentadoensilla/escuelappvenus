@@ -62,7 +62,7 @@ return (
         </div>
         {
             (props.link)?
-                <div className="text-right">
+                <div className="text-end">
                     <Link className='btn btn-success'>Mas...</Link>
                 </div>
             :

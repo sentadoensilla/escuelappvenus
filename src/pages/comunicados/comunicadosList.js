@@ -36,15 +36,15 @@ export default function ListadoComunicados(){
         {button:true,
             cell: (miListado) => (
                 <div className="form-button-action">
-                    <button type="button" data-toggle="tooltip"  
+                    <button type="button" data-bs-toggle="tooltip"  
                         onClick={() => showElement(miListado)} 
-                        title="" className="btn btn-rounded btn-success btn-xs mr-1" 
+                        title="" className="btn btn-rounded btn-success btn-xs me-1" 
                         data-original-title="Ver elemento">
-                        <i className="fas fa-glasses"></i>
+                        <i className="bi bi-eyeglasses"></i>
                     </button>
-                    <button type="button" data-toggle="tooltip" 
+                    <button type="button" data-bs-toggle="tooltip" 
                         onClick={() => dispatch({type:'delete', reference: miListado.idregistro})} 
-                        title="" className="btn btn-rounded btn-outline-danger btn-xs mr-1" 
+                        title="" className="btn btn-rounded btn-outline-danger btn-xs me-1" 
                         data-original-title="Eliminar elemento">
                         <i className="la flaticon-interface-5"></i>
                     </button>
@@ -226,8 +226,8 @@ export default function ListadoComunicados(){
                                                 <div className="card-header">
                                                     <div className="d-flex align-items-center">
                                                         <h4>{myConst.labels.alertList[0]} </h4>
-                                                        <Link to={privateRoutes.COMUNICACION_ADD} className="btn btn-primary btn-round ml-auto">
-                                                            <i className="fa fa-plus">&nbsp;&nbsp;</i>
+                                                        <Link to={privateRoutes.COMUNICACION_ADD} className="btn btn-primary btn-round ms-auto">
+                                                            <i className="bi bi-plus-lg">&nbsp;&nbsp;</i>
                                                             {myConst.labels.alertAdd[0][0]} 
                                                         </Link>
                                                     </div>

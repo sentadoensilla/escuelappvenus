@@ -136,8 +136,8 @@ export default function AddDocente(){
                                             <div className="card-header">
                                                 <div className="d-flex align-items-center">
                                                     <h4 className="card-title">{titulo}</h4>
-                                                    <Link to={privateRoutes.DOCENTES_LIST} className="btn btn-primary btn-round ml-auto">
-                                                        <i className="fa fa-list">&nbsp;&nbsp;</i>
+                                                    <Link to={privateRoutes.DOCENTES_LIST} className="btn btn-primary btn-round ms-auto">
+                                                        <i className="bi bi-list-ul">&nbsp;&nbsp;</i>
                                                         {myConst.labels.docentesList[0]}
                                                     </Link>
                                                 </div>
@@ -148,7 +148,7 @@ export default function AddDocente(){
 
                                                     <div className="row">
                                                         <div className="col-md-4 col-lg-4">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="idtipodocumento">Tipo de documento:</label>
                                                                 <Controller name="idtipodocumento" control={control}
                                                                     render={({ field }) => (
@@ -160,7 +160,7 @@ export default function AddDocente(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-8 col-lg-8">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='identificacion'>Identificación:</label>
                                                                 <input type="text" className="form-control" placeholder='1234567890'
                                                                 {...register("identificacion", { required:true })} />
@@ -171,13 +171,13 @@ export default function AddDocente(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='nombre1'>Primer nombre:</label>
                                                                 <input type="text" className="form-control" {...register("nombre1")} />
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='nombre2'>Segundo nombre:</label>
                                                                 <input type="text" className="form-control" {...register("nombre2")} />
                                                             </div>
@@ -186,13 +186,13 @@ export default function AddDocente(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='apellido1'>Primer apellido:</label>
                                                                 <input type="text" className="form-control" {...register("apellido1")} />
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='apellido2'>Segundo apellido:</label>
                                                                 <input type="text" className="form-control" {...register("apellido2")} />
                                                             </div>
@@ -201,13 +201,13 @@ export default function AddDocente(){
 
                                                     <div className="row">
                                                         <div className="col-md-4 col-lg-4">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='fechanacimiento'>Fecha de nacimiento:</label>
                                                                 <input type="date" className="form-control" {...register("fechanacimiento")} />
                                                             </div>
                                                         </div>
                                                         <div className="col-md-4 col-lg-4">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="idsexo">Sexo:</label>
                                                                 <Controller name="idsexo" control={control}
                                                                     render={({ field }) => (
@@ -219,7 +219,7 @@ export default function AddDocente(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-4 col-lg-4">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="idtiposangre">Tipo de sangre:</label>
                                                                 <Controller name="idtiposangre" control={control}
                                                                     render={({ field }) => (
@@ -234,13 +234,13 @@ export default function AddDocente(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='celular'>Celular:</label>
                                                                 <input type="text" className="form-control" {...register("celular")} />
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='telefono'>Teléfono:</label>
                                                                 <input type="text" className="form-control" {...register("telefono")} />
                                                             </div>
@@ -249,13 +249,13 @@ export default function AddDocente(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='direccion'>Dirección:</label>
                                                                 <input type="text" className="form-control" {...register("direccion")} />
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='email'>Correo electrónico:</label>
                                                                 <input type="text" className="form-control" {...register("email")} />
                                                             </div>
@@ -264,7 +264,7 @@ export default function AddDocente(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor='fechaingreso'>Fecha de ingreso:</label>
                                                                 <input type="date" className="form-control" {...register("fechaingreso")} />
                                                             </div>
@@ -274,7 +274,7 @@ export default function AddDocente(){
                                                     <div className='card-action text-center my-5'>
                                                         <button
                                                             type='submit'
-                                                            className={waiting? 'btn is-loading btn-warning ml-1' : 'btn btn-primary ml-1'}
+                                                            className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
                                                             disabled={waiting}
                                                         >
                                                             { titulo }

@@ -11,7 +11,7 @@ import DataTable from 'react-data-table-component';
  */
 function FiltroListado({ value, onChange, onClear, placeholder }) {
     return (
-        <div className="d-flex align-items-center ml-auto">
+        <div className="d-flex align-items-center ms-auto">
             <input
                 type="search"
                 className="form-control form-control-sm"
@@ -23,7 +23,7 @@ function FiltroListado({ value, onChange, onClear, placeholder }) {
             />
             <button
                 type="button"
-                className="btn btn-sm btn-outline-secondary ml-1"
+                className="btn btn-sm btn-outline-secondary ms-1"
                 onClick={onClear}
                 disabled={!value}
                 title="Limpiar la búsqueda"
@@ -112,7 +112,7 @@ export default function Listado({props}){
                 }
                 {
                     (props.link)?
-                        <div className="text-right">
+                        <div className="text-end">
                             <Link className='btn btn-success' to={props.link}>Más...</Link>
                         </div>
                     :

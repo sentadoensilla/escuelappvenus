@@ -113,10 +113,10 @@ export default function ExcusaViewOpen() {
                                 <div className='col align-items-center'>
                                     <div className="col-icon">
                                         <div className="icon-big text-center icon-success bubble-shadow-small">
-                                            <i className="fas fa-users text-warning h3"></i>
+                                            <i className="bi bi-people text-warning h3"></i>
                                         </div>
                                     </div>
-                                    <div className="col col-stats ml-3 ml-sm-0 text-center">
+                                    <div className="col col-stats ms-3 ml-sm-0 text-center">
                                         <p>Grupo: </p> <p>{ element.grupo.toString().replaceAll(',', ', ') }</p>
                                     </div>
                                 </div>
@@ -124,20 +124,20 @@ export default function ExcusaViewOpen() {
                                 <div className='col align-items-center'>
                                     <div className="col-icon">
                                         <div className="icon-big text-center icon-success bubble-shadow-small">
-                                            <i className="fas fa-calendar-minus text-danger h3"></i>
+                                            <i className="bi bi-calendar-minus text-danger h3"></i>
                                         </div>
                                     </div>
-                                    <div className="col col-stats ml-3 ml-sm-0 text-center">
+                                    <div className="col col-stats ms-3 ml-sm-0 text-center">
                                         <p> Excusa desde:</p> <p>{ element.desde }</p>
                                     </div>
                                 </div>
                                 <div className='col align-items-center'>
                                     <div className="col-icon">
                                         <div className="icon-big text-center bubble-shadow-small">
-                                            <i className="fas fa-calendar-plus text-success h3"></i>
+                                            <i className="bi bi-calendar-plus text-success h3"></i>
                                         </div>
                                     </div>
-                                    <div className="col col-stats ml-3 ml-sm-0 text-center">
+                                    <div className="col col-stats ms-3 ml-sm-0 text-center">
                                         <p> Excusa hasta: </p> <p>{ element.hasta }</p>
                                     </div>
                                 </div>
@@ -145,10 +145,10 @@ export default function ExcusaViewOpen() {
                             <div className='row align-items-center'>
                                 <div className="col-icon">
                                     <div className="icon-big text-center icon-success bubble-shadow-small">
-                                        <i className="far fa-folder-open text-primary h3"></i>
+                                        <i className="bi bi-folder2-open text-primary h3"></i>
                                     </div>
                                 </div>
-                                <div className="col col-stats ml-3 ml-sm-0">
+                                <div className="col col-stats ms-3 ml-sm-0">
                                     <p>Asignaturas: { element.asignatura.toString().replaceAll(',', ', ') }</p>
                                 </div>
                             </div>

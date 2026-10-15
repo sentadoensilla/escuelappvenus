@@ -437,8 +437,8 @@ export default function AddAlert(){
                                             <div className="card-header">
                                                 <div className="d-flex align-items-center">
                                                     <h4 className="card-title">{titulo}</h4>
-                                                    <Link to={privateRoutes.COMUNICACION_LIST} className="btn btn-primary btn-round ml-auto">
-                                                        <i className="fa fa-list">&nbsp;&nbsp;</i>
+                                                    <Link to={privateRoutes.COMUNICACION_LIST} className="btn btn-primary btn-round ms-auto">
+                                                        <i className="bi bi-list-ul">&nbsp;&nbsp;</i>
                                                         {myConst.labels.alertList[0]}
                                                     </Link>                                                    
                                                 </div>
@@ -446,7 +446,7 @@ export default function AddAlert(){
                                             <div className="card-body">
                                                 <form id={elFade.form} onSubmit={handleSubmit(onRegister)} method='POST' className="">
                                                     { (id !== "undefined" && id !== null) ? <input type="hidden" value={id} {...register("idregistro")} /> : "" }
-                                                    <div className="form-group  text-left has-feedback">
+                                                    <div className="form-group  text-start has-feedback">
                                                         <label htmlFor='title'>Título comunicado:</label>
                                                         <input type="text" className="form-control" placeholder='Aviso importante para todos...'
                                                         {...register("title", {
@@ -459,7 +459,7 @@ export default function AddAlert(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group  text-left has-feedback">
+                                                            <div className="form-group  text-start has-feedback">
                                                                 <label htmlFor='date_init'>Visible desde la fecha:</label>
                                                                 <Controller 
                                                                     control={control}
@@ -479,7 +479,7 @@ export default function AddAlert(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group  text-left has-feedback">
+                                                            <div className="form-group  text-start has-feedback">
                                                                 <label htmlFor='date_finish'>Visible hasta la fecha:</label>
                                                                 <Controller 
                                                                     control={control}
@@ -502,7 +502,7 @@ export default function AddAlert(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="group" className="placeholder">Grupos: </label>
                                                            
                                                                 <Controller
@@ -529,7 +529,7 @@ export default function AddAlert(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group text-left has-feedback">
+                                                            <div className="form-group text-start has-feedback">
                                                                 <label htmlFor="file" className="placeholder">Cargar archivo: </label>
                                                                 <Controller
                                                                     name="file"
@@ -561,10 +561,10 @@ export default function AddAlert(){
                                                                             <div className="row align-items-center">
                                                                                 <div className="col-icon">
                                                                                     <div className="icon-big text-center icon-danger bubble-shadow-small">
-                                                                                        <i className="fas fa-file-pdf"></i>
+                                                                                        <i className="bi bi-file-earmark-pdf"></i>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div className="col col-stats ml-3 ml-sm-0">
+                                                                                <div className="col col-stats ms-3 ml-sm-0">
                                                                                     <div className="numbers">
                                                                                         <h4 className="card-title">{ selectedFile.name }</h4>
                                                                                         <p className="card-category">{ (selectedFile.size / (1024*1024)).toFixed(1) } Mb</p>
@@ -578,10 +578,10 @@ export default function AddAlert(){
                                                         </div>
                                                     </div>
 
-                                                    <div className="form-group text-left has-feedback">
+                                                    <div className="form-group text-start has-feedback">
                                                         {
                                                             haveStudents && (
-                                                                <div className="form-group text-left has-feedback">
+                                                                <div className="form-group text-start has-feedback">
                                                                     <label htmlFor="student" className="placeholder">Estudiantes: </label>
                                                             
                                                                     <Controller
@@ -608,7 +608,7 @@ export default function AddAlert(){
 
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group form-floating-label text-left has-feedback">
+                                                            <div className="form-group form-floating-label text-start has-feedback">
                                                                 <Controller
                                                                     name="alcance"
                                                                     control={control}
@@ -634,7 +634,7 @@ export default function AddAlert(){
                                                             </div>
                                                         </div>
                                                         <div className="col-md-6 col-lg-6">
-                                                            <div className="form-group form-floating-label text-left has-feedback">
+                                                            <div className="form-group form-floating-label text-start has-feedback">
                                                                 <Controller
                                                                     name="respuestas"
                                                                     control={control}
@@ -661,7 +661,7 @@ export default function AddAlert(){
                                                         </div>
                                                     </div>
 
-                                                    <div className="form-group text-left has-feedback">
+                                                    <div className="form-group text-start has-feedback">
                                                         <label htmlFor="comunicate" className="placeholder">Descripción del comunicado</label>
                                                         <Controller
                                                             name="comunicate"
@@ -733,7 +733,7 @@ export default function AddAlert(){
                                                     <div className='card-action text-center'>
                                                         <button
                                                             type='submit'
-                                                            className={waiting? 'btn is-loading btn-warning ml-1' : 'btn btn-primary ml-1'}
+                                                            className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
                                                             disabled={errorMessage.message||waiting}
                                                         >
                                                             { titulo }

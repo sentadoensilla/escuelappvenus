@@ -245,8 +245,8 @@ export default function GestionAdd() {
                                                     <h4 className="card-title">
                                                         {esEdicion ? `Editar ${config.titulo}` : `Registrar ${config.titulo}`}
                                                     </h4>
-                                                    <Link to={`/gestion/${entidad}`} className="btn btn-primary btn-round ml-auto">
-                                                        <i className="fa fa-list">&nbsp;&nbsp;</i> Volver al listado
+                                                    <Link to={`/gestion/${entidad}`} className="btn btn-primary btn-round ms-auto">
+                                                        <i className="bi bi-list-ul">&nbsp;&nbsp;</i> Volver al listado
                                                     </Link>
                                                 </div>
                                             </div>
@@ -255,7 +255,7 @@ export default function GestionAdd() {
                                                     <div className="row">
                                                         {config.fields.map((field, i) => (
                                                             <div key={i} className={claseColumna(field)}>
-                                                                <div className="form-group text-left has-feedback">
+                                                                <div className="form-group text-start has-feedback">
                                                                     <label htmlFor={field.name}>{field.label}:</label>
                                                                     {renderField(field)}
                                                                 </div>
@@ -264,7 +264,7 @@ export default function GestionAdd() {
                                                     </div>
                                                     <div className="card-action text-center my-4">
                                                         <button type="submit"
-                                                            className={waiting ? 'btn is-loading btn-warning ml-1' : 'btn btn-primary ml-1'}
+                                                            className={waiting ? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
                                                             disabled={waiting}>
                                                             {esEdicion ? 'Actualizar' : 'Registrar'}
                                                         </button>

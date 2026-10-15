@@ -13,11 +13,11 @@ export default function Desc(props) {
 		<div className="row">
 			<div className={tamDesc}>
 				<div className="row align-items-center my-5">
-					<div className="col text-right">
+					<div className="col text-end">
 						<img src={myConst.essentials.logogrande} width={250} height={250} alt="escuelapp" />
 					</div>
-					<div className="col text-left">
-						<h2 className="text-left">Escuelapp es la agenda escolar digital para las institiciones educativas y sus acudientes</h2>
+					<div className="col text-start">
+						<h2 className="text-start">Escuelapp es la agenda escolar digital para las institiciones educativas y sus acudientes</h2>
 					</div>
 				</div>
 				<div className='separator-dashed'></div>			

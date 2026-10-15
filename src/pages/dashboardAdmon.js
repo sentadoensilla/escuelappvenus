@@ -716,7 +716,7 @@ function Dashboard() {
 				<div className={(isShowing)? "custom-template open" : "custom-template" }>
 					<div className="title">						
 						<span className="text-danger my5" onClick={()=>{closeShowng()}}>
-							<i className="fas fa-window-close"></i>
+							<i className="bi bi-x-square"></i>
 						</span>
 						<h4 className="ph5">
 							 Detalles del gráfico

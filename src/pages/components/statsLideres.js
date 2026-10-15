@@ -37,14 +37,14 @@ export const CircularStats = () => {
                                 {laStat.nombres.substring(0,1)}
                             </span>
                         </div>
-                        <div className="flex-1 ml-3 pt-1">
+                        <div className="flex-1 ms-3 pt-1">
                             <h6 className="text-uppercase fw-bold mb-1">
                                 {laStat.nombres}
                             </h6>
                             <span className="text-muted">{'Meta: '+(laStat.meta||'No tiene')+', Registrados: '+laStat.reclutados}</span><br/>
-                            <span className={'text-'+charColor.background+' pl-1'}>{pendientesText+''+Math.abs(pendientes)}</span>
+                            <span className={'text-'+charColor.background+' ps-1'}>{pendientesText+''+Math.abs(pendientes)}</span>
                         </div>
-                        <div className="float-right pt-3 text-right">
+                        <div className="float-end pt-3 text-end">
                             <small className={'text-'+charColor.background}>Logro</small><br/>
                             <small className={'text-'+charColor.background}>{performance}%</small><br/>
                             <small className="text-muted">{laStat.campana}</small>
