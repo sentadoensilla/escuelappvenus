@@ -12,6 +12,8 @@ import HeadPublic from './parts/headPublic'
 import messenger from "../services/messenger";
 import tool from '../services/tools';
 import Desc from './description'
+import AppIcon from './components/AppIcon';
+import ActionButton from './components/ActionButton';
 
 
 export default function Login() {
@@ -189,15 +191,17 @@ export default function Login() {
 												</div>
 
 												<div className='card-action text-center'>
-													<button
+													<ActionButton
 														type='submit'
-														className={waiting? 'btn is-loading btn-success ms-1' : 'btn btn-success ms-1'}
-														disabled={errorMessage||waiting}
+														loading={waiting}
+														icon='la flaticon-check'
+														className='btn btn-success ms-1'
+														disabled={Boolean(errorMessage)}
 													>
 														Ingresar
-													</button>
+													</ActionButton>
 													<button type='reset' className='btn btn-border btn-light ms-1'>
-														Cancelar
+														<AppIcon icon='la flaticon-close' /> Cancelar
 													</button>
 												</div>
 												<div className='form-group text-center text-danger'>

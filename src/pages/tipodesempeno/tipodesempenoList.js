@@ -20,6 +20,8 @@ import { Foot } from '../components/foot'
 import "react-datepicker/dist/react-datepicker.css";
 
 import es from 'date-fns/locale/es';
+import AppIcon from '../components/AppIcon';
+
 registerLocale('es', es)
 
 export default function ListadoObservaciones(){
@@ -50,7 +52,7 @@ export default function ListadoObservaciones(){
                             onClick={() => showElement(miListado)} 
                             title="Ver elemento" className="btn btn-rounded btn-success btn-xs me-1" 
                             data-original-title="Ver elemento">
-                            <i className="bi bi-eyeglasses"></i>
+                            <AppIcon icon="tabler:eye" />
                         </button>
                         
                         <button type="button" data-bs-toggle="tooltip" 
@@ -66,7 +68,7 @@ export default function ListadoObservaciones(){
                             onClick={() => showElement(miListado)} 
                             title="Ver elemento" className="btn btn-rounded btn-success btn-xs me-1" 
                             data-original-title="Ver elemento">
-                            <i className="bi bi-eyeglasses"></i>
+                            <AppIcon icon="tabler:eye" />
                         </button>
                     </div>)                   
                 }
@@ -248,7 +250,7 @@ export default function ListadoObservaciones(){
                                                             </label>
                                                         </div>
                                                         <Link to={privateRoutes.OBSERVADOR_ADD} className="btn btn-primary btn-round ms-auto">
-                                                            <i className="bi bi-plus-lg">&nbsp;&nbsp;</i>
+                                                            <AppIcon icon="la flaticon-plus" />
                                                             {myConst.labels.observacionesAdd[0][0]} 
                                                         </Link>
                                                     </div>

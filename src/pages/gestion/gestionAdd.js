@@ -12,6 +12,10 @@ import { Forbidden } from '../forbidden';
 import UserHead from '../components/head';
 import Waiting from '../parts/waiting';
 import { Foot } from '../components/foot';
+import AppIcon from '../components/AppIcon';
+import ActionButton from '../components/ActionButton';
+import TituloPagina from '../components/TituloPagina';
+
 
 /**
  * gestionAdd: formulario genérico (alta/edición) para cualquier entidad del CRUD.
@@ -242,11 +246,11 @@ export default function GestionAdd() {
                                         <div className="card">
                                             <div className="card-header">
                                                 <div className="d-flex align-items-center">
-                                                    <h4 className="card-title">
+                                                    <TituloPagina>
                                                         {esEdicion ? `Editar ${config.titulo}` : `Registrar ${config.titulo}`}
-                                                    </h4>
+                                                    </TituloPagina>
                                                     <Link to={`/gestion/${entidad}`} className="btn btn-primary btn-round ms-auto">
-                                                        <i className="bi bi-list-ul">&nbsp;&nbsp;</i> Volver al listado
+                                                        <AppIcon icon="la flaticon-list" /> Volver al listado
                                                     </Link>
                                                 </div>
                                             </div>
@@ -263,11 +267,14 @@ export default function GestionAdd() {
                                                         ))}
                                                     </div>
                                                     <div className="card-action text-center my-4">
-                                                        <button type="submit"
-                                                            className={waiting ? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
-                                                            disabled={waiting}>
+                                                        <ActionButton
+                                                            type="submit"
+                                                            loading={waiting}
+                                                            icon="la flaticon-check"
+                                                            className="btn btn-primary ms-1"
+                                                        >
                                                             {esEdicion ? 'Actualizar' : 'Registrar'}
-                                                        </button>
+                                                        </ActionButton>
                                                     </div>
                                                 </form>
                                             </div>

@@ -19,6 +19,8 @@ import { Foot } from '../components/foot'
 
 import "react-datepicker/dist/react-datepicker.css";
 import es from 'date-fns/locale/es';
+import AppIcon from '../components/AppIcon';
+
 registerLocale('es', es)
 
 export default function ViewAttendanceByTeacher(){
@@ -94,18 +96,18 @@ export default function ViewAttendanceByTeacher(){
                         horario.data.detalles.forEach((detail,d) =>{
                             console.log('detail: ', horario.data.detalles)
 
-                            let asistieron = <span><i className="bi bi-exclamation-triangle text-warning">&nbsp;&nbsp;</i>&nbsp;Sin Registros</span>
+                            let asistieron = <span><AppIcon icon="tabler:alert-triangle" className="text-warning" />&nbsp;Sin Registros</span>
                             if(detail.asistieron!==null){
                                 asistieron = <span>
-                                    &nbsp;&nbsp; <i className="bi bi-check-square text-success">&nbsp;&nbsp;</i>
+                                    &nbsp;&nbsp; <AppIcon icon="tabler:checkbox" className="text-success" />
                                     &nbsp;{detail.asistieron}
-                                    &nbsp;&nbsp; <i className="bi bi-x-square text-danger">&nbsp;&nbsp;</i>
+                                    &nbsp;&nbsp; <AppIcon icon="tabler:square-x" className="text-danger" />
                                     &nbsp;{detail.faltaron}
                                 </span>
                             }
                             
                             misDias[detail.dia] = <td title={detail.docente.toLocaleUpperCase()}>
-                                <span><i className="bi bi-book text-muted">&nbsp;&nbsp;</i>&nbsp;&nbsp;
+                                <span><AppIcon icon="tabler:book" className="text-muted" />&nbsp;&nbsp;
                                     {detail.asignatura.toLocaleUpperCase()}</span><br/>
                                 {asistieron}<br/>
                             </td>                                        
@@ -226,12 +228,12 @@ export default function ViewAttendanceByTeacher(){
                                                 <div className="d-flex align-items-right">
                                                     
                                                     <Link to={privateRoutes.EXCUSAS_TEACHER} className="btn btn-secondary btn-round">
-                                                        <i className="bi bi-envelope-open">&nbsp;&nbsp;</i>
+                                                        <AppIcon icon="tabler:mail-opened" />
                                                         {myConst.labels.excusasList[0]}
                                                     </Link> &nbsp;&nbsp;                                                   
 
                                                     <Link to={privateRoutes.ASISTENCIA_TEACHER} className="btn btn-danger btn-round">
-                                                        <i className="bi bi-check-circle">&nbsp;&nbsp;</i>
+                                                        <AppIcon icon="tabler:circle-check" />
                                                         {myConst.labels.asistenciaAdd[0][0]}
                                                     </Link>  
                                                 </div>

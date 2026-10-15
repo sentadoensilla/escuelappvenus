@@ -13,6 +13,8 @@ import { Forbidden } from '../forbidden'
 import Waiting from '../parts/waiting';
 import UserHead from '../components/head';
 import { Foot } from '../components/foot'
+import ActionButton from '../components/ActionButton';
+
 
 export default function Addlider(){
 
@@ -217,13 +219,14 @@ export default function Addlider(){
                                                     </div>
 
                                                     <div className='card-action text-center'>
-                                                        <button
-                                                            type='submit'
-                                                            className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
-                                                            disabled={errorMessage.message||waiting}
+                                                        <ActionButton
+                                                            type="submit"
+                                                            loading={waiting}
+                                                            icon="la flaticon-check"
+                                                            className="btn btn-primary ms-1"
                                                         >
                                                             Guardar
-                                                        </button>
+                                                        </ActionButton>
                                                     </div>
                                                 </form>
                                             </div>

@@ -14,6 +14,10 @@ import { Forbidden } from '../forbidden'
 import Waiting from '../parts/waiting';
 import UserHead from '../components/head';
 import { Foot } from '../components/foot'
+import AppIcon from '../components/AppIcon';
+import ActionButton from '../components/ActionButton';
+
+
 
 export default function Addlider(){
 
@@ -295,7 +299,7 @@ export default function Addlider(){
                                                         {titulo}
                                                     </h4>
                                                     <Link to={privateRoutes.USUARIO_LISTADO} className="btn btn-primary btn-round ms-auto">
-                                                    <i className="bi bi-list-ul">&nbsp;&nbsp;</i>
+                                                    <AppIcon icon="la flaticon-list" />
                                                     Mis lideres 
                                                 </Link>
                                                 </div>
@@ -450,13 +454,14 @@ export default function Addlider(){
                                                     </div>
 
                                                     <div className='card-action text-center'>
-                                                        <button
-                                                            type='submit'
-                                                            className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
-                                                            disabled={errorMessage.message||waiting}
+                                                        <ActionButton
+                                                            type="submit"
+                                                            loading={waiting}
+                                                            icon="la flaticon-check"
+                                                            className="btn btn-primary ms-1"
                                                         >
                                                             Registrar lider
-                                                        </button>
+                                                        </ActionButton>
                                                     </div>
                                                 </form>
                                             </div>

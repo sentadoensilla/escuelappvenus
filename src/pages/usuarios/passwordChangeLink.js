@@ -15,6 +15,10 @@ import HeadPublic from '../parts/headPublic'
 import HeadRibbon from '../parts/ribbon'
 import { Foot } from '../components/foot'
 import Desc from '../description'
+import AppIcon from '../components/AppIcon';
+import ActionButton from '../components/ActionButton';
+
+
 
 export default function changePassPendejo(){
 	const argumentos = useParams()
@@ -238,20 +242,21 @@ export default function changePassPendejo(){
 															</div>
 
 															<div className='card-action text-center'>
-																<button
-																	type='submit'
-																	className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
-																	disabled={waiting}
-																>
+																<ActionButton
+                                                            type="submit"
+                                                            loading={waiting}
+                                                            icon="la flaticon-check"
+                                                            className="btn btn-primary ms-1"
+                                                        >
 																	Cambiar
-																</button>
+																</ActionButton>
 															</div>
 														</form>
 													:
 														<div className="row">
 															<div className="col-5 text-center">
 																<div className="icon-big text-center">
-																	<i className="text-danger bi bi-slash-circle fs-1"></i>
+																	<AppIcon icon="tabler:circle-off" className="text-danger fs-1" />
 																</div>
 															</div>
 															<div className="col-7 col-stats">
@@ -266,7 +271,7 @@ export default function changePassPendejo(){
 																			className='btn btn-success btn-round me-2'
 																		>
 																			<span className="btn-label">
-																				<i className="bi bi-emoji-frown"></i>
+																				<AppIcon icon="tabler:mood-sad" />
 																			</span>
 																			Solicitar cambio, otra vez!
 																		</Link>

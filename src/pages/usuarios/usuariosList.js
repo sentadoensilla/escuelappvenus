@@ -13,6 +13,8 @@ import Listado from '../components/tables'
 import Waiting from '../parts/waiting'
 import UserHead from '../components/head'
 import { Foot } from '../components/foot'
+import AppIcon from '../components/AppIcon';
+
 
 export default function Listadolider(){
     // eslint-disable-next-line
@@ -37,13 +39,13 @@ export default function Listadolider(){
                         onClick={() => editElement(miListado)} 
                         title="" className="btn btn-rounded btn-primary btn-xs me-1" 
                         data-original-title="Edtar elemento">
-                        <i className="bi bi-pencil"></i>
+                        <i className="la flaticon-pencil"></i>
                     </button>
                     <button type="button" data-bs-toggle="tooltip" 
                         onClick={() => dispatch({type:'delete', reference: miListado.idusuario, campana: miListado.idcampana})} 
                         title="" className="btn btn-rounded btn-danger btn-xs me-1" 
                         data-original-title="Eliminar elemento">
-                        <i className="bi bi-trash"></i>
+                        <i className="la flaticon-interface-5"></i>
                     </button>
                 </div>                
             )}
@@ -219,7 +221,7 @@ export default function Listadolider(){
                                                     Mis lideres
                                                 </h4>
                                                 <Link to={privateRoutes.USUARIO_ADD} className="btn btn-primary btn-round ms-auto">
-                                                    <i className="bi bi-plus-lg">&nbsp;&nbsp;</i>
+                                                    <AppIcon icon="la flaticon-plus" />
                                                     lider 
                                                 </Link>
                                             </div>

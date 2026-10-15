@@ -11,6 +11,8 @@ import tool from '../services/tools'
 import HeadPublic from './parts/headPublic'
 import HeadRibbon from './parts/ribbonLight'
 import { Foot } from './components/foot'
+import ActionButton from './components/ActionButton';
+
 
 function Agree() {
  	const argumentos = useParams()
@@ -148,13 +150,14 @@ function Agree() {
 													(typeof reference !=="undefined" && reference!==null && reference!==""  )?
 
 														<form onSubmit={meCaso} method='POST'>
-															<button
-																type='submit'
-																className={waiting? 'btn is-loading btn-success ms-1' : 'btn btn-success ms-1'}
-																disabled={waiting}
-															>
+															<ActionButton
+                                                            type="submit"
+                                                            loading={waiting}
+                                                            icon="la flaticon-check"
+                                                            className="btn btn-success ms-1"
+                                                        >
 																Acepto
-															</button>
+															</ActionButton>
 															<button type='reset' className='btn btn-border btn-light ms-1'>
 																Cancelar
 															</button>

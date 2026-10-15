@@ -2,8 +2,8 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 /* eslint-disable react/prop-types */
-import 'bootstrap/dist/css/bootstrap.min.css';
 import DataTable from 'react-data-table-component';
+import AppIcon from './AppIcon';
 
 /**
  * Barra de búsqueda del listado.
@@ -28,7 +28,7 @@ function FiltroListado({ value, onChange, onClear, placeholder }) {
                 disabled={!value}
                 title="Limpiar la búsqueda"
             >
-                Limpiar
+                <AppIcon icon="la flaticon-close" /> Limpiar
             </button>
         </div>
     );

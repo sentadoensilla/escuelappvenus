@@ -10,6 +10,8 @@ import HeadPublic from '../parts/headPublic'
 import messenger from "../../services/messenger";
 // eslint-disable-next-line
 import tool from '../../services/tools';
+import AppIcon from '../components/AppIcon';
+
 
 export default function ObservacionViewOpen() {
     const { reference } = useParams();
@@ -355,7 +357,7 @@ export default function ObservacionViewOpen() {
                                             <div className='row'>
                                                 <div className='col-5'>
                                                     <div className='icon-big text-center'>
-                                                        <i className='flaticon-home text-primary'></i>
+                                                        <AppIcon icon="twemoji:house" className="text-primary" />
                                                     </div>
                                                 </div>
                                                 <div className='col-7 col-stats'>
@@ -375,12 +377,12 @@ export default function ObservacionViewOpen() {
                                                 <div className='col-5'>
                                                 <div className='row'>
                                                     <div className='icon-big text-center'>
-                                                        <i className='flaticon-placeholder-1 text-danger'></i>
+                                                        <AppIcon icon="twemoji:round-pushpin" className="text-danger" />
                                                     </div>
                                                 </div>
                                                 <div className='row'>
                                                     <div className='icon-big text-center'>
-                                                        <i className='flaticon-whatsapp text-success'></i>
+                                                        <AppIcon icon="twemoji:mobile-phone" className="text-success" />
                                                     </div>
                                                 </div>
 
@@ -402,13 +404,13 @@ export default function ObservacionViewOpen() {
                                                 <div className='col-5'>
                                                     <div className='row'>
                                                         <div className='icon-big text-center'>
-                                                            <i className='flaticon-envelope text-danger'></i><br/> 
+                                                            <AppIcon icon="twemoji:love-letter" className="text-danger" /><br/> 
                                                         </div>
                                                     </div>
                                                     <div className='row'>
                                                         <div className='icon-big text-center'>
                                                             <a href={observacion.facebook} target="_blank" rel="noopener noreferrer">
-                                                                <i className='flaticon-facebook text-primary'></i>
+                                                                <AppIcon icon="tabler:brand-facebook" className="text-primary" />
                                                             </a>
                                                         </div>
                                                     </div>

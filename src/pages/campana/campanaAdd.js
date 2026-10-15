@@ -12,6 +12,8 @@ import { UserContext } from '../../services/context/UserContext';
 import { Forbidden } from '../forbidden'
 import Waiting from '../parts/waiting';
 import { privateRoutes } from '../../services/routes';
+import ActionButton from '../components/ActionButton';
+
 
 
 export default function AddCampana(){
@@ -293,13 +295,14 @@ export default function AddCampana(){
                                     </div>
 
                                     <div className='card-action text-center'>
-                                        <button
-                                            type='submit'
-                                            className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
-                                            disabled={errorMessage.message||waiting}
-                                        >
+                                        <ActionButton
+                                                            type="submit"
+                                                            loading={waiting}
+                                                            icon="la flaticon-check"
+                                                            className="btn btn-primary ms-1"
+                                                        >
                                             OK
-                                        </button>
+                                        </ActionButton>
                                     </div>
                                 </form>
                             </div>

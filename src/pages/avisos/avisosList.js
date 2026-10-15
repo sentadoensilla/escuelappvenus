@@ -13,6 +13,10 @@ import UserHead from '../components/head';
 import Listado from '../components/tables';
 import Waiting from '../parts/waiting';
 import { Foot } from '../components/foot';
+import AppIcon from '../components/AppIcon';
+import TituloPagina from '../components/TituloPagina';
+
+
 
 /**
  * Avisos institucionales (SAE - public.tabavisroll).
@@ -146,9 +150,9 @@ export default function ListadoAvisos() {
                                         <div className="card">
                                             <div className="card-header">
                                                 <div className="d-flex align-items-center">
-                                                    <h4 className="card-title">{myConst.labels.avisosList[0]}</h4>
+                                                    <TituloPagina>{myConst.labels.avisosList[0]}</TituloPagina>
                                                     <Link to={privateRoutes.AVISOS_ADD} className="btn btn-primary btn-round ms-auto">
-                                                        <i className="bi bi-plus-lg">&nbsp;&nbsp;</i>
+                                                        <AppIcon icon="la flaticon-plus" />
                                                         {myConst.labels.avisosAdd[0][0]}
                                                     </Link>
                                                 </div>

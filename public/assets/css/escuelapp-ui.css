@@ -1,0 +1,221 @@
+/*!
+ * escuelapp-ui.css — UI propia de Escuelapp (Iconify + botones + menú)
+ *
+ * Complementa Atlantis. Se carga DESPUÉS de atlantis.min.css y bs5-compat.css.
+ * Iconografía: Iconify (tabler:* para UI, twemoji:* para widgets/dashboards).
+ */
+
+/* Iconos Iconify (AppIcon) — se comportan como iconos tipográficos */
+.app-icon {
+	display: inline-block;
+	vertical-align: -0.125em;
+	line-height: 1;
+	color: inherit;
+	/* Margen mínimo de 2px en todas las direcciones (mejor apreciación táctil) */
+	margin: 2px;
+	box-sizing: content-box;
+}
+
+/* Icono de carga girando (ActionButton) */
+.app-icon-spin {
+	animation: app-icon-spin 0.8s linear infinite;
+}
+@keyframes app-icon-spin {
+	to { transform: rotate(360deg); }
+}
+
+/* Título de página (formularios/listados): rojo + icono del menú/submenú que lo invocó */
+.titulo-pagina {
+	color: #e53935;
+	display: flex;
+	align-items: center;
+	gap: 0.45em;
+	font-weight: 700;
+	margin: 0;
+}
+.titulo-pagina .titulo-pagina-icono {
+	color: inherit !important;
+	font-size: 1.1em;
+	margin: 0;
+}
+
+/* Utilidad bg-muted (eliminada en Bootstrap 5) */
+.bg-muted {
+	background-color: var(--bs-secondary-bg, #e9ecef) !important;
+	color: var(--bs-secondary-color, #6c757d) !important;
+}
+
+/* Botón en carga: sin pointer events para evitar doble clic */
+.btn.bg-muted {
+	pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Tamaño de los iconos                                               */
+/* ------------------------------------------------------------------ */
+/* Menú lateral y submenús: iconos 2x más grandes */
+.sidebar .nav .nav-item a .app-icon,
+.sidebar .nav .nav-item .app-icon,
+.sidebar .nav .app-icon {
+	font-size: 2em;
+}
+
+/* Botones: iconos con algo más de presencia y alineación simétrica icono–texto */
+.btn .app-icon {
+	font-size: 1.15em;
+	margin: 0;
+	vertical-align: 0;
+}
+/* Botones de acción de las tablas de listado: más presencia del icono */
+.form-button-action .btn {
+	padding: 0.32rem 0.5rem;
+	line-height: 1;
+}
+.form-button-action .btn i,
+.form-button-action .btn .app-icon {
+	font-size: 1.15rem;
+	line-height: 1;
+	margin: 0;
+	vertical-align: 0;
+}
+/* Botones con icono (ActionButton y .btn con AppIcon): contenido centrado y gap uniforme */
+.btn.action-btn,
+.btn:has(> .app-icon) {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.4em;
+}
+/* El span del texto no debe añadir margen extra cuando se usa gap */
+.btn.action-btn > span,
+.btn:has(> .app-icon) > span {
+	margin-left: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Menú lateral                                                       */
+/*   Normal  → iconos y texto en gris legible                         */
+/*   Hover   → icono y texto en color del esquema + efecto destacar   */
+/*   Activo  → fondo del esquema + texto/icono en contraste (blanco)  */
+/* ------------------------------------------------------------------ */
+:root {
+	--es-primary: #1572e8;         /* color del esquema (primary) */
+	--es-primary-rgb: 21, 114, 232;
+	--es-menu-gray: #6b6f78;       /* gris legible en estado normal */
+}
+
+/* --- Normal --- */
+.sidebar .nav > .nav-item > a,
+.sidebar .nav .nav-item .collapse li > a {
+	color: var(--es-menu-gray);
+	transition: color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
+}
+.sidebar .nav > .nav-item > a p,
+.sidebar .nav .nav-item .collapse li > a .sub-item {
+	color: var(--es-menu-gray);
+	opacity: 1;
+}
+.sidebar .nav .nav-item .app-icon {
+	color: var(--es-menu-gray);
+	transition: color 0.15s ease, transform 0.15s ease, filter 0.15s ease;
+}
+
+/* --- Hover / foco: color del esquema + efecto de destacar --- */
+.sidebar .nav > .nav-item > a:hover,
+.sidebar .nav > .nav-item > a:focus,
+.sidebar .nav .nav-item .collapse li > a:hover,
+.sidebar .nav .nav-item .collapse li > a:focus {
+	background: rgba(var(--es-primary-rgb), 0.10);
+	border-radius: 6px;
+}
+.sidebar .nav > .nav-item > a:hover p,
+.sidebar .nav > .nav-item > a:focus p,
+.sidebar .nav .nav-item .collapse li > a:hover .sub-item,
+.sidebar .nav .nav-item .collapse li > a:focus .sub-item {
+	color: var(--es-primary) !important;
+}
+.sidebar .nav > .nav-item > a:hover .app-icon,
+.sidebar .nav > .nav-item > a:focus .app-icon,
+.sidebar .nav .nav-item .collapse li > a:hover .app-icon,
+.sidebar .nav .nav-item .collapse li > a:focus .app-icon {
+	color: var(--es-primary) !important;
+	transform: scale(1.12);
+	filter: drop-shadow(0 1px 2px rgba(var(--es-primary-rgb), 0.35));
+}
+
+/* --- Seleccionado (ruta activa): fondo del esquema + texto e icono en contraste ---
+   Solo el menú y submenú de la ruta actual. Los demás quedan "Normal" (gris/blanco)
+   y se iluminan en hover. Se declara después del hover para ganar a igual especificidad. */
+.sidebar .nav > .nav-item.active > a {
+	background: var(--es-primary) !important;
+	border-radius: 6px;
+}
+.sidebar .nav > .nav-item.active > a p {
+	color: #ffffff !important;
+	font-weight: 600;
+}
+.sidebar .nav > .nav-item.active > a .app-icon {
+	color: #ffffff !important;
+	transform: none;
+	filter: none;
+}
+.sidebar .nav > .nav-item.active > a .caret {
+	color: #ffffff;
+}
+.sidebar .nav > .nav-item.active > a:before {
+	background: transparent !important;   /* quita la barra lateral de Atlantis */
+}
+.sidebar .nav > .nav-item.active > a:hover {
+	background: var(--es-primary) !important;
+}
+
+/* Submenú: opción seleccionada */
+.sidebar .nav .nav-item .collapse li.active > a {
+	background: var(--es-primary) !important;
+	border-radius: 6px;
+}
+.sidebar .nav .nav-item .collapse li.active > a .sub-item {
+	color: #ffffff !important;
+	font-weight: 600;
+}
+.sidebar .nav .nav-item .collapse li.active > a .app-icon {
+	color: #ffffff !important;
+	transform: none;
+	filter: none;
+}
+.sidebar .nav .nav-item .collapse li.active > a .sub-item:before {
+	background: #ffffff;
+}
+.sidebar .nav .nav-item .collapse li.active > a:hover {
+	background: var(--es-primary) !important;
+}
+
+/* ------------------------------------------------------------------ */
+/* Submenús: sangría + tamaño menor (pertenencia al menú padre)        */
+/* conservando el estilo (normal / hover / activo) ya definido.        */
+/* ------------------------------------------------------------------ */
+.sidebar .nav .nav-item .collapse {
+	margin-left: 14px;
+}
+.sidebar .nav .nav-item .collapse li > a {
+	padding-left: 16px !important;
+}
+/* Icono y texto del submenú más pequeños que los del menú padre */
+.sidebar .nav .nav-item .collapse li > a .app-icon {
+	font-size: 1.4em;
+}
+.sidebar .nav .nav-item .collapse li > a .sub-item {
+	font-size: 13px;
+	margin-left: 18px;
+}
+/* Sin viñetas en los submenús: ni list-style nativo del <li> ni el punto de Atlantis */
+.sidebar .nav .nav-item .collapse ul,
+.sidebar .nav .nav-item .collapse li {
+	list-style: none !important;
+}
+.sidebar .nav .nav-item .collapse li > a .sub-item:before,
+.sidebar .nav .nav-item .collapse li.active > a .sub-item:before {
+	content: none !important;
+	display: none !important;
+	background: transparent !important;
+}

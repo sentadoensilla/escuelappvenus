@@ -14,6 +14,10 @@ import UserHead from '../components/head'
 import Listado from '../components/tables'
 import Waiting from '../parts/waiting';
 import { Foot } from '../components/foot'
+import AppIcon from '../components/AppIcon';
+import TituloPagina from '../components/TituloPagina';
+
+
 
 /**
  * Listado de asignaturas (SAE - public.tabasig).
@@ -159,15 +163,15 @@ export default function ListadoAsignaturas(){
                                             <div className="card">
                                                 <div className="card-header">
                                                     <div className="d-flex align-items-center flex-wrap">
-                                                        <h4 className="card-title">{ myConst.labels.asignaturasList[0] }</h4>
+                                                        <TituloPagina>{myConst.labels.asignaturasList[0]}</TituloPagina>
                                                         <button type="button" onClick={generarPdf}
                                                             className="btn btn-danger btn-round ms-auto me-2"
                                                             title="Listado de asignaturas en PDF">
-                                                            <i className="bi bi-file-earmark-pdf">&nbsp;&nbsp;</i>
+                                                            <AppIcon icon="tabler:file-type-pdf" />
                                                             Listado de asignaturas
                                                         </button>
                                                         <Link to={privateRoutes.ASIGNATURAS_ADD} className="btn btn-primary btn-round">
-                                                            <i className="bi bi-plus-lg">&nbsp;&nbsp;</i>
+                                                            <AppIcon icon="la flaticon-plus" />
                                                             {myConst.labels.asignaturasAdd[0][0]}
                                                         </Link>
                                                     </div>

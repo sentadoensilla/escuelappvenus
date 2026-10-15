@@ -34,6 +34,12 @@ import { privateRoutes } from '../../services/routes';
 import UserHead from '../components/head';
 import { Forbidden } from '../forbidden';
 import { Foot } from '../components/foot';
+import AppIcon from '../components/AppIcon';
+import ActionButton from '../components/ActionButton';
+import TituloPagina from '../components/TituloPagina';
+
+
+
 
 /**
  * Alta/edición de un aviso institucional (SAE - public.tabavisroll).
@@ -185,9 +191,9 @@ export default function AddAviso() {
                                         <div className="card">
                                             <div className="card-header">
                                                 <div className="d-flex align-items-center">
-                                                    <h4 className="card-title">{titulo}</h4>
+                                                    <TituloPagina>{titulo}</TituloPagina>
                                                     <Link to={privateRoutes.AVISOS_LIST} className="btn btn-primary btn-round ms-auto">
-                                                        <i className="bi bi-list-ul">&nbsp;&nbsp;</i>
+                                                        <AppIcon icon="la flaticon-list" />
                                                         {myConst.labels.avisosList[0]}
                                                     </Link>
                                                 </div>
@@ -269,7 +275,7 @@ export default function AddAviso() {
                                                                     <div className="row align-items-center">
                                                                         <div className="col-icon">
                                                                             <div className="icon-big text-center icon-danger bubble-shadow-small">
-                                                                                <i className="bi bi-file-earmark-pdf"></i>
+                                                                                <AppIcon icon="tabler:file-type-pdf" />
                                                                             </div>
                                                                         </div>
                                                                         <div className="col col-stats ms-3 ml-sm-0">
@@ -285,11 +291,14 @@ export default function AddAviso() {
                                                     </div>
 
                                                     <div className="card-action text-center">
-                                                        <button type="submit"
-                                                            className={waiting ? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
-                                                            disabled={waiting}>
+                                                        <ActionButton
+                                                            type="submit"
+                                                            loading={waiting}
+                                                            icon="la flaticon-check"
+                                                            className="btn btn-primary ms-1"
+                                                        >
                                                             {titulo}
-                                                        </button>
+                                                        </ActionButton>
                                                     </div>
                                                 </form>
                                             </div>

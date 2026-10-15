@@ -1,5 +1,7 @@
 import { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import AppIcon from './AppIcon';
+
 
 const WidgetWP = ({props}) => {
 
@@ -23,7 +25,7 @@ const WidgetWP = ({props}) => {
                         {props.title} 
                         {'  '+props.estado+'  '}
                     </h4>
-                    <h3 className="mb-4 fw-bold text-center"><i className="bi bi-whatsapp"></i> {'  '+props.emisor+'  '} </h3>
+                    <h3 className="mb-4 fw-bold text-center"><AppIcon icon="twemoji:mobile-phone" /> {'  '+props.emisor+'  '} </h3>
 
                     <div className="pb-3 mb-0 text-center">{props.caption}</div>
                     <div className="table-responsive table-hover">
@@ -45,7 +47,7 @@ const WidgetWP = ({props}) => {
 
                                     return (
                                         <tr key={stats.tipo}>
-                                            <td><i className="bi bi-whatsapp"></i> {stats.descripcion}</td>
+                                            <td><AppIcon icon="twemoji:mobile-phone" /> {stats.descripcion}</td>
                                             <td className="text-end">{stats.enviadoshoy}</td>
                                             <td className="text-end">{stats.enviadosmes}</td>
                                             <td className="text-end">{stats.enviadostotal}</td>
@@ -54,7 +56,7 @@ const WidgetWP = ({props}) => {
                                 })
                             }                              
                                 <tr>
-                                    <td><i className="bi bi-whatsapp"></i> TOTAL NOTIFICACIONES</td>
+                                    <td><AppIcon icon="twemoji:mobile-phone" /> TOTAL NOTIFICACIONES</td>
                                     <td className="text-end">{enviosh}</td>
                                     <td className="text-end">{enviosm}</td>
                                     <td className="text-end">{enviost}</td>
@@ -65,7 +67,7 @@ const WidgetWP = ({props}) => {
                 </div>
                 {
                     (props.link)?
-                        <Link className='btn btn-white' to={props.link}><i className="bi bi-gear"></i> Configuracion</Link>
+                        <Link className='btn btn-white' to={props.link}><AppIcon icon="twemoji:gear" /> Configuracion</Link>
                     :
                     ""
                 } 

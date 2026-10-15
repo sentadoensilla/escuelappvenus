@@ -14,6 +14,8 @@ import UserHead from '../components/head'
 import Listado from '../components/tables'
 import Waiting from '../parts/waiting';
 import { Foot } from '../components/foot'
+import AppIcon from '../components/AppIcon';
+
 
 export default function ListadoComunicados(){
     // eslint-disable-next-line
@@ -40,7 +42,7 @@ export default function ListadoComunicados(){
                         onClick={() => showElement(miListado)} 
                         title="" className="btn btn-rounded btn-success btn-xs me-1" 
                         data-original-title="Ver elemento">
-                        <i className="bi bi-eyeglasses"></i>
+                        <AppIcon icon="tabler:eye" />
                     </button>
                     <button type="button" data-bs-toggle="tooltip" 
                         onClick={() => dispatch({type:'delete', reference: miListado.idregistro})} 
@@ -227,7 +229,7 @@ export default function ListadoComunicados(){
                                                     <div className="d-flex align-items-center">
                                                         <h4>{myConst.labels.alertList[0]} </h4>
                                                         <Link to={privateRoutes.COMUNICACION_ADD} className="btn btn-primary btn-round ms-auto">
-                                                            <i className="bi bi-plus-lg">&nbsp;&nbsp;</i>
+                                                            <AppIcon icon="la flaticon-plus" />
                                                             {myConst.labels.alertAdd[0][0]} 
                                                         </Link>
                                                     </div>

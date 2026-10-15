@@ -12,6 +12,8 @@ import tool from '../../services/tools';
 
 import { Forbidden } from '../forbidden'
 import UserHead from '../components/head'
+import AppIcon from '../components/AppIcon';
+
 
 export default function CitacionesView() {
     const miUsuario =  tool.getUser()
@@ -121,31 +123,31 @@ export default function CitacionesView() {
                             dangerouslySetInnerHTML={{__html: sanitized }}></div>
                             <p className='card-category'>
                                 <span className="stamp stamp-md bg-danger me-3">
-									<i className="bi bi-people"></i>
+									<AppIcon icon="tabler:users" />
 								</span>
                                 Grupo: { element.grupo.toString().replaceAll(',', ', ') }
                             </p>
                             <p className='card-category'>
                                 <span className="stamp stamp-md bg-primary me-3">
-									<i className="bi bi-person-gear"></i>
+									<AppIcon icon="tabler:user-edit" />
 								</span>
                                 Estudiantes: { element.estudiante }
                             </p>
                             <p className='card-category'>
                                 <span className="stamp stamp-md bg-warning me-3">
-									<i className="bi bi-question-circle"></i>
+									<AppIcon icon="tabler:help-circle" />
 								</span>
                                 Motivo: { element.motivocitacion }
                             </p>
                             <p className='card-category'>
                                 <span className="stamp stamp-md bg-primary me-3">
-									<i className="bi bi-calendar-event"></i>
+									<AppIcon icon="tabler:calendar-event" />
 								</span>                                
                                 Fecha de la citación: { element.fechacitacion }
                             </p>
                             <p className='card-category'>
                                 <span className="stamp stamp-md bg-danger me-3">
-									<i className="bi bi-geo-alt"></i>
+									<AppIcon icon="tabler:map-pin" />
 								</span>                                
                                 Lugar de la citación: { element.lugar }
                             </p>
@@ -251,7 +253,7 @@ export default function CitacionesView() {
                                                 <div className='row'>
                                                     <div className='col-5'>
                                                         <div className='icon-big text-center'>
-                                                            <i className='flaticon-home text-primary'></i>
+                                                            <AppIcon icon="twemoji:house" className="text-primary" />
                                                         </div>
                                                     </div>
                                                     <div className='col-7 col-stats'>
@@ -271,12 +273,12 @@ export default function CitacionesView() {
                                                     <div className='col-5'>
                                                     <div className='row'>
                                                         <div className='icon-big text-center'>
-                                                            <i className='flaticon-placeholder-1 text-danger'></i>
+                                                            <AppIcon icon="twemoji:round-pushpin" className="text-danger" />
                                                         </div>
                                                     </div>
                                                     <div className='row'>
                                                         <div className='icon-big text-center'>
-                                                            <i className='flaticon-whatsapp text-success'></i>
+                                                            <AppIcon icon="twemoji:mobile-phone" className="text-success" />
                                                         </div>
                                                     </div>
 
@@ -298,13 +300,13 @@ export default function CitacionesView() {
                                                     <div className='col-5'>
                                                         <div className='row'>
                                                             <div className='icon-big text-center'>
-                                                                <i className='flaticon-envelope text-danger'></i><br/> 
+                                                                <AppIcon icon="twemoji:love-letter" className="text-danger" /><br/> 
                                                             </div>
                                                         </div>
                                                         <div className='row'>
                                                             <div className='icon-big text-center'>
                                                                 <a href={comunicado.facebook} target="_blank" rel="noopener noreferrer">
-                                                                    <i className='flaticon-facebook text-primary'></i>
+                                                                    <AppIcon icon="tabler:brand-facebook" className="text-primary" />
                                                                 </a>
                                                             </div>
                                                         </div>

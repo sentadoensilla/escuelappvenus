@@ -102,6 +102,28 @@ el frontend los traduce en tiempo de render con **`tool.icono(clase)`** (`src/se
 | `fa-door-open` | `bi-door-open` | | `fa-grin-beam-sweat` | `bi-emoji-frown` |
 | `fa-cloud-download-alt` | `bi-cloud-arrow-down` | | `fa-10x` _(utilidad de tamaño)_ | `fs-1` (acción de tamaños BS5) |
 
+### 2.3 Iconografía e implementación en código (Iconify)
+
+- **Componente `<AppIcon>`** (`src/pages/components/AppIcon.js`): acepta un nombre Iconify
+  (`tabler:home`, `twemoji:school`) **o** una clase CSS heredada (`la flaticon-pencil`). El tamaño
+  se controla por CSS (`font-size`), hereda el color (`currentColor`) y lleva 2px de margen mínimo.
+- **Menú/submenú** → **Tabler** (`tabler:*`). Los iconos dinámicos de la BD se traducen con
+  `tool.icono()` (`src/services/icons.js`).
+- **Widgets/dashboards/bloques** → **Twemoji** (`twemoji:*`).
+- **Botones de acción de las tablas de listado** y **botones de los formularios** → iconos de
+  **Flaticon** (`la flaticon-*`), para que hagan juego entre sí (editar/borrar/guardar/volver/…).
+- **Botón de acción `<ActionButton>`** (`src/pages/components/ActionButton.js`): al ejecutar, cambia
+  el icono por un spinner, **mantiene el texto y el tamaño**, y sólo **atenúa el color** (`bg-muted`)
+  + `disabled`. Evita dobles clics.
+- **Título de página `<TituloPagina>`** (`src/pages/components/TituloPagina.js`): título en **rojo**
+  acompañado del **icono del menú/submenú** que invocó la ruta (`tool.iconoDeRuta()`), con el mismo
+  tamaño/color. Usarlo como título de los formularios/listados.
+- **Menú (comportamiento)**: el activo/abierto es el único abierto del acordeón
+  (`data-bs-parent="#menuPrincipalAccordion"`). Normal = gris; hover = color del esquema + realce;
+  activo/seleccionado = fondo del esquema (`--es-primary`) con texto e icono en blanco.
+- **Inicio** → dashboard del rol (`dashboardDeUsuario`), o login si no hay sesión. El navbar superior
+  muestra un icono del rol en el color del texto.
+
 ---
 
 ## 3. Catálogo de controles por situación

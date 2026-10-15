@@ -13,6 +13,9 @@ import UserHead from '../components/head';
 import Listado from '../components/tables';
 import Waiting from '../parts/waiting';
 import { Foot } from '../components/foot';
+import AppIcon from '../components/AppIcon';
+import TituloPagina from '../components/TituloPagina';
+
 
 /**
  * gestionList: listado genérico para cualquier entidad del CRUD.
@@ -50,7 +53,7 @@ export default function GestionList() {
                     <i className="la flaticon-pencil"></i>
                 </button>
                 <button type="button" data-bs-toggle="tooltip"
-                    onClick={() => dispatch({ type: 'delete', reference: row.idregistro })}
+                    onClick={() => deleteElement(row.idregistro)}
                     title="Eliminar elemento" className="btn btn-rounded btn-outline-danger btn-xs me-1">
                     <i className="la flaticon-interface-5"></i>
                 </button>
@@ -121,6 +124,39 @@ export default function GestionList() {
         }
     };
 
+    // Borrado con confirmación y estado de carga del botón (ActionButton).
+    const deleteElement = async (reference) => {
+        const answer = await swal.fire({
+            title: '¿Está seguro?',
+            text: 'Eliminar esto no tiene reversa!',
+            icon: 'warning',
+            showConfirmButton: true,
+            confirmButtonText: 'Sí, eliminar!',
+            showCancelButton: true,
+            customClass: { confirmButton: 'btn btn-danger', closeButton: 'btn btn-primary' },
+        });
+        if (!answer.isConfirmed) { swal.close(); return; }
+        setWaiting(true);
+        try {
+            // El idregistro ya viene encriptado desde la API.
+            const resultado = await messenger.poster({
+                method: 'POST',
+                url: myConst.roots.engine + config.endpoints.borrar,
+                value: { idregistro: reference },
+            });
+            setListadoController(listadoController + 1);
+            await swal.fire({
+                title: (parseInt(resultado.statusCode) === 200) ? 'Eliminado!' : 'El sistema no pudo eliminar el dato!',
+                text: resultado.message,
+                icon: resultado.status,
+                showConfirmButton: true,
+                customClass: { confirmButton: 'btn btn-primary' },
+            });
+        } finally {
+            setWaiting(false);
+        }
+    };
+
     useEffect(() => {
         if (config) {
             setWaiting(true);
@@ -177,9 +213,9 @@ export default function GestionList() {
                                         <div className="card">
                                             <div className="card-header">
                                                 <div className="d-flex align-items-center">
-                                                    <h4 className="card-title">{config.titulo}</h4>
+                                                    <TituloPagina>{config.titulo}</TituloPagina>
                                                     <Link to={`/gestion/${entidad}/agregar`} className="btn btn-primary btn-round ms-auto">
-                                                        <i className="bi bi-plus-lg">&nbsp;&nbsp;</i>
+                                                        <AppIcon icon="la flaticon-plus" />
                                                         Agregar
                                                     </Link>
                                                 </div>

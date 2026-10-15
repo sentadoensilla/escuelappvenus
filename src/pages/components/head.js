@@ -7,15 +7,63 @@ import tool from '../../services/tools';
 import { publicRoutes } from '../../services/routes';
 
 import UserCard from './userCard';
+import AppIcon from './AppIcon';
+
+// Dashboard de inicio por rol (logic.tabroll): 0 admin, 1 estudiante, 2 docente,
+// 3 institución, 4 acudiente, 5 demo, 6 coordinador, 7 secretaría.
+const DASHBOARD_BY_ROL = {
+    0: '/academic', 3: '/academic', 6: '/academic', 7: '/academic',
+    1: '/dashstudent', 4: '/dashstudent',
+    2: '/dashteacher',
+    5: '/dashboardadmon',
+};
+// Icono (Tabler) representativo del rol, para el navbar superior.
+const ICONO_BY_ROL = {
+    0: 'tabler:user-shield', 1: 'tabler:backpack', 2: 'tabler:chalkboard', 3: 'tabler:building',
+    4: 'tabler:user-heart', 5: 'tabler:user-star', 6: 'tabler:user-check', 7: 'tabler:clipboard-text',
+};
+
+function rolDeUsuario(miUsuario) {
+    try {
+        const n = parseInt(tool.decriptar(miUsuario.usuarioRollId));
+        return isNaN(n) ? null : n;
+    } catch (e) {
+        return null;
+    }
+}
+
+// Ruta del dashboard según el rol; si no se reconoce, usa usuarioIndex si es una
+// ruta interna válida; en último caso, el dashboard académico.
+function dashboardDeUsuario(miUsuario) {
+    const rol = rolDeUsuario(miUsuario);
+    if (DASHBOARD_BY_ROL[rol]) return DASHBOARD_BY_ROL[rol];
+    const idx = miUsuario.usuarioIndex;
+    if (typeof idx === 'string' && /^\/(academic|dashteacher|dashstudent|dashboardadmon)$/.test(idx)) return idx;
+    return '/academic';
+}
+
+function iconoDeRol(miUsuario) {
+    const rol = rolDeUsuario(miUsuario);
+    return ICONO_BY_ROL[rol] || 'tabler:user';
+}
 
 function UserHead(props) {
     // eslint-disable-next-line
 	const { waiting, setWaiting, elUsuario } = useContext(UserContext);    
     const navegar = useNavigate()
     const miUsuario = tool.getUser()
-    const preUri = window.location.pathname.split('/')
-    const miUri = preUri[1]
-    const menuInicio = 'dashboard'
+    const miInicio = dashboardDeUsuario(miUsuario)
+    const rolIcono = iconoDeRol(miUsuario)
+    // Ruta actual sin '/' inicial. La coincidencia del menú/opción debe ser exacta
+    // o por segmento (nunca `includes`, que marcaría todo cuando la ruta es vacía).
+    const rutaActual = window.location.pathname.replace(/^\//, '')
+    const coincide = (enlace) => {
+        const e = String(enlace || '').replace(/^\//, '')
+        if (!e || !rutaActual) return false
+        return rutaActual === e || rutaActual.startsWith(e + '/')
+    }
+    const menuActivo = (item) => (item.opciones || []).some((op) => coincide(op.enlace))
+    const enInicio = window.location.pathname === miInicio
     const elHtml = document.getElementsByTagName('html')
     const elGraper = document.getElementById('elgrapper')
     /*     
@@ -44,7 +92,7 @@ function UserHead(props) {
     const LogOut = () =>{
         tool.outUser()
         closeMenu()
-        navegar(publicRoutes.INDEX)
+        navegar(publicRoutes.LOGIN)
     }
 
     const closeMenu = () =>{
@@ -59,16 +107,16 @@ function UserHead(props) {
         }
     }, []); 
  */
-    // CENTINELA FOR NO AUTH USERS
+    // CENTINELA FOR NO AUTH USERS → login
     if(!miUsuario.isLogged){
-        navegar(publicRoutes.INDEX , { replace: true })
+        navegar(publicRoutes.LOGIN , { replace: true })
     }
 
     return (
         <Fragment>
             <div className="main-header">
                 <div className="logo-header" data-background-color="blue">
-                    <NavLink to={miUsuario.usuarioIndex} className="logo">
+                    <NavLink to={miInicio} className="logo">
                         <img src={myConst.essentials.logo} alt="navbar brand" className="navbar-brand" />
                     </NavLink>
                     <button className="navbar-toggler sidenav-toggler ms-auto"
@@ -79,20 +127,20 @@ function UserHead(props) {
                         aria-expanded="false" 
                         aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon">
-                            <i className="icon-menu"></i>
+                            <AppIcon icon="tabler:menu-2" />
                         </span>
                     </button>
-                    <button className="topbar-toggler more"><i className="icon-options-vertical"></i></button>
+                    <button className="topbar-toggler more"><AppIcon icon="tabler:dots-vertical" /></button>
                     <div className="nav-toggle"> {
                         (waiting)?
                             <button className="btn btn-toggle toggle-sidebar custom-toggle">
-                                <i className="flaticon-settings"></i>
+                                <AppIcon icon="tabler:settings" />
                             </button>
                         : 
                             <button 
                                 onClick={toggleMenu}
                                 className="btn btn-toggle toggle-sidebar">
-                                <i className="icon-menu"></i>
+                                <AppIcon icon="tabler:menu-2" />
                             </button>
                     }
                     </div>
@@ -103,9 +151,12 @@ function UserHead(props) {
                 data-background-color="blue2">
                     
                     <div className="container-fluid">
-                        <div className="collapse" id="search-nav">
+                        <div className="collapse show" id="search-nav">
                             <div className="input-group">
-                                <span className='text-white'>{ miUsuario.usuarioInstitucionNombre }</span>
+                                <span className='text-white d-inline-flex align-items-center'>
+                                    <AppIcon icon={rolIcono} className="me-1" />
+                                    { miUsuario.usuarioInstitucionNombre }
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -125,10 +176,10 @@ function UserHead(props) {
                 <div className="sidebar-wrapper scrollbar scrollbar-inner">
                     <div className="sidebar-content">
                         <UserCard />
-                        <ul className="nav nav-primary">
-                            <li className={(miUri.includes(menuInicio))? "nav-item active" : "nav-item"}>
-                                <NavLink to={miUsuario.usuarioIndex} data-bs-toggle="collapse" className="collapsed" aria-expanded="false">
-                                    <i className="bi bi-house"></i>
+                        <ul id="menuPrincipalAccordion" className="nav nav-primary">
+                            <li className={enInicio ? "nav-item active" : "nav-item"}>
+                                <NavLink to={miInicio} className="collapsed">
+                                    <AppIcon icon="tabler:home" />
                                     <p>Inicio</p>
                                     <span className="caret"></span>
                                 </NavLink>
@@ -136,20 +187,22 @@ function UserHead(props) {
                             { 
                                 miMenu.map( (item,i) => {
                                     return (
-                                    <li key={i} className={(item.opciones.some(e => e.enlace.includes(miUri)))? "nav-item active" : "nav-item"}>
+                                    <li key={i} className={menuActivo(item) ? "nav-item active" : "nav-item"}>
                                         <NavLink data-bs-toggle="collapse"  data-bs-target={"#menu"+multiplicador+item.aemenu_id}>
-                                            <i className={tool.icono(item.aemenu_icono || 'bi bi-folder2-open')}></i>
+                                            <AppIcon icon={tool.icono(item.aemenu_icono || 'tabler:folder-open')} />
                                             <p>{item.aemenu_nombre}</p>
                                             <span className="caret"></span>
                                         </NavLink>
-                                        <div className={(item.opciones.some(e => e.enlace.includes(miUri)))? "collapse show" : "collapse"} id={"menu"+multiplicador+item.aemenu_id}>
-                                            <ul className={(item.opciones.some(e => e.enlace.includes(miUri)))? "nav nav-show" : "nav nav-collapse"}>
+                                        <div className={menuActivo(item) ? "collapse show" : "collapse"}
+                                            id={"menu"+multiplicador+item.aemenu_id}
+                                            data-bs-parent="#menuPrincipalAccordion">
+                                            <ul className={menuActivo(item) ? "nav nav-show" : "nav nav-collapse"}>
                                             {
                                                 item.opciones.map((opcion,o) => {
                                                     return (
-                                                        <li key={o} className={(opcion.enlace.includes(miUri))? "active text-danger" : ""}>
+                                                        <li key={o} className={coincide(opcion.enlace) ? "active" : ""}>
                                                             <NavLink to={opcion.enlace}>
-                                                                <i className={(opcion.enlace.includes(miUri))? tool.icono(item.opciones[o].icono || 'bi bi-circle')+" active text-danger" : tool.icono(item.opciones[o].icono || 'bi bi-circle')+""}></i>
+                                                                <AppIcon icon={tool.icono(item.opciones[o].icono || 'tabler:circle')} />
                                                                 <span className="sub-item">{item.opciones[o].opcion}</span>
                                                             </NavLink>
                                                         </li>
@@ -163,7 +216,7 @@ function UserHead(props) {
                             }
                             <li onClick={LogOut} className="nav-item danger" role="button">
                                 <a>
-                                    <i className="text-white bi bi-power"></i>
+                                    <AppIcon icon="tabler:power" className="text-white" />
                                     <p className="text-center text-white">{ myConst.labels.logOut[0] }</p>
                                 </a>
                             </li>

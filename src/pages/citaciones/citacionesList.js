@@ -20,6 +20,8 @@ import { Foot } from '../components/foot'
 import "react-datepicker/dist/react-datepicker.css";
 
 import es from 'date-fns/locale/es';
+import AppIcon from '../components/AppIcon';
+
 registerLocale('es', es)
 
 export default function ListadoCitaciones(){
@@ -46,7 +48,7 @@ export default function ListadoCitaciones(){
                         onClick={() => showElement(miListado)} 
                         title="" className="btn btn-rounded btn-success btn-xs me-1" 
                         data-original-title="Ver elemento">
-                        <i className="bi bi-eyeglasses"></i>
+                        <AppIcon icon="tabler:eye" />
                     </button>
                     <button type="button" data-bs-toggle="tooltip" 
                         onClick={() => dispatch({type:'delete', reference: miListado.idregistro})} 
@@ -224,7 +226,7 @@ export default function ListadoCitaciones(){
                                                             </label>
                                                         </div>
                                                         <Link to={privateRoutes.CITACION_NEW} className="btn btn-primary btn-round ms-auto">
-                                                            <i className="bi bi-plus-lg">&nbsp;&nbsp;</i>
+                                                            <AppIcon icon="la flaticon-plus" />
                                                             {myConst.labels.citacionesAdd[0][0]} 
                                                         </Link>
                                                     </div>

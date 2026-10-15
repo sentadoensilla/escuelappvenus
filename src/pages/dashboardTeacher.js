@@ -25,6 +25,8 @@ import { Foot } from './components/foot'
 import "react-datepicker/dist/react-datepicker.css";
 
 import es from 'date-fns/locale/es';
+import AppIcon from './components/AppIcon';
+
 registerLocale('es', es)
 
 function DashboardTeacher() {
@@ -668,7 +670,7 @@ function DashboardTeacher() {
 				<div className={(isShowing)? "custom-template open" : "custom-template" }>
 					<div className="title">						
 						<span className="text-danger my5" onClick={()=>{closeShowng()}}>
-							<i className="bi bi-x-square"></i>
+							<AppIcon icon="tabler:square-x" />
 						</span>
 						<h4 className="ph5">
 							 Detalles del gráfico

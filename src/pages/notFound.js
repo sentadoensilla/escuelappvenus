@@ -1,4 +1,6 @@
 import { Fragment } from 'react';
+import AppIcon from './components/AppIcon';
+
 
 function NoEncontrado() {
 	return (
@@ -12,7 +14,7 @@ function NoEncontrado() {
                         <ul className="nav nav-pills nav-secondary  nav-pills-no-bd nav-pills-icons justify-content-center" id="pills-tab-with-icon" role="tablist">
                             <li className="nav-item">
                                 <a className="nav-link active" id="pills-home-tab-icon" data-bs-toggle="pill" href="#pills-home-icon" role="tab" aria-controls="pills-home-icon" aria-selected="true">
-                                    <i className="la flaticon-chart-pie"></i>
+                                    <AppIcon icon="tabler:chart-pie" />
                                     404
                                 </a>
                             </li>

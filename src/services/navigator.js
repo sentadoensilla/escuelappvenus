@@ -1,6 +1,8 @@
 import { Fragment, useState } from 'react';
 import {Link} from 'react-router-dom';
 import tool from '../services/tools';
+import AppIcon from '../pages/components/AppIcon';
+
 
 
 
@@ -88,7 +90,7 @@ function Navigator() {
                             <li className="nav-item active">
                                 <Link to={miUsuario.usuarioIndex}>
                                     <a data-bs-toggle="collapse" className="collapsed" aria-expanded="false">
-                                        <i className="bi bi-house"></i>
+                                        <AppIcon icon="tabler:home" />
                                         <p>Inicio</p>
                                         <span className="caret"></span>
                                     </a>

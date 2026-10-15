@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { publicRoutes } from '../../services/routes';
 import { UserContext } from '../../services/context/UserContext';
 import * as myConst from '../../main/constants';
+import AppIcon from '../components/AppIcon';
+
 
 
 export default function HeadRibbon() {
@@ -22,13 +24,13 @@ export default function HeadRibbon() {
                         <div className='ml-md-auto py-2 py-md-0'>
                             <Link to={publicRoutes.REGISTER} className='btn btn-primary btn-round me-2'>
                                 <span className="btn-label">
-									<i className="bi bi-person-plus"></i>
+									<AppIcon icon="tabler:user-plus" />
 								</span>
                                  Crear cuenta
                             </Link>
                             <Link to={publicRoutes.LOGIN} className='btn btn-success btn-round me-2'>
                                 <span className="btn-label">
-									<i className="bi bi-door-open"></i>
+									<AppIcon icon="tabler:door-enter" />
 								</span>
                                  Ingresar
                             </Link>
@@ -37,7 +39,7 @@ export default function HeadRibbon() {
                                 className='btn btn-white btn-border btn-round me-2'
                             >
                                 <span className="btn-label">
-									<i className="bi bi-emoji-frown"></i>
+									<AppIcon icon="tabler:mood-sad" />
 								</span>
                                  Olvidé mi clave
                             </Link>                            
@@ -53,7 +55,7 @@ export default function HeadRibbon() {
                                 <div className='row'>
                                     <div className='col-5'>
                                         <div className='icon-big text-center'>
-                                            <i className='flaticon-list text-danger'></i>
+                                            <AppIcon icon="twemoji:memo" className="text-danger" />
                                         </div>
                                     </div>
                                     <div className='col-7 col-stats'>
@@ -72,7 +74,7 @@ export default function HeadRibbon() {
                                 <div className='row'>
                                     <div className='col-5'>
                                         <div className='icon-big text-center'>
-                                            <i className='flaticon-envelope text-primary'></i>
+                                            <AppIcon icon="twemoji:love-letter" className="text-primary" />
                                         </div>
                                     </div>
                                     <div className='col-7 col-stats'>
@@ -91,7 +93,7 @@ export default function HeadRibbon() {
                                 <div className='row'>
                                     <div className='col-5'>
                                         <div className='icon-big text-center'>
-                                            <i className='flaticon-envelope-1 text-warning'></i>
+                                            <AppIcon icon="twemoji:love-letter" className="text-warning" />
                                         </div>
                                     </div>
                                     <div className='col-7 col-stats'>
@@ -110,7 +112,7 @@ export default function HeadRibbon() {
                                 <div className='row'>
                                     <div className='col-5'>
                                         <div className='icon-big text-center'>
-                                            <i className='flaticon-whatsapp text-success'></i>
+                                            <AppIcon icon="twemoji:mobile-phone" className="text-success" />
                                         </div>
                                     </div>
                                     <div className='col-7 col-stats'>

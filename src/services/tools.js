@@ -644,7 +644,29 @@ const tool = {
 
     /* Traduce una clase de icono heredada (FontAwesome "fa fa-home" o "educate-icon
        educate-event") a Bootstrap Icons ("bi bi-house"). Implementado en ./icons.js. */
-    icono: iconosFuente.icono
+    icono: iconosFuente.icono,
+
+    /* Devuelve el icono (Iconify) del menú/submenú cuyo enlace corresponde a la
+       ruta dada (por defecto, la ruta actual). Útil para los títulos de página. */
+    iconoDeRuta: function(path){
+        try {
+            const menu = this.getNav() || [];
+            const p = String(path || window.location.pathname || '').replace(/^\//, '');
+            for (const item of menu) {
+                for (const op of (item.opciones || [])) {
+                    const enlace = String(op.enlace || '').replace(/^\//, '');
+                    if (enlace && (p === enlace || p.startsWith(enlace + '/'))) {
+                        return this.icono(op.icono || item.aemenu_icono || '');
+                    }
+                }
+                const enlaceMenu = String(item.enlace || '').replace(/^\//, '');
+                if (enlaceMenu && p === enlaceMenu) {
+                    return this.icono(item.aemenu_icono || '');
+                }
+            }
+        } catch (e) { /* sin menú disponible */ }
+        return 'tabler:circle';
+    }
 }
 
 export default tool;

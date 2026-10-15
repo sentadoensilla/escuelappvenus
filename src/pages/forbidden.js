@@ -2,6 +2,8 @@ import { Fragment } from 'react';
 
 import UserHeadOff from './components/headOff';
 import { Foot } from './components/foot'
+import AppIcon from './components/AppIcon';
+
 
 
 export const Forbidden = () => {
@@ -25,7 +27,7 @@ export const Forbidden = () => {
                                             role="tab" aria-controls="pills-home-icon" 
                                             aria-selected="true"
                                             style={{fontSize:'48pt'}}>
-                                                <i className="la flaticon-chart-pie"></i>
+                                                <AppIcon icon="tabler:chart-pie" />
                                                 505
                                             </a>
                                         </li>

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { publicRoutes } from '../../services/routes';
 import { UserContext } from '../../services/context/UserContext';
 import * as myConst from '../../main/constants';
+import AppIcon from '../components/AppIcon';
+
 
 
 export default function HeadRibbon() {
@@ -22,19 +24,19 @@ export default function HeadRibbon() {
                         <div className='ml-md-auto py-2 py-md-0'>
                             <Link to={publicRoutes.PLANES} className='btn btn-danger btn-round me-2'>
                                 <span className="btn-label">
-									<i className="bi bi-cash"></i>
+									<AppIcon icon="tabler:cash" />
 								</span>
                                 Precios
                             </Link>
                             <Link to={publicRoutes.REGISTER} className='btn btn-primary btn-round me-2'>
                                 <span className="btn-label">
-									<i className="bi bi-person-plus"></i>
+									<AppIcon icon="tabler:user-plus" />
 								</span>
                                  Crear cuenta
                             </Link>
                             <Link to={publicRoutes.LOGIN} className='btn btn-success btn-round me-2'>
                                 <span className="btn-label">
-									<i className="bi bi-door-open"></i>
+									<AppIcon icon="tabler:door-enter" />
 								</span>
                                  Ingresar
                             </Link>
@@ -43,7 +45,7 @@ export default function HeadRibbon() {
                                 className='btn btn-white btn-border btn-round me-2'
                             >
                                 <span className="btn-label">
-									<i className="bi bi-emoji-frown"></i>
+									<AppIcon icon="tabler:mood-sad" />
 								</span>
                                  Olvidé mi clave
                             </Link>                            

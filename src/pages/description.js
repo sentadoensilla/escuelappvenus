@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { publicRoutes } from '../services/routes';
 import * as myConst from '../main/constants';
+import AppIcon from './components/AppIcon';
+
 
 export default function Desc(props) {
 	let tamDesc = "col-sm-12 col-md-12"
@@ -30,7 +32,7 @@ export default function Desc(props) {
 							<div class="card card-primary card-annoucement card-round card-stats">
 								<div class="card-body text-center">
 									<div className="icon-big text-center">
-										<i className="flaticon-whatsapp"></i>
+										<AppIcon icon="twemoji:mobile-phone" />
 									</div>
 									<div class="card-opening">Comunicados</div>
 									<div class="card-desc">
@@ -46,7 +48,7 @@ export default function Desc(props) {
 							<div class="card card-danger card-annoucement card-round card-stats">
 								<div class="card-body text-center">
 									<div className="icon-big text-center">
-										<i className="flaticon-envelope"></i>
+										<AppIcon icon="twemoji:love-letter" />
 									</div>
 									<div class="card-opening">Consulta a docentes</div>
 									<div class="card-desc">
@@ -62,7 +64,7 @@ export default function Desc(props) {
 							<div class="card card-info card-annoucement card-round card-stats">
 								<div class="card-body text-center">
 									<div className="icon-big text-center">
-										<i className="flaticon-envelope-2"></i>
+										<AppIcon icon="twemoji:love-letter" />
 									</div>
 									<div class="card-opening">Excusas</div>
 									<div class="card-desc">
@@ -78,7 +80,7 @@ export default function Desc(props) {
 							<div class="card card-warning card-annoucement card-round card-stats">
 								<div class="card-body text-center">
 									<div className="icon-big text-center">
-										<i className="flaticon-envelope-2"></i>
+										<AppIcon icon="twemoji:love-letter" />
 									</div>
 									<div class="card-opening">Observaciones</div>
 									<div class="card-desc">

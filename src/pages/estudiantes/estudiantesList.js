@@ -14,6 +14,10 @@ import UserHead from '../components/head'
 import Listado from '../components/tables'
 import Waiting from '../parts/waiting';
 import { Foot } from '../components/foot'
+import AppIcon from '../components/AppIcon';
+import TituloPagina from '../components/TituloPagina';
+
+
 
 /**
  * Listado de estudiantes (SAE - public.tabestu).
@@ -154,9 +158,9 @@ export default function ListadoEstudiantes(){
                                             <div className="card">
                                                 <div className="card-header">
                                                     <div className="d-flex align-items-center">
-                                                        <h4 className="card-title">{ myConst.labels.estudiantesList[0] }</h4>
+                                                        <TituloPagina>{myConst.labels.estudiantesList[0]}</TituloPagina>
                                                         <Link to={privateRoutes.ESTUDIANTES_SAE_ADD} className="btn btn-primary btn-round ms-auto">
-                                                            <i className="bi bi-plus-lg">&nbsp;&nbsp;</i>
+                                                            <AppIcon icon="la flaticon-plus" />
                                                             {myConst.labels.estudiantesAdd[0][0]}
                                                         </Link>
                                                     </div>

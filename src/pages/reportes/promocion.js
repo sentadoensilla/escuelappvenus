@@ -8,6 +8,8 @@ import tool from '../../services/tools';
 import { Forbidden } from '../forbidden';
 import UserHead from '../components/head';
 import { Foot } from '../components/foot';
+import ActionButton from '../components/ActionButton';
+
 
 /**
  * Promoción masiva de estudiantes: mueve las matrículas activas de un curso
@@ -95,9 +97,14 @@ export default function Promocion() {
                                                         </div>
                                                     </div>
                                                     <div className="card-action text-center my-4">
-                                                        <button type="submit" className={waiting ? 'btn is-loading btn-warning' : 'btn btn-primary'} disabled={waiting}>
+                                                        <ActionButton
+                                                            type="submit"
+                                                            loading={waiting}
+                                                            icon="la flaticon-check"
+                                                            className="btn btn-primary"
+                                                        >
                                                             Promover estudiantes
-                                                        </button>
+                                                        </ActionButton>
                                                     </div>
                                                 </form>
                                             </div>

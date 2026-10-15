@@ -19,6 +19,10 @@ import { Foot } from '../components/foot'
 
 import "react-datepicker/dist/react-datepicker.css";
 import es from 'date-fns/locale/es';
+import AppIcon from '../components/AppIcon';
+import ActionButton from '../components/ActionButton';
+
+
 registerLocale('es', es)
 
 export default function SendAttendance(){
@@ -409,12 +413,12 @@ export default function SendAttendance(){
                                                 <div className="d-flex align-items-center text-end">
                                                     
                                                     <Link to={privateRoutes.EXCUSAS_TEACHER} className="btn btn-secondary btn-round">
-                                                        <i className="bi bi-envelope-open">&nbsp;&nbsp;</i>
+                                                        <AppIcon icon="tabler:mail-opened" />
                                                         {myConst.labels.excusasList[0]}
                                                     </Link> &nbsp;&nbsp;                                                   
 
                                                     <Link to={privateRoutes.ASISTENCIA_TEACHERREPORTE} className="btn btn-primary btn-round">
-                                                        <i className="bi bi-list-ul">&nbsp;&nbsp;</i>
+                                                        <AppIcon icon="la flaticon-list" />
                                                         {myConst.labels.asistenciaList[0][0]}
                                                     </Link>  
                                                 </div>
@@ -521,7 +525,7 @@ export default function SendAttendance(){
                                                                                 if(studend.value.toString() === laExcusa.idestudiante.toString()){
                                                                                     return <Link to={privateRoutes.EXCUSAS_VIEW+'/'+laExcusa.idexcusa} className="btn btn-success btn-round ms-auto"
                                                                                         target="_blank" rel="noopener noreferrer">  
-                                                                                                    <i className="bi bi-envelope-open">&nbsp;&nbsp;</i>
+                                                                                                    <AppIcon icon="tabler:mail-opened" />
                                                                                                      Excusa ({laExcusa.tipoexcusa})
                                                                                                 </Link>
                                                                                 }
@@ -556,13 +560,14 @@ export default function SendAttendance(){
                                                     </div>
 
                                                     <div className='card-action text-center'>
-                                                        <button
-                                                            type='submit'
-                                                            className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-success ms-1'}
-                                                            disabled={errorMessage.message||waiting}
+                                                        <ActionButton
+                                                            type="submit"
+                                                            loading={waiting}
+                                                            icon="la flaticon-check"
+                                                            className="btn btn-success ms-1"
                                                         >
                                                             { titulo }
-                                                        </button>&nbsp;&nbsp;
+                                                        </ActionButton>&nbsp;&nbsp;
                                                         <button
                                                             className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-danger ms-1'}
                                                             type='button'

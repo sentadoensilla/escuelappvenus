@@ -6,6 +6,8 @@ import $ from 'jquery';
 import * as myConst from '../../main/constants';
 import tool from '../../services/tools';
 import { publicRoutes } from '../../services/routes';
+import AppIcon from './AppIcon';
+
 
 function UserHeadOff() {
 
@@ -25,13 +27,13 @@ function UserHeadOff() {
                     </a>
                     <button className="navbar-toggler sidenav-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon">
-                            <i className="icon-menu"></i>
+                            <AppIcon icon="tabler:menu-2" />
                         </span>
                     </button>
-                    <button className="topbar-toggler more"><i className="icon-options-vertical"></i></button>
+                    <button className="topbar-toggler more"><AppIcon icon="tabler:dots-vertical" /></button>
                     <div className="nav-toggle">
                         <button className="btn btn-toggle toggle-sidebar">
-                            <i className="icon-menu"></i>
+                            <AppIcon icon="tabler:menu-2" />
                         </button>
                     </div>
                 </div>
@@ -44,7 +46,7 @@ function UserHeadOff() {
                                 <div className="input-group">
                                     <div className="input-group-prepend">
                                         <button type="submit" className="btn btn-search pe-1">
-                                            <i className="bi bi-search search-icon"></i>
+                                            <AppIcon icon="la flaticon-search" className="search-icon" />
                                         </button>
                                     </div>
                                     <input type="text" placeholder="Buscar..." className="form-control" />
@@ -54,7 +56,7 @@ function UserHeadOff() {
                         <ul className="navbar-nav topbar-nav ml-md-auto align-items-center">
                             <li className="nav-item toggle-nav-search hidden-caret">
                                 <a className="nav-link" data-bs-toggle="collapse" href="#search-nav" role="button" aria-expanded="false" aria-controls="search-nav">
-                                    <i className="bi bi-search"></i>
+                                    <AppIcon icon="la flaticon-search" />
                                 </a>
                             </li>
                             <li className="nav-item dropdown hidden-caret">
@@ -91,7 +93,7 @@ function UserHeadOff() {
                         <ul className="nav nav-primary">
                             <li className="nav-item active">
                                 <Link to={publicRoutes.LOGIN} data-bs-toggle="collapse" className="collapsed" aria-expanded="false">
-                                    <i className="bi bi-house"></i>
+                                    <AppIcon icon="tabler:home" />
                                     <p>Inicio</p>
                                     <span className="caret"></span>
                                 </Link>

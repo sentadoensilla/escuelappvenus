@@ -9,6 +9,8 @@ import { Foot } from '../components/foot'
 import HeadPublic from '../parts/headPublic'
 import messenger from "../../services/messenger";
 import tool from '../../services/tools';
+import AppIcon from '../components/AppIcon';
+
 
 export default function ExcusaViewOpen() {
     const { reference } = useParams();
@@ -113,7 +115,7 @@ export default function ExcusaViewOpen() {
                                 <div className='col align-items-center'>
                                     <div className="col-icon">
                                         <div className="icon-big text-center icon-success bubble-shadow-small">
-                                            <i className="bi bi-people text-warning h3"></i>
+                                            <AppIcon icon="twemoji:busts-in-silhouette" className="text-warning h3" />
                                         </div>
                                     </div>
                                     <div className="col col-stats ms-3 ml-sm-0 text-center">
@@ -124,7 +126,7 @@ export default function ExcusaViewOpen() {
                                 <div className='col align-items-center'>
                                     <div className="col-icon">
                                         <div className="icon-big text-center icon-success bubble-shadow-small">
-                                            <i className="bi bi-calendar-minus text-danger h3"></i>
+                                            <AppIcon icon="tabler:calendar-minus" className="text-danger h3" />
                                         </div>
                                     </div>
                                     <div className="col col-stats ms-3 ml-sm-0 text-center">
@@ -134,7 +136,7 @@ export default function ExcusaViewOpen() {
                                 <div className='col align-items-center'>
                                     <div className="col-icon">
                                         <div className="icon-big text-center bubble-shadow-small">
-                                            <i className="bi bi-calendar-plus text-success h3"></i>
+                                            <AppIcon icon="tabler:calendar-plus" className="text-success h3" />
                                         </div>
                                     </div>
                                     <div className="col col-stats ms-3 ml-sm-0 text-center">
@@ -145,7 +147,7 @@ export default function ExcusaViewOpen() {
                             <div className='row align-items-center'>
                                 <div className="col-icon">
                                     <div className="icon-big text-center icon-success bubble-shadow-small">
-                                        <i className="bi bi-folder2-open text-primary h3"></i>
+                                        <AppIcon icon="twemoji:open-file-folder" className="text-primary h3" />
                                     </div>
                                 </div>
                                 <div className="col col-stats ms-3 ml-sm-0">
@@ -246,7 +248,7 @@ export default function ExcusaViewOpen() {
                                             <div className='row'>
                                                 <div className='col-5'>
                                                     <div className='icon-big text-center'>
-                                                        <i className='flaticon-home text-primary'></i>
+                                                        <AppIcon icon="twemoji:house" className="text-primary" />
                                                     </div>
                                                 </div>
                                                 <div className='col-7 col-stats'>
@@ -266,12 +268,12 @@ export default function ExcusaViewOpen() {
                                                 <div className='col-5'>
                                                 <div className='row'>
                                                     <div className='icon-big text-center'>
-                                                        <i className='flaticon-placeholder-1 text-danger'></i>
+                                                        <AppIcon icon="twemoji:round-pushpin" className="text-danger" />
                                                     </div>
                                                 </div>
                                                 <div className='row'>
                                                     <div className='icon-big text-center'>
-                                                        <i className='flaticon-whatsapp text-success'></i>
+                                                        <AppIcon icon="twemoji:mobile-phone" className="text-success" />
                                                     </div>
                                                 </div>
 
@@ -293,13 +295,13 @@ export default function ExcusaViewOpen() {
                                                 <div className='col-5'>
                                                     <div className='row'>
                                                         <div className='icon-big text-center'>
-                                                            <i className='flaticon-envelope text-danger'></i><br/> 
+                                                            <AppIcon icon="twemoji:love-letter" className="text-danger" /><br/> 
                                                         </div>
                                                     </div>
                                                     <div className='row'>
                                                         <div className='icon-big text-center'>
                                                             <a href={excusa.facebook} target="_blank" rel="noopener noreferrer">
-                                                                <i className='flaticon-facebook text-primary'></i>
+                                                                <AppIcon icon="tabler:brand-facebook" className="text-primary" />
                                                             </a>
                                                         </div>
                                                     </div>

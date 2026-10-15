@@ -19,6 +19,8 @@ import messenger from '../services/messenger';
 import Waiting from './parts/waiting';
 import { UserContext } from '../services/context/UserContext';
 import { publicRoutes } from '../services/routes';
+import ActionButton from './components/ActionButton';
+
 
 export default function Index() {
 	const { plan } = useParams();
@@ -456,13 +458,14 @@ export default function Index() {
 													</div>
 
 													<div className='card-action text-center'>
-														<button
-															type='submit'
-															className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
-															disabled={errorMessage.message||waiting}
-														>
+														<ActionButton
+                                                            type="submit"
+                                                            loading={waiting}
+                                                            icon="la flaticon-check"
+                                                            className="btn btn-primary ms-1"
+                                                        >
 															Crear cuenta
-														</button>
+														</ActionButton>
 													</div>
 												</form>
 											</div>

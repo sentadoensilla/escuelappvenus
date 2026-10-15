@@ -12,6 +12,8 @@ import tool from '../../services/tools'
 import { Forbidden } from '../forbidden'
 import Listado from '../components/tables'
 import Waiting from '../parts/waiting';
+import AppIcon from '../components/AppIcon';
+
 
 
 export default function ListadoCampana(){
@@ -192,7 +194,7 @@ export default function ListadoCampana(){
                                         Listado de campañas
                                     </h4>
                                     <Link to={privateRoutes.CAMPANA_ADD} className="btn btn-primary btn-round ms-auto">
-                                        <i className="bi bi-plus-lg">&nbsp;&nbsp;</i>
+                                        <AppIcon icon="la flaticon-plus" />
                                         Campaña 
                                     </Link>
                                 </div>

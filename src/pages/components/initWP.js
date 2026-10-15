@@ -10,6 +10,8 @@ import messenger from '../../services/messenger';
 import tool from '../../services/tools';
 import QRCode from "react-qr-code";
 import socketIOClient from "socket.io-client";
+import AppIcon from './AppIcon';
+
 const miSocketServer = process.env.REACT_APP_BACKEND_URL
 let miSocket = {}
 
@@ -277,7 +279,7 @@ export const WidgetWhatsapp = (props) => {
                                                         type='button'
                                                         className={props.waiting? 'btn is-loading btn-success ms-1' : 'btn btn-success ms-1'}
                                                         onClick={() => {getQR({elNumero})}}
-                                                    ><i className="bi bi-whatsapp"></i> Cargar QR</button>
+                                                    ><AppIcon icon="tabler:brand-whatsapp" /> Cargar QR</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -305,7 +307,7 @@ export const WidgetWhatsapp = (props) => {
                                                         </div>
                                                         <h3 className="text-success fw-bold">
                                                             <span>
-                                                                <i className="flaticon-whatsapp"></i>
+                                                                <AppIcon icon="tabler:brand-whatsapp" />
                                                             </span>
                                                         </h3>
                                                     </div>
@@ -322,7 +324,7 @@ export const WidgetWhatsapp = (props) => {
                                                                     type='button'
                                                                     className={props.waiting? 'btn is-loading btn-dark btn-sm' : 'btn btn-dark btn-sm'}
                                                                     onClick={() => {deleteContact({elNumero:item.emisor})}}
-                                                                ><i className="bi bi-x-square"></i> Eliminar</button>                                                                                    
+                                                                ><AppIcon icon="tabler:square-x" /> Eliminar</button>                                                                                    
                                                             </small>
                                                         </p>
                                                     </div>
@@ -344,7 +346,7 @@ export const WidgetWhatsapp = (props) => {
                                                         </div>
                                                         <h3 className="text-danger fw-bold">
                                                             <span>
-                                                                <i className="flaticon-whatsapp"></i>
+                                                                <AppIcon icon="tabler:brand-whatsapp" />
                                                             </span>
                                                         </h3>
                                                     </div>
@@ -358,7 +360,7 @@ export const WidgetWhatsapp = (props) => {
                                                                     type='button'
                                                                     className={props.waiting? 'btn is-loading btn-dark btn-sm' : 'btn btn-dark btn-sm'}
                                                                     onClick={() => {deleteContact({elNumero:item.emisor})}}
-                                                                ><i className="bi bi-x-square"></i> Eliminar</button>                                                                                    
+                                                                ><AppIcon icon="tabler:square-x" /> Eliminar</button>                                                                                    
                                                             </small>
                                                         </p>
                                                         <p className="text-muted mb-0">
@@ -367,7 +369,7 @@ export const WidgetWhatsapp = (props) => {
                                                                 type='button'
                                                                 className={props.waiting? 'btn is-loading btn-danger btn-sm' : 'btn btn-danger btn-sm'}
                                                                 onClick={() => {getQR({elNumero:item.emisor})}}
-                                                            ><i className="bi bi-whatsapp"></i> Cargar QR</button>
+                                                            ><AppIcon icon="tabler:brand-whatsapp" /> Cargar QR</button>
                                                             </small>
                                                         </p>
                                                     </div>
@@ -381,7 +383,7 @@ export const WidgetWhatsapp = (props) => {
                         :
                         <div key="nonambanever" className="d-flex">
                             <div className="avatar avatar-offline">
-                                <span className="avatar-title rounded-circle border border-white bg-danger"><i className="bi bi-whatsapp"> </i> </span>
+                                <span className="avatar-title rounded-circle border border-white bg-danger"><AppIcon icon="tabler:brand-whatsapp" /> </span>
                             </div>
                             <div className="flex-1 ms-3 pt-1">
                                 <h6 className="text-uppercase fw-bold mb-1">No hay números activados <span className="text-success ps-3"></span></h6>

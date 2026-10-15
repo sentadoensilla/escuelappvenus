@@ -7,6 +7,8 @@ import * as myConst from '../../main/constants';
 // eslint-disable-next-line
 import messenger from '../../services/messenger';
 import tool from '../../services/tools';
+import AppIcon from './AppIcon';
+
 
 export const WidgetWhatsappStatus = (props) => {
     const miUsuario = tool.getUser()
@@ -47,7 +49,7 @@ export const WidgetWhatsappStatus = (props) => {
                                     (miUsuario.picProfile==="") ?
                                         <div key="checkflyer" className="d-flex">
                                             <div className="avatar avatar-offline">
-                                                <span className="avatar-title rounded-circle border border-white bg-danger"><i className="bi bi-person-gear"> </i> </span>
+                                                <span className="avatar-title rounded-circle border border-white bg-danger"><AppIcon icon="tabler:user-edit" /> </span>
                                             </div>
                                             <div className="flex-1 ms-3 pt-1">
                                                 <span className="text-uppercase text-danger fw-bold mb-1">Lo primero es cargar el volante del tarjetón<span className="text-success ps-3"></span></span>
@@ -58,7 +60,7 @@ export const WidgetWhatsappStatus = (props) => {
                                                             type='button'
                                                             className='btn btn-danger btn-sm'
                                                             to={privateRoutes.USUARIO_PROFILE}
-                                                        ><i className="bi bi-person-gear"></i> Cargar Volante
+                                                        ><AppIcon icon="tabler:user-edit" /> Cargar Volante
                                                         </Link>
                                                     </small>
                                                 </span>
@@ -71,7 +73,7 @@ export const WidgetWhatsappStatus = (props) => {
                                 }
                                 <div key="checknamba" className="d-flex">
                                     <div className="avatar avatar-offline">
-                                        <span className="avatar-title rounded-circle border border-white bg-danger"><i className="bi bi-whatsapp"> </i> </span>
+                                        <span className="avatar-title rounded-circle border border-white bg-danger"><AppIcon icon="tabler:brand-whatsapp" /> </span>
                                     </div>
                                     <div className="flex-1 ms-3 pt-1">
                                         <span className="text-uppercase text-danger fw-bold mb-1">Diariamente debes tener al menos 1 whatsapp cargado<span className="text-success ps-3"></span></span>
@@ -82,7 +84,7 @@ export const WidgetWhatsappStatus = (props) => {
                                                     type='button'
                                                     className='btn btn-danger btn-sm'
                                                     to={privateRoutes.EMISORES}
-                                                ><i className="bi bi-whatsapp"></i> Cargar QR
+                                                ><AppIcon icon="tabler:brand-whatsapp" /> Cargar QR
                                                 </Link>
                                             </small>
                                         </span>
@@ -105,12 +107,12 @@ export const WidgetWhatsappStatus = (props) => {
                                                         <div>
                                                             <h5 className="text-success">{item.emisor} <small><span><b> Conectado</b></span></small></h5>
                                                             <p className="text-info">
-                                                                <i className="bi bi-person-plus"></i> {item.newvoters} Votantes registrados hoy
+                                                                <AppIcon icon="tabler:user-plus" /> {item.newvoters} Votantes registrados hoy
                                                             </p>
                                                         </div>
                                                         <h3 className="text-success fw-bold">
                                                             <span>
-                                                                <i className="flaticon-whatsapp"></i>
+                                                                <AppIcon icon="tabler:brand-whatsapp" />
                                                             </span>
                                                         </h3>
                                                     </div>
@@ -123,7 +125,7 @@ export const WidgetWhatsappStatus = (props) => {
                                                                 <button
                                                                     type='button'
                                                                     className='btn btn-info btn-sm'
-                                                                ><i className="bi bi-megaphone"></i> {item.publicidadenviados} Publicidades</button>                                                                                    
+                                                                ><AppIcon icon="tabler:speakerphone" /> {item.publicidadenviados} Publicidades</button>                                                                                    
                                                             </small>
                                                         </p>
                                                         <p className="text-muted mb-0">
@@ -131,7 +133,7 @@ export const WidgetWhatsappStatus = (props) => {
                                                                 <button
                                                                 type='button'
                                                                 className='btn btn-success btn-sm'
-                                                            ><i className="bi bi-send"></i> {item.volantesenviados} Volantes</button>
+                                                            ><AppIcon icon="tabler:send" /> {item.volantesenviados} Volantes</button>
                                                             </small>
                                                         </p>
                                                     </div>
@@ -148,13 +150,13 @@ export const WidgetWhatsappStatus = (props) => {
                                                         <div>
                                                             <h5 className="text-danger">{item.emisor} <small><span><b> Debe cargar QR</b></span></small></h5>
                                                             <p className="text-danger">
-                                                                <i className="bi bi-person-plus"></i> {item.newvoters} Votantes registrados hoy,  
+                                                                <AppIcon icon="tabler:user-plus" /> {item.newvoters} Votantes registrados hoy,  
                                                                 
                                                             </p>  
                                                         </div>
                                                         <h3 className="text-danger fw-bold">
                                                             <span>
-                                                                <i className="flaticon-whatsapp"></i>
+                                                                <AppIcon icon="tabler:brand-whatsapp" />
                                                             </span>
                                                         </h3>
                                                     </div>
@@ -168,7 +170,7 @@ export const WidgetWhatsappStatus = (props) => {
                                                                     type='button'
                                                                     className='btn btn-danger btn-sm'
                                                                     to={privateRoutes.EMISORES}
-                                                                ><i className="bi bi-whatsapp"></i> Cargar QR
+                                                                ><AppIcon icon="tabler:brand-whatsapp" /> Cargar QR
                                                                 </Link>                                                                                    
                                                             </small>
                                                         </p>
@@ -178,7 +180,7 @@ export const WidgetWhatsappStatus = (props) => {
                                                                 type='button'
                                                                 className='btn btn-danger btn-sm'
                                                                 to={privateRoutes.EMISORES}
-                                                            ><i className="bi bi-whatsapp"></i> Cargar QR
+                                                            ><AppIcon icon="tabler:brand-whatsapp" /> Cargar QR
                                                             </Link>
                                                             </small>
                                                         </p>
@@ -196,7 +198,7 @@ export const WidgetWhatsappStatus = (props) => {
                                 <div className="card-body">
                                     <div key="nonamba" className="d-flex">
                                         <div className="avatar avatar-offline">
-                                            <span className="avatar-title rounded-circle border border-white bg-danger"><i className="bi bi-whatsapp"> </i> </span>
+                                            <span className="avatar-title rounded-circle border border-white bg-danger"><AppIcon icon="tabler:brand-whatsapp" /> </span>
                                         </div>
                                         <div className="flex-1 ms-3 pt-1">
                                             <h6 className="text-uppercase fw-bold mb-1">No hay Whatsapp registrados <span className="text-success ps-3"></span></h6>
@@ -208,7 +210,7 @@ export const WidgetWhatsappStatus = (props) => {
                                                     type='button'
                                                     className='btn btn-danger btn-sm'
                                                     to={privateRoutes.EMISORES}
-                                                ><i className="bi bi-whatsapp"></i> Cargar QR
+                                                ><AppIcon icon="tabler:brand-whatsapp" /> Cargar QR
                                                 </Link>
                                             </small>
                                         </div>

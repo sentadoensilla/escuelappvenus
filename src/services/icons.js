@@ -1,134 +1,125 @@
-// Mapa de iconos heredados → Bootstrap Icons.
+// Mapa de iconos heredados → Iconify (Tabler Icons).
 //
 // La base de datos guarda los iconos del menú con clases heredadas de FontAwesome
 // (`fa fa-graduation-cap`) y de la fuente "educate" de Atlantis (`educate-icon educate-event`).
-// Este módulo las traduce a Bootstrap Icons (`bi bi-*`) en tiempo de render, para no
-// depender de las fuentes FontAwesome/educate (retiradas del frontend).
+// Este módulo las traduce a nombres Iconify de Tabler (`tabler:school`) en tiempo de render.
 //
-// Uso: `tool.icono(claseHeredada)` (ver src/services/tools.js).
-// Mantener al día cuando la BD incorpore iconos nuevos (ver CATALOGO_CONTROLES.md §2.2).
+// Uso: `tool.icono(claseHeredada)` y render con `<AppIcon icon={...} />` (ver
+// src/services/tools.js y src/pages/components/head.js).
+// Iconografía: ver CATALOGO_CONTROLES.md §Iconos.
 
 const MAPA = {
     // --- FontAwesome (logic / engine) ---
-    "fa-arrow-up": "arrow-up",
-    "fa-bars": "list",
-    "fa-book": "book",
-    "fa-building": "building",
-    "fa-bullhorn": "megaphone",
-    "fa-calculator": "calculator",
-    "fa-calendar": "calendar",
-    "fa-calendar-alt": "calendar-event",
-    "fa-calendar-check": "calendar-check",
-    "fa-calendar-times": "calendar-x",
-    "fa-calendar-plus": "calendar-plus",
-    "fa-calendar-minus": "calendar-minus",
-    "fa-certificate": "award",
-    "fa-chalkboard-teacher": "person-workspace",
-    "fa-chart-bar": "bar-chart",
-    "fa-chart-line": "graph-up",
-    "fa-chart-pie": "pie-chart",
-    "fa-check-circle": "check-circle",
-    "fa-check-square": "check-square",
-    "fa-child": "person",
-    "fa-church": "building",
-    "fa-clipboard-list": "clipboard-check",
-    "fa-clock": "clock",
-    "fa-cloud-download-alt": "cloud-arrow-down",
-    "fa-cog": "gear",
-    "fa-cogs": "gear-wide-connected",
-    "fa-door-open": "door-open",
-    "fa-edit": "pencil-square",
-    "fa-envelope": "envelope",
-    "fa-envelope-open": "envelope-open",
-    "fa-exclamation-triangle": "exclamation-triangle",
-    "fa-eye": "eye",
-    "fa-file-import": "file-earmark-arrow-down",
-    "fa-file-pdf": "file-earmark-pdf",
-    "fa-file-signature": "file-earmark-text",
-    "fa-file-text": "file-text",
-    "fa-fire-extinguisher": "fire",
-    "fa-flag": "flag",
-    "fa-folder-open": "folder2-open",
-    "fa-gear": "gear",
-    "fa-glasses": "eyeglasses",
-    "fa-graduation-cap": "mortarboard",
-    "fa-grin-beam-sweat": "emoji-frown",
-    "fa-heart": "heart",
-    "fa-home": "house",
-    "fa-key": "key",
-    "fa-list": "list-ul",
-    "fa-list-alt": "card-list",
-    "fa-map-marker": "geo-alt",
-    "fa-map-pin": "geo-alt",
-    "fa-money": "cash",
-    "fa-money-bill-alt": "cash",
-    "fa-ok": "check-lg",
-    "fa-paper-plane": "send",
-    "fa-pen": "pencil",
-    "fa-pencil-alt": "pencil",
-    "fa-plus": "plus-lg",
-    "fa-plus-circle": "plus-circle",
-    "fa-power-off": "power",
-    "fa-question-circle": "question-circle",
-    "fa-search": "search",
-    "fa-tasks": "list-task",
-    "fa-th-large": "grid-3x3-gap",
-    "fa-tint": "droplet",
-    "fa-times": "x-lg",
-    "fa-trash-alt": "trash",
-    "fa-university": "bank",
-    "fa-user": "person",
-    "fa-user-check": "person-check",
-    "fa-user-edit": "person-gear",
-    "fa-user-plus": "person-plus",
-    "fa-users": "people",
-    "fa-whatsapp": "whatsapp",
-    "fa-window-close": "x-square",
+    'fa-arrow-up': 'arrow-up',
+    'fa-bars': 'menu-2',
+    'fa-book': 'book',
+    'fa-building': 'building',
+    'fa-bullhorn': 'speakerphone',
+    'fa-calculator': 'calculator',
+    'fa-calendar': 'calendar',
+    'fa-calendar-alt': 'calendar-event',
+    'fa-calendar-check': 'calendar-check',
+    'fa-calendar-times': 'calendar-x',
+    'fa-calendar-plus': 'calendar-plus',
+    'fa-calendar-minus': 'calendar-minus',
+    'fa-certificate': 'certificate',
+    'fa-chalkboard-teacher': 'school',
+    'fa-chart-bar': 'chart-bar',
+    'fa-chart-line': 'chart-line',
+    'fa-chart-pie': 'chart-pie',
+    'fa-check-circle': 'circle-check',
+    'fa-check-square': 'checkbox',
+    'fa-child': 'mood-kid',
+    'fa-church': 'building-church',
+    'fa-clipboard-list': 'clipboard-list',
+    'fa-clock': 'clock',
+    'fa-cloud-download-alt': 'cloud-download',
+    'fa-cog': 'settings',
+    'fa-cogs': 'settings',
+    'fa-door-open': 'door-enter',
+    'fa-edit': 'edit',
+    'fa-envelope': 'mail',
+    'fa-envelope-open': 'mail-opened',
+    'fa-exclamation-triangle': 'alert-triangle',
+    'fa-eye': 'eye',
+    'fa-file-import': 'file-import',
+    'fa-file-pdf': 'file-type-pdf',
+    'fa-file-signature': 'file-text',
+    'fa-file-text': 'file-text',
+    'fa-fire-extinguisher': 'fire-extinguisher',
+    'fa-flag': 'flag',
+    'fa-folder-open': 'folder-open',
+    'fa-gear': 'settings',
+    'fa-glasses': 'eye',
+    'fa-graduation-cap': 'school',
+    'fa-grin-beam-sweat': 'mood-sad',
+    'fa-heart': 'heart',
+    'fa-home': 'home',
+    'fa-key': 'key',
+    'fa-list': 'list',
+    'fa-list-alt': 'list-details',
+    'fa-map-marker': 'map-pin',
+    'fa-map-pin': 'map-pin',
+    'fa-money': 'cash',
+    'fa-money-bill-alt': 'cash',
+    'fa-ok': 'check',
+    'fa-paper-plane': 'send',
+    'fa-pen': 'pencil',
+    'fa-pencil-alt': 'pencil',
+    'fa-plus': 'plus',
+    'fa-plus-circle': 'circle-plus',
+    'fa-power-off': 'power',
+    'fa-question-circle': 'help-circle',
+    'fa-search': 'search',
+    'fa-tasks': 'list-check',
+    'fa-th-large': 'layout-grid',
+    'fa-tint': 'droplet',
+    'fa-times': 'x',
+    'fa-trash-alt': 'trash',
+    'fa-university': 'building-bank',
+    'fa-user': 'user',
+    'fa-user-check': 'user-check',
+    'fa-user-edit': 'user-edit',
+    'fa-user-plus': 'user-plus',
+    'fa-users': 'users',
+    'fa-whatsapp': 'brand-whatsapp',
+    'fa-window-close': 'square-x',
 
     // --- Fuente "educate" de Atlantis ---
-    "educate-apps": "grid",
-    "educate-bell": "bell",
-    "educate-charts": "bar-chart",
-    "educate-course": "journal-bookmark",
-    "educate-data-table": "table",
-    "educate-event": "calendar-event",
-    "educate-form": "ui-checks",
-    "educate-home": "house",
-    "educate-info": "info-circle",
-    "educate-interface": "layout-text-window",
-    "educate-landing": "house-door",
-    "educate-library": "book",
-    "educate-menu": "list",
-    "educate-message": "chat-dots",
-    "educate-price-tag": "tag",
-    "educate-professor": "person-video3",
-    "educate-settings": "gear",
-    "educate-star": "star",
-    "educate-student": "mortarboard"
+    'educate-apps': 'layout-grid',
+    'educate-bell': 'bell',
+    'educate-charts': 'chart-bar',
+    'educate-course': 'notebook',
+    'educate-data-table': 'table',
+    'educate-event': 'calendar-event',
+    'educate-form': 'forms',
+    'educate-home': 'home',
+    'educate-info': 'info-circle',
+    'educate-interface': 'layout-dashboard',
+    'educate-landing': 'home',
+    'educate-library': 'book',
+    'educate-menu': 'menu-2',
+    'educate-message': 'message',
+    'educate-price-tag': 'tag',
+    'educate-professor': 'school',
+    'educate-settings': 'settings',
+    'educate-star': 'star',
+    'educate-student': 'school'
 };
 
-// Traduce una clase heredada a Bootstrap Icons. Si ya trae `bi-`, se respeta.
-// Los tokens desconocidos con prefijo `fa-` se mapean por nombre (fa-arrow-up → bi-arrow-up).
+// Traduce una clase heredada a un nombre Iconify de Tabler (`tabler:*`).
+// Si ya trae un nombre Iconify (`set:name`), se respeta.
 export function icono(clase) {
-    if (!clase || typeof clase !== "string") return "bi bi-circle";
-    if (/\bbi-[a-z0-9-]+/.test(clase)) return clase.trim();
+    if (!clase || typeof clase !== 'string') return 'tabler:circle';
+    if (/^[a-z0-9-]+:[a-z0-9-]+$/i.test(clase.trim())) return clase.trim();
 
     const tokens = clase.match(/\b(?:fa-[a-z0-9-]+|educate-[a-z0-9-]+)/g) || [];
-    const reales = tokens.filter((t) => t !== "educate-icon");
-    if (reales.length === 0) return clase.trim() || "bi bi-circle";
+    const reales = tokens.filter((t) => t !== 'educate-icon');
+    if (reales.length === 0) return 'tabler:circle';
 
-    const extra = clase
-        .replace(/\b(?:fa|educate)-[a-z0-9-]+/g, "") // quita tokens de icono (fa-*/educate-*)
-        .replace(/\bfa[srlbdt]*\b/g, "")             // quita tokens de estilo (fas/far/fab…)
-        .replace(/\s+/g, " ")
-        .replace(/^[\s-]+|[\s-]+$/g, "")
-        .trim();
-
-    const bi = reales
-        .map((t) => "bi bi-" + (MAPA[t] || (t.startsWith("fa-") ? t.slice(3) : "circle")))
-        .join(" ");
-
-    return (extra ? extra + " " : "") + bi;
+    const nombre = reales[0]; // el menú usa un solo icono por entrada
+    const bi = MAPA[nombre] || (nombre.startsWith('fa-') ? nombre.slice(3) : 'circle');
+    return 'tabler:' + bi;
 }
 
 export default { icono, MAPA };

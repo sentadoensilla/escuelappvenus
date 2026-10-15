@@ -14,6 +14,8 @@ import UserHead from '../components/head'
 import Listado from '../components/tables'
 import Waiting from '../parts/waiting';
 import { Foot } from '../components/foot'
+import AppIcon from '../components/AppIcon';
+
 
 export default function ListadoMenu(){
     // eslint-disable-next-line
@@ -206,7 +208,7 @@ export default function ListadoMenu(){
                                                 <div className="card-header">
                                                     <div className="d-flex align-items-center">
                                                         <Link to={privateRoutes.MENU_ADD} className="btn btn-primary btn-round ms-auto">
-                                                            <i className="bi bi-plus-lg">&nbsp;&nbsp;</i>
+                                                            <AppIcon icon="la flaticon-plus" />
                                                             {myConst.labels.menuAdd[0][0]} 
                                                         </Link>
                                                     </div>

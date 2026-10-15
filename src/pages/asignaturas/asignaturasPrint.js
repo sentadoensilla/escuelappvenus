@@ -8,6 +8,8 @@ import messenger from '../../services/messenger';
 import tool from '../../services/tools';
 
 import DataTable from 'react-data-table-component';
+import AppIcon from '../components/AppIcon';
+
 
 /**
  * Listado imprimible de asignaturas (SAE - public.tabasig).
@@ -110,11 +112,11 @@ export default function AsignaturasPrint(){
 
                 <div className="text-center mt-3 no-print">
                     <button type="button" className="btn btn-primary btn-round" onClick={imprimirDeNuevo}>
-                        <i className="bi bi-file-earmark-pdf">&nbsp;&nbsp;</i>
+                        <AppIcon icon="tabler:file-type-pdf" />
                         Guardar como PDF
                     </button>
                     <Link to={privateRoutes.ASIGNATURAS_LIST} className="btn btn-border btn-light btn-round ms-1">
-                        <i className="bi bi-list-ul">&nbsp;&nbsp;</i>
+                        <AppIcon icon="la flaticon-list" />
                         { myConst.labels.asignaturasList[0] }
                     </Link>
                 </div>

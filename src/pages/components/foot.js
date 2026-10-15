@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 import { publicRoutes } from '../../services/routes';
+import AppIcon from './AppIcon';
+
 
 export const Foot = () => {
 	return (
@@ -26,7 +28,7 @@ export const Foot = () => {
                 </nav>
                 <div className='copyright ms-auto'>
                     2022, Array S.A.S. 
-                    <i className='bi bi-heart heart text-danger'></i> Original by 
+                    <AppIcon icon="tabler:heart" className="heart text-danger" /> Original by 
                     <a href='https://www.themekita.com' target="_blank" rel="noreferrer">ThemeKita</a>
                 </div>
             </div>

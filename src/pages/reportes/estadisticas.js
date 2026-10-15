@@ -8,6 +8,8 @@ import { Forbidden } from '../forbidden';
 import UserHead from '../components/head';
 import Listado from '../components/tables';
 import { Foot } from '../components/foot';
+import AppIcon from '../components/AppIcon';
+
 
 /**
  * Estadísticas SAE: resumen de matrícula, sexo, etnia y grado (solo lectura).
@@ -68,7 +70,7 @@ export default function EstadisticasSae() {
                                                 <div className="card-body">
                                                     <div className="d-flex align-items-center">
                                                         <div className="avatar avatar-stats">
-                                                            <div className="stats-icon"><i className="bi bi-bar-chart"></i></div>
+                                                            <div className="stats-icon"><AppIcon icon="tabler:chart-bar" /></div>
                                                         </div>
                                                         <div className="ms-3">
                                                             <div className="numbers">

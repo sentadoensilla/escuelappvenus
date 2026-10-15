@@ -13,6 +13,12 @@ import { privateRoutes } from '../../services/routes';
 import UserHead from '../components/head'
 import { Forbidden } from '../forbidden'
 import { Foot } from '../components/foot'
+import AppIcon from '../components/AppIcon';
+import ActionButton from '../components/ActionButton';
+import TituloPagina from '../components/TituloPagina';
+
+
+
 
 /**
  * Alta/edición de un curso (SAE - public.tabcurs).
@@ -130,9 +136,9 @@ export default function AddCurso(){
                                         <div className="card">
                                             <div className="card-header">
                                                 <div className="d-flex align-items-center">
-                                                    <h4 className="card-title">{titulo}</h4>
+                                                    <TituloPagina>{titulo}</TituloPagina>
                                                     <Link to={privateRoutes.CURSOS_LIST} className="btn btn-primary btn-round ms-auto">
-                                                        <i className="bi bi-list-ul">&nbsp;&nbsp;</i>
+                                                        <AppIcon icon="la flaticon-list" />
                                                         {myConst.labels.cursosList[0]}
                                                     </Link>
                                                 </div>
@@ -225,13 +231,14 @@ export default function AddCurso(){
                                                     </div>
 
                                                     <div className='card-action text-center my-5'>
-                                                        <button
-                                                            type='submit'
-                                                            className={waiting? 'btn is-loading btn-warning ms-1' : 'btn btn-primary ms-1'}
-                                                            disabled={waiting}
+                                                        <ActionButton
+                                                            type="submit"
+                                                            loading={waiting}
+                                                            icon="la flaticon-check"
+                                                            className="btn btn-primary ms-1"
                                                         >
                                                             { titulo }
-                                                        </button>
+                                                        </ActionButton>
                                                     </div>
                                                 </form>
                                             </div>

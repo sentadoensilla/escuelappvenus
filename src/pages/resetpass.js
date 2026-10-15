@@ -6,6 +6,8 @@ import HeadPublic from './parts/headPublic'
 import HeadRibbon from './parts/ribbon'
 import { Foot } from './components/foot'
 import Desc from './description'
+import ActionButton from './components/ActionButton';
+
 
 // import UserContext, { UserContextProvider } from '../services/context/contextUser';
 // import auth from '../services/login'
@@ -108,13 +110,14 @@ export default function ResetPassword() {
 											</div>
 
 											<div className='card-action text-center'>
-												<button
-													type='submit'
-													className={waiting? 'btn is-loading btn-success ms-1' : 'btn btn-success ms-1'}
-													disabled={waiting}
-												>
+												<ActionButton
+                                                            type="submit"
+                                                            loading={waiting}
+                                                            icon="la flaticon-check"
+                                                            className="btn btn-success ms-1"
+                                                        >
 													Recordar
-												</button>
+												</ActionButton>
 												<button type='reset' className='btn btn-border btn-light ms-1'>
 													Cancelar
 												</button>

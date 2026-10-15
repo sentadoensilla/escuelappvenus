@@ -19,6 +19,10 @@ import { Foot } from '../components/foot'
 
 import "react-datepicker/dist/react-datepicker.css";
 import es from 'date-fns/locale/es';
+import AppIcon from '../components/AppIcon';
+import ActionButton from '../components/ActionButton';
+
+
 registerLocale('es', es)
 
 export default function ShowAttendanceAdmin(){
@@ -400,17 +404,17 @@ export default function ShowAttendanceAdmin(){
                                                 <div className="d-flex align-items-right">
                                                     
                                                     <Link to={privateRoutes.EXCUSAS_TEACHER} className="btn btn-secondary btn-round">
-                                                        <i className="bi bi-envelope-open">&nbsp;&nbsp;</i>
+                                                        <AppIcon icon="tabler:mail-opened" />
                                                         {myConst.labels.excusasList[0]}
                                                     </Link> &nbsp;&nbsp;                                                   
 
                                                     <Link to={privateRoutes.ASISTENCIA_TEACHER} className="btn btn-danger btn-round">
-                                                        <i className="bi bi-check-circle">&nbsp;&nbsp;</i>
+                                                        <AppIcon icon="tabler:circle-check" />
                                                         {myConst.labels.asistenciaAdd[0][0]}
                                                     </Link> &nbsp;&nbsp;   
 
                                                     <Link to={privateRoutes.ASISTENCIA_SEGUIMIENTO} className="btn btn-secondary btn-round">
-                                                        <i className="bi bi-eye">&nbsp;&nbsp;</i>
+                                                        <AppIcon icon="tabler:eye" />
                                                         {myConst.labels.asistenciaView[0][0]}
                                                     </Link> 
                                                 </div>
@@ -500,22 +504,22 @@ export default function ShowAttendanceAdmin(){
                                                         <div className="col-md-6 col-lg-6 text-center">
                                                             <div className="form-group text-end">
 
-                                                                <button
-                                                                    type='submit'
-                                                                    className={waiting? 'btn is-loading btn-warning' : 'btn btn-success'}
-                                                                    disabled={errorMessage.message||waiting}
-                                                                    onClick={getAttendance}
-                                                                >
-                                                                    <i className="bi bi-eyeglasses">&nbsp;&nbsp;</i>
+                                                                <ActionButton
+                                                            type="submit"
+                                                            loading={waiting}
+                                                            icon="la flaticon-check"
+                                                            className="btn btn-success"
+                                                        >
+                                                                    <AppIcon icon="tabler:eye" />
                                                                     Ver reporte
-                                                                </button>&nbsp;&nbsp;
+                                                                </ActionButton>&nbsp;&nbsp;
                                                                 <button
                                                                     className={waiting? 'btn is-loading btn-warning' : 'btn btn-warning'}
                                                                     type='button'
                                                                     disabled={errorMessage.message||waiting}
                                                                     onClick={downloadAttendance}
                                                                 >
-                                                                    <i className="bi bi-cloud-arrow-down">&nbsp;&nbsp;</i>
+                                                                    <AppIcon icon="tabler:cloud-download" />
                                                                     Descargar reporte
                                                                 </button>
                                                             </div>

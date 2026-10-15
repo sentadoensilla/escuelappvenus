@@ -14,6 +14,10 @@ import UserHead from '../components/head'
 import Listado from '../components/tables'
 import Waiting from '../parts/waiting';
 import { Foot } from '../components/foot'
+import AppIcon from '../components/AppIcon';
+import TituloPagina from '../components/TituloPagina';
+
+
 
 /**
  * Listado de calificaciones / notas (SAE - public.tabnota).
@@ -151,9 +155,9 @@ export default function ListadoNotas(){
                                             <div className="card">
                                                 <div className="card-header">
                                                     <div className="d-flex align-items-center">
-                                                        <h4 className="card-title">{ myConst.labels.notasList[0] }</h4>
+                                                        <TituloPagina>{myConst.labels.notasList[0]}</TituloPagina>
                                                         <Link to={privateRoutes.NOTAS_ADD} className="btn btn-primary btn-round ms-auto">
-                                                            <i className="bi bi-plus-lg">&nbsp;&nbsp;</i>
+                                                            <AppIcon icon="la flaticon-plus" />
                                                             {myConst.labels.notasAdd[0][0]}
                                                         </Link>
                                                     </div>
