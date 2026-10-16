@@ -1,4 +1,5 @@
 import { Fragment, useContext, useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import swal from 'sweetalert2';
 
 import { UserContext } from '../../services/context/UserContext';
@@ -12,7 +13,6 @@ import { Foot } from '../components/foot';
 import Listado from '../components/tables';
 import TituloPagina from '../components/TituloPagina';
 import ActionButton from '../components/ActionButton';
-import AppIcon from '../components/AppIcon';
 
 const BASE = myConst.roots.engine + '/whatsapp';
 
@@ -25,6 +25,9 @@ export default function WhatsappAdmin() {
     const [mensajes, setMensajes] = useState([]);
     const [total, setTotal] = useState(0);
     const [filtros, setFiltros] = useState({ status: '', busqueda: '' });
+    const [emisorSel, setEmisorSel] = useState('');
+    const [config, setConfig] = useState(null);
+    const { register, handleSubmit, reset } = useForm();
 
     const cargarEmisores = async () => {
         setWaiting(true);
@@ -38,6 +41,45 @@ export default function WhatsappAdmin() {
         const r = await messenger.poster({ method: 'POST', url: BASE + '/mensajes/consultar', value: { status: filtros.status || undefined, busqueda: filtros.busqueda || undefined, limit: 100 } });
         setMensajes(r.rows || []);
         setTotal(r.total || 0);
+        setWaiting(false);
+    };
+
+    const cargarConfig = async (idemisor) => {
+        if (!idemisor) return;
+        setWaiting(true);
+        const r = await messenger.poster({ method: 'POST', url: BASE + '/config/consultar', value: { idemisor } });
+        if (r.rows && r.rows[0]) {
+            setConfig(r.rows[0]);
+            reset({
+                base_delay: r.rows[0].base_delay,
+                jitter: r.rows[0].jitter,
+                burst_limit: r.rows[0].burst_limit,
+                burst_pause: r.rows[0].burst_pause,
+                concurrency: r.rows[0].concurrency,
+                modo_prueba: r.rows[0].modo_prueba ? 'true' : 'false',
+                test_phone: r.rows[0].test_phone || '',
+            });
+        }
+        setWaiting(false);
+    };
+
+    const guardarConfig = async (datos) => {
+        if (!emisorSel) return;
+        setWaiting(true);
+        const r = await messenger.poster({
+            method: 'POST', url: BASE + '/config/actualizar',
+            value: {
+                idemisor: emisorSel,
+                base_delay: parseInt(datos.base_delay) || 700,
+                jitter: parseInt(datos.jitter) || 400,
+                burst_limit: parseInt(datos.burst_limit) || 5,
+                burst_pause: parseInt(datos.burst_pause) || 3000,
+                concurrency: parseInt(datos.concurrency) || 1,
+                modo_prueba: datos.modo_prueba === 'true',
+                test_phone: datos.test_phone || null,
+            },
+        });
+        swal.fire({ title: r.message, icon: parseInt(r.statusCode) === 200 ? 'success' : 'error' });
         setWaiting(false);
     };
 
@@ -98,6 +140,57 @@ export default function WhatsappAdmin() {
                                 <div className="card-header"><h4 className="card-title">Emisores</h4></div>
                                 <div className="card-body">
                                     <Listado props={{ columns: columnasEmisores, data: emisores }} />
+                                </div>
+                            </div>
+
+                            <div className="card mt-3">
+                                <div className="card-header"><h4 className="card-title">Configuración de envío (velocidad y modo de pruebas)</h4></div>
+                                <div className="card-body">
+                                    <div className="form-group">
+                                        <label>Emisor:</label>
+                                        <select className="form-control" value={emisorSel} onChange={(e) => { setEmisorSel(e.target.value); cargarConfig(e.target.value); }}>
+                                            <option value="">Seleccione un emisor…</option>
+                                            {emisores.map((e) => <option key={e.idregistro} value={e.idregistro}>{e.institucion || e.numero} — {e.numero}</option>)}
+                                        </select>
+                                    </div>
+                                    {config && (
+                                        <form onSubmit={handleSubmit(guardarConfig)} className="row mt-3">
+                                            <div className="col-6 col-md-3 form-group">
+                                                <label>Base delay (ms)</label>
+                                                <input type="number" className="form-control" {...register('base_delay')} />
+                                            </div>
+                                            <div className="col-6 col-md-3 form-group">
+                                                <label>Jitter (ms)</label>
+                                                <input type="number" className="form-control" {...register('jitter')} />
+                                            </div>
+                                            <div className="col-6 col-md-3 form-group">
+                                                <label>Burst límite</label>
+                                                <input type="number" className="form-control" {...register('burst_limit')} />
+                                            </div>
+                                            <div className="col-6 col-md-3 form-group">
+                                                <label>Burst pausa (ms)</label>
+                                                <input type="number" className="form-control" {...register('burst_pause')} />
+                                            </div>
+                                            <div className="col-6 col-md-3 form-group">
+                                                <label>Concurrencia</label>
+                                                <input type="number" className="form-control" {...register('concurrency')} />
+                                            </div>
+                                            <div className="col-6 col-md-3 form-group">
+                                                <label>Modo de pruebas</label>
+                                                <select className="form-control" {...register('modo_prueba')}>
+                                                    <option value="false">No</option>
+                                                    <option value="true">Sí</option>
+                                                </select>
+                                            </div>
+                                            <div className="col-6 col-md-3 form-group">
+                                                <label>Número de pruebas</label>
+                                                <input className="form-control" placeholder="573001234567" {...register('test_phone')} />
+                                            </div>
+                                            <div className="col-12 mt-3">
+                                                <ActionButton type="submit" icon="tabler:device-floppy" className="btn btn-primary">Guardar configuración</ActionButton>
+                                            </div>
+                                        </form>
+                                    )}
                                 </div>
                             </div>
 
