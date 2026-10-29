@@ -13,10 +13,17 @@ import { Foot } from '../components/foot';
 import Listado from '../components/tables';
 import TituloPagina from '../components/TituloPagina';
 import ActionButton from '../components/ActionButton';
+import AppIcon from '../components/AppIcon';
 
 const BASE = myConst.roots.engine + '/whatsapp';
 const ESTADO_SESION = { 1: 'Esperando QR', 2: 'QR generado', 3: 'Escaneando', 4: 'Conectado', 5: 'Desconectado', 6: 'Cerrado', 7: 'Error' };
 const ESTADOS_COLA = ['pending', 'queued', 'sending', 'sent', 'failed', 'cancelled'];
+// Color de la card-stats según el estado de la sesión.
+const colorEstado = (estado) => {
+    if (estado === 4) return 'card-success';
+    if (estado === 1 || estado === 2 || estado === 3) return 'card-info';
+    return 'card-secondary';
+};
 
 export default function WhatsappInstitucion() {
     const { setWaiting } = useContext(UserContext);
@@ -216,24 +223,42 @@ export default function WhatsappInstitucion() {
                             </div>
 
                             {emisor && (
-                                <div className="card mt-3">
-                                    <div className="card-header">
-                                        <h4 className="card-title">Emisor: {emisor.numero}</h4>
-                                        <span className={`badge ms-auto ${emisor.estado_sesion === 4 ? 'bg-success' : 'bg-warning text-dark'}`}>
-                                            {ESTADO_SESION[emisor.estado_sesion] || 'Desconectado'}
-                                        </span>
-                                    </div>
-                                    <div className="card-body">
-                                        <div className="d-flex flex-wrap gap-2">
-                                            <ActionButton icon="tabler:brand-whatsapp" className="btn btn-success" onClick={cargarQr}>Cargar QR</ActionButton>
-                                            <ActionButton icon="tabler:player-pause" className="btn btn-warning" onClick={accion('/colas/pausar', '¿Pausar la cola de mensajes?')}>Pausar cola</ActionButton>
-                                            <ActionButton icon="tabler:player-play" className="btn btn-success" onClick={accion('/colas/reanudar', '¿Reanudar la cola?')}>Reanudar cola</ActionButton>
-                                            <ActionButton icon="tabler:player-stop" className="btn btn-secondary" onClick={accion('/colas/detener', '¿Detener la cola?')}>Detener cola</ActionButton>
-                                            <ActionButton icon="tabler:trash" className="btn btn-danger" onClick={accion('/colas/eliminar', '¿Eliminar los mensajes pendientes?')}>Eliminar cola</ActionButton>
-                                            <ActionButton icon="tabler:circle-off" className="btn btn-danger" onClick={accion('/emisores/eliminar', '¿Eliminar el emisor y su sesión?')}>Eliminar emisor</ActionButton>
+                                <Fragment>
+                                    <div className="row mt-3">
+                                        <div className="col-sm-6 col-md-4">
+                                            <div className={`card card-stats card-round ${colorEstado(emisor.estado_sesion)}`}>
+                                                <div className="card-body">
+                                                    <div className="row">
+                                                        <div className="col-5">
+                                                            <div className="icon-big text-center">
+                                                                <AppIcon icon="tabler:brand-whatsapp" />
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-7 col-stats">
+                                                            <div className="numbers">
+                                                                <p className="card-category">{emisor.numero}</p>
+                                                                <h4 className="card-title">{ESTADO_SESION[emisor.estado_sesion] || 'Desconectado'}</h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+
+                                    <div className="card mt-3">
+                                        <div className="card-body">
+                                            <div className="d-flex flex-wrap gap-2">
+                                                <ActionButton icon="tabler:brand-whatsapp" className="btn btn-success" onClick={cargarQr}>Cargar QR</ActionButton>
+                                                <ActionButton icon="tabler:player-pause" className="btn btn-warning" onClick={accion('/colas/pausar', '¿Pausar la cola de mensajes?')}>Pausar cola</ActionButton>
+                                                <ActionButton icon="tabler:player-play" className="btn btn-success" onClick={accion('/colas/reanudar', '¿Reanudar la cola?')}>Reanudar cola</ActionButton>
+                                                <ActionButton icon="tabler:player-stop" className="btn btn-secondary" onClick={accion('/colas/detener', '¿Detener la cola?')}>Detener cola</ActionButton>
+                                                <ActionButton icon="tabler:trash" className="btn btn-danger" onClick={accion('/colas/eliminar', '¿Eliminar los mensajes pendientes?')}>Eliminar cola</ActionButton>
+                                                <ActionButton icon="tabler:circle-off" className="btn btn-danger" onClick={accion('/emisores/eliminar', '¿Eliminar el emisor y su sesión?')}>Eliminar emisor</ActionButton>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Fragment>
                             )}
 
                             <div className="card mt-3">
