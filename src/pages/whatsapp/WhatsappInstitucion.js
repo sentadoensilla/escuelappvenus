@@ -18,11 +18,11 @@ import AppIcon from '../components/AppIcon';
 const BASE = myConst.roots.engine + '/whatsapp';
 const ESTADO_SESION = { 1: 'Esperando QR', 2: 'QR generado', 3: 'Escaneando', 4: 'Conectado', 5: 'Desconectado', 6: 'Cerrado', 7: 'Error' };
 const ESTADOS_COLA = ['pending', 'queued', 'sending', 'sent', 'failed', 'cancelled'];
-// Color de la card-stats según el estado de la sesión.
-const colorEstado = (estado) => {
-    if (estado === 4) return 'card-success';
-    if (estado === 1 || estado === 2 || estado === 3) return 'card-info';
-    return 'card-secondary';
+// Color de la burbuja del icono (Atlantis: icon-*) según el estado de la sesión.
+const iconoEstado = (estado) => {
+    if (estado === 4) return 'icon-success';
+    if (estado === 1 || estado === 2 || estado === 3) return 'icon-info';
+    return 'icon-secondary';
 };
 
 export default function WhatsappInstitucion() {
@@ -226,15 +226,15 @@ export default function WhatsappInstitucion() {
                                 <Fragment>
                                     <div className="row mt-3">
                                         <div className="col-sm-6 col-md-4">
-                                            <div className={`card card-stats card-round ${colorEstado(emisor.estado_sesion)}`}>
+                                            <div className="card card-stats card-round">
                                                 <div className="card-body">
-                                                    <div className="row">
-                                                        <div className="col-5">
-                                                            <div className="icon-big text-center">
+                                                    <div className="row align-items-center">
+                                                        <div className="col-icon">
+                                                            <div className={`icon-big text-center ${iconoEstado(emisor.estado_sesion)} bubble-shadow-small`}>
                                                                 <AppIcon icon="tabler:brand-whatsapp" />
                                                             </div>
                                                         </div>
-                                                        <div className="col-7 col-stats">
+                                                        <div className="col col-stats ms-3 ms-sm-0">
                                                             <div className="numbers">
                                                                 <p className="card-category">{emisor.numero}</p>
                                                                 <h4 className="card-title">{ESTADO_SESION[emisor.estado_sesion] || 'Desconectado'}</h4>
