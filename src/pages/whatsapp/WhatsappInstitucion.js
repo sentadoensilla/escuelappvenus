@@ -14,7 +14,7 @@ import Listado from '../components/tables';
 import TituloPagina from '../components/TituloPagina';
 import ActionButton from '../components/ActionButton';
 import AppIcon from '../components/AppIcon';
-import { ChartColumn } from '../components/columnStats';
+import { SparklineCard } from '../components/sparklineStats';
 
 const BASE = myConst.roots.engine + '/whatsapp';
 const ESTADO_SESION = { 1: 'Esperando QR', 2: 'QR generado', 3: 'Escaneando', 4: 'Conectado', 5: 'Desconectado', 6: 'Cerrado', 7: 'Error' };
@@ -151,6 +151,14 @@ export default function WhatsappInstitucion() {
         { header: 'Error', key: 'last_error' },
     ];
 
+    // Métricas del widget tipo sparkline: total enviado y variación (2ª mitad vs 1ª).
+    const totalEnviados = estadisticas.reduce((s, e) => s + (parseInt(e.enviados) || 0), 0);
+    const corte = Math.floor(estadisticas.length / 2);
+    const primeraMitad = estadisticas.slice(0, corte).reduce((s, e) => s + (parseInt(e.enviados) || 0), 0);
+    const segundaMitad = estadisticas.slice(corte).reduce((s, e) => s + (parseInt(e.enviados) || 0), 0);
+    const pct = primeraMitad > 0 ? Math.round(((segundaMitad - primeraMitad) / primeraMitad) * 100) : (segundaMitad > 0 ? 100 : 0);
+    const deltaEnviados = (pct > 0 ? '+' : '') + pct + '%';
+
     if (!miUsuario.isLogged) return <Fragment><Forbidden /></Fragment>;
 
     return (
@@ -250,14 +258,12 @@ export default function WhatsappInstitucion() {
                                     </div>
                                 )}
                                 <div className={emisor ? 'col-sm-6 col-md-9' : 'col-12'}>
-                                    <ChartColumn props={{
-                                        id: 'wa-enviados-dia',
-                                        title: 'Mensajes enviados por día',
-                                        caption: `Últimos ${dias} días`,
-                                        categories: estadisticas.map((e) => e.dia),
-                                        series: estadisticas.map((e) => parseInt(e.enviados)),
-                                        barColor: '#e9ecef',
-                                    }} />
+                                    <SparklineCard
+                                        value={totalEnviados}
+                                        label={`Mensajes enviados (${dias} días)`}
+                                        delta={deltaEnviados}
+                                        series={estadisticas.map((e) => parseInt(e.enviados) || 0)}
+                                    />
                                 </div>
                             </div>
 
