@@ -14,6 +14,7 @@ import Listado from '../components/tables';
 import TituloPagina from '../components/TituloPagina';
 import ActionButton from '../components/ActionButton';
 import AppIcon from '../components/AppIcon';
+import { ChartColumn } from '../components/columnStats';
 
 const BASE = myConst.roots.engine + '/whatsapp';
 const ESTADO_SESION = { 1: 'Esperando QR', 2: 'QR generado', 3: 'Escaneando', 4: 'Conectado', 5: 'Desconectado', 6: 'Cerrado', 7: 'Error' };
@@ -34,6 +35,8 @@ export default function WhatsappInstitucion() {
     const [elNumero, setElNumero] = useState('');
     const [vinculando, setVinculando] = useState(false);
     const [mensajes, setMensajes] = useState([]);
+    const [estadisticas, setEstadisticas] = useState([]);
+    const dias = 14;
     const [total, setTotal] = useState(0);
     const [filtros, setFiltros] = useState({ busqueda: '', status: '', desde: '', hasta: '' });
     const timerRef = useRef(null);
@@ -57,6 +60,8 @@ export default function WhatsappInstitucion() {
         setWaiting(true);
         const e = await messenger.poster({ method: 'POST', url: BASE + '/emisores/listar', value: {} });
         setEmisor((e.rows || [])[0] || null);
+        const st = await messenger.poster({ method: 'POST', url: BASE + '/mensajes/estadisticas', value: { dias } });
+        setEstadisticas(st.rows || []);
         await cargarMensajes();
         setWaiting(false);
     };
@@ -222,43 +227,53 @@ export default function WhatsappInstitucion() {
                                 </div>
                             </div>
 
-                            {emisor && (
-                                <Fragment>
-                                    <div className="row mt-3">
-                                        <div className="col-sm-6 col-md-4">
-                                            <div className="card card-stats card-round">
-                                                <div className="card-body">
-                                                    <div className="row align-items-center">
-                                                        <div className="col-icon">
-                                                            <div className={`icon-big text-center ${iconoEstado(emisor.estado_sesion)} bubble-shadow-small`}>
-                                                                <AppIcon icon="tabler:brand-whatsapp" />
-                                                            </div>
+                            <div className="row mt-3 align-items-stretch">
+                                {emisor && (
+                                    <div className="col-sm-6 col-md-3">
+                                        <div className="card card-stats card-round h-100">
+                                            <div className="card-body">
+                                                <div className="row align-items-center g-0">
+                                                    <div className="col-5">
+                                                        <div className={`icon-big text-center ${iconoEstado(emisor.estado_sesion)} bubble-shadow-small`} style={{ fontSize: '2.6em' }}>
+                                                            <AppIcon icon="tabler:brand-whatsapp" />
                                                         </div>
-                                                        <div className="col col-stats ms-3 ms-sm-0">
-                                                            <div className="numbers">
-                                                                <p className="card-category">{emisor.numero}</p>
-                                                                <h4 className="card-title">{ESTADO_SESION[emisor.estado_sesion] || 'Desconectado'}</h4>
-                                                            </div>
+                                                    </div>
+                                                    <div className="col-7 col-stats">
+                                                        <div className="numbers">
+                                                            <p className="card-category">{emisor.numero}</p>
+                                                            <h4 className="card-title">{ESTADO_SESION[emisor.estado_sesion] || 'Desconectado'}</h4>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                )}
+                                <div className={emisor ? 'col-sm-6 col-md-9' : 'col-12'}>
+                                    <ChartColumn props={{
+                                        id: 'wa-enviados-dia',
+                                        title: 'Mensajes enviados por día',
+                                        caption: `Últimos ${dias} días`,
+                                        categories: estadisticas.map((e) => e.dia),
+                                        series: estadisticas.map((e) => parseInt(e.enviados)),
+                                        barColor: '#e9ecef',
+                                    }} />
+                                </div>
+                            </div>
 
-                                    <div className="card mt-3">
-                                        <div className="card-body">
-                                            <div className="d-flex flex-wrap gap-2">
-                                                <ActionButton icon="tabler:brand-whatsapp" className="btn btn-success" onClick={cargarQr}>Cargar QR</ActionButton>
-                                                <ActionButton icon="tabler:player-pause" className="btn btn-warning" onClick={accion('/colas/pausar', '¿Pausar la cola de mensajes?')}>Pausar cola</ActionButton>
-                                                <ActionButton icon="tabler:player-play" className="btn btn-success" onClick={accion('/colas/reanudar', '¿Reanudar la cola?')}>Reanudar cola</ActionButton>
-                                                <ActionButton icon="tabler:player-stop" className="btn btn-secondary" onClick={accion('/colas/detener', '¿Detener la cola?')}>Detener cola</ActionButton>
-                                                <ActionButton icon="tabler:trash" className="btn btn-danger" onClick={accion('/colas/eliminar', '¿Eliminar los mensajes pendientes?')}>Eliminar cola</ActionButton>
-                                                <ActionButton icon="tabler:circle-off" className="btn btn-danger" onClick={accion('/emisores/eliminar', '¿Eliminar el emisor y su sesión?')}>Eliminar emisor</ActionButton>
-                                            </div>
+                            {emisor && (
+                                <div className="card mt-3">
+                                    <div className="card-body">
+                                        <div className="d-flex flex-wrap gap-2">
+                                            <ActionButton icon="tabler:brand-whatsapp" className="btn btn-success" onClick={cargarQr}>Cargar QR</ActionButton>
+                                            <ActionButton icon="tabler:player-pause" className="btn btn-warning" onClick={accion('/colas/pausar', '¿Pausar la cola de mensajes?')}>Pausar cola</ActionButton>
+                                            <ActionButton icon="tabler:player-play" className="btn btn-success" onClick={accion('/colas/reanudar', '¿Reanudar la cola?')}>Reanudar cola</ActionButton>
+                                            <ActionButton icon="tabler:player-stop" className="btn btn-secondary" onClick={accion('/colas/detener', '¿Detener la cola?')}>Detener cola</ActionButton>
+                                            <ActionButton icon="tabler:trash" className="btn btn-danger" onClick={accion('/colas/eliminar', '¿Eliminar los mensajes pendientes?')}>Eliminar cola</ActionButton>
+                                            <ActionButton icon="tabler:circle-off" className="btn btn-danger" onClick={accion('/emisores/eliminar', '¿Eliminar el emisor y su sesión?')}>Eliminar emisor</ActionButton>
                                         </div>
                                     </div>
-                                </Fragment>
+                                </div>
                             )}
 
                             <div className="card mt-3">
