@@ -235,8 +235,9 @@ export default function WhatsappInstitucion() {
                                 </div>
                             </div>
 
-                            <div className="row mt-3 align-items-stretch">
-                                {emisor && (
+                            {/* Fila 1: estado del WhatsApp + botones de control de colas */}
+                            {emisor && (
+                                <div className="row mt-3 align-items-stretch">
                                     <div className="col-sm-6 col-md-3">
                                         <div className="card card-stats card-round h-100">
                                             <div className="card-body">
@@ -256,8 +257,24 @@ export default function WhatsappInstitucion() {
                                             </div>
                                         </div>
                                     </div>
-                                )}
-                                <div className={emisor ? 'col-sm-6 col-md-9' : 'col-12'}>
+                                    <div className="col-sm-6 col-md-9">
+                                        <div className="card h-100">
+                                            <div className="card-body d-flex flex-wrap gap-2 align-items-center">
+                                                <ActionButton icon="tabler:brand-whatsapp" className="btn btn-success" onClick={cargarQr}>Cargar QR</ActionButton>
+                                                <ActionButton icon="tabler:player-pause" className="btn btn-warning" onClick={accion('/colas/pausar', '¿Pausar la cola de mensajes?')}>Pausar cola</ActionButton>
+                                                <ActionButton icon="tabler:player-play" className="btn btn-success" onClick={accion('/colas/reanudar', '¿Reanudar la cola?')}>Reanudar cola</ActionButton>
+                                                <ActionButton icon="tabler:player-stop" className="btn btn-secondary" onClick={accion('/colas/detener', '¿Detener la cola?')}>Detener cola</ActionButton>
+                                                <ActionButton icon="tabler:trash" className="btn btn-danger" onClick={accion('/colas/eliminar', '¿Eliminar los mensajes pendientes?')}>Eliminar cola</ActionButton>
+                                                <ActionButton icon="tabler:circle-off" className="btn btn-danger" onClick={accion('/emisores/eliminar', '¿Eliminar el emisor y su sesión?')}>Eliminar emisor</ActionButton>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Fila 2: gráfico de mensajes enviados por periodo */}
+                            <div className="row mt-3">
+                                <div className="col-12">
                                     <SparklineCard
                                         value={totalEnviados}
                                         label={`Mensajes enviados (${dias} días)`}
@@ -266,21 +283,6 @@ export default function WhatsappInstitucion() {
                                     />
                                 </div>
                             </div>
-
-                            {emisor && (
-                                <div className="card mt-3">
-                                    <div className="card-body">
-                                        <div className="d-flex flex-wrap gap-2">
-                                            <ActionButton icon="tabler:brand-whatsapp" className="btn btn-success" onClick={cargarQr}>Cargar QR</ActionButton>
-                                            <ActionButton icon="tabler:player-pause" className="btn btn-warning" onClick={accion('/colas/pausar', '¿Pausar la cola de mensajes?')}>Pausar cola</ActionButton>
-                                            <ActionButton icon="tabler:player-play" className="btn btn-success" onClick={accion('/colas/reanudar', '¿Reanudar la cola?')}>Reanudar cola</ActionButton>
-                                            <ActionButton icon="tabler:player-stop" className="btn btn-secondary" onClick={accion('/colas/detener', '¿Detener la cola?')}>Detener cola</ActionButton>
-                                            <ActionButton icon="tabler:trash" className="btn btn-danger" onClick={accion('/colas/eliminar', '¿Eliminar los mensajes pendientes?')}>Eliminar cola</ActionButton>
-                                            <ActionButton icon="tabler:circle-off" className="btn btn-danger" onClick={accion('/emisores/eliminar', '¿Eliminar el emisor y su sesión?')}>Eliminar emisor</ActionButton>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
 
                             <div className="card mt-3">
                                 <div className="card-header">
