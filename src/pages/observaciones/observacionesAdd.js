@@ -148,7 +148,7 @@ export default function AddBitacora(){
     const [selectedFile, setSelectedFile] = useState("")
     const [preview, setPreview] = useState()
 
-	const { control, register, reset, formState: { errors } , handleSubmit } = useForm({});
+	const { control, register, reset, formState: { errors } , handleSubmit } = useForm({ defaultValues: { aviso: true } });
 	const elFade = {form:'elFormulario',response:'laRespuesta'}
 
     // eslint-disable-next-line
@@ -173,7 +173,7 @@ export default function AddBitacora(){
             else{            
                 swal.fire({
                     title: '¿Está seguro de registrar la observación?',
-                    text: (data.aviso==="1")? 'Se enviarán notificaciones, no se puede revertir' : 'No vamos a enviar notificacines',
+                    text: data.aviso ? 'Se enviarán notificaciones, no se puede revertir' : 'No vamos a enviar notificaciones',
                     icon: 'warning' ,
                     showConfirmButton: true,
                     showCancelButton: true,
@@ -192,7 +192,7 @@ export default function AddBitacora(){
                         formData.append('asignatura', data.asignatura)
                         formData.append('grupo', data.group)
                         formData.append('estudiantes', data.student)
-                        formData.append('aviso', data.aviso)
+                        formData.append('aviso', data.aviso ? 'true' : 'false')
                         formData.append('observacion', data.descripcion.substring(3,(data.descripcion.length-4)))
 
                         if(data.file.length > 0 && data.file !== ""){
@@ -527,16 +527,10 @@ export default function AddBitacora(){
                                                     <div className="row">
                                                         <div className="col-md-6 col-lg-6">
                                                             <div className="form-group">
-                                                                <label htmlFor="aviso" className="form-label">Enviar aviso inmediato al acudiente: </label>                                                                
-                                                                <div className="selectgroup w-100">
-                                                                    <label className="selectgroup-item">
-                                                                        <input type="radio" name="aviso" id="motivo0" className='selectgroup-input' {...register("aviso")} value="0" checked />
-                                                                        <span className="selectgroup-button">No</span>
-                                                                    </label>
-                                                                    <label className="selectgroup-item">
-                                                                        <input type="radio" name="aviso" id="motivo1" className='selectgroup-input' {...register("aviso")} value="1" />
-                                                                        <span className="selectgroup-button">Si</span>
-                                                                    </label>                                                                
+                                                                <label htmlFor="aviso" className="form-label">Enviar aviso inmediato al acudiente (WhatsApp):</label>
+                                                                <div className="form-check form-switch">
+                                                                    <input type="checkbox" id="aviso" className="form-check-input" {...register("aviso")} />
+                                                                    <label className="form-check-label" htmlFor="aviso">Notificar por WhatsApp</label>
                                                                 </div>
                                                             </div>
                                                         </div>
