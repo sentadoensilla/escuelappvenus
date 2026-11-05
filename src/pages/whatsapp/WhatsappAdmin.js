@@ -27,7 +27,36 @@ export default function WhatsappAdmin() {
     const [filtros, setFiltros] = useState({ status: '', busqueda: '' });
     const [emisorSel, setEmisorSel] = useState('');
     const [config, setConfig] = useState(null);
+    const [institucionesLista, setInstitucionesLista] = useState([]);
+    const [msgInstituciones, setMsgInstituciones] = useState('');
+    const [selInstituciones, setSelInstituciones] = useState([]);
     const { register, handleSubmit, reset } = useForm();
+
+    const cargarInstituciones = async () => {
+        const r = await messenger.poster({ method: 'POST', url: BASE + '/instituciones', value: {} });
+        setInstitucionesLista(r.rows || []);
+    };
+
+    const notificarInstituciones = async () => {
+        if (!msgInstituciones.trim()) return swal.fire({ title: 'Escribe el mensaje', icon: 'warning' });
+        const c = await swal.fire({
+            title: '¿Enviar la notificación?',
+            text: selInstituciones.length ? `A ${selInstituciones.length} institución(es)` : 'A TODAS las instituciones',
+            icon: 'warning', showCancelButton: true, confirmButtonText: 'Sí, enviar', cancelButtonText: 'Cancelar',
+        });
+        if (!c.isConfirmed) return;
+        setWaiting(true);
+        const r = await messenger.poster({
+            method: 'POST', url: BASE + '/notificar',
+            value: {
+                audiencia: { tipo: 'instituciones', ids: selInstituciones },
+                tipo: 1,
+                payload: { text: msgInstituciones },
+            },
+        });
+        setWaiting(false);
+        swal.fire({ title: r.message, icon: parseInt(r.statusCode) === 200 ? 'success' : 'error' });
+    };
 
     const cargarEmisores = async () => {
         setWaiting(true);
@@ -83,7 +112,7 @@ export default function WhatsappAdmin() {
         setWaiting(false);
     };
 
-    useEffect(() => { cargarEmisores(); cargarMensajes(); /* eslint-disable-next-line */ }, []);
+    useEffect(() => { cargarEmisores(); cargarMensajes(); cargarInstituciones(); /* eslint-disable-next-line */ }, []);
 
     const accion = (endpoint, idemisorEncrypted, confirmText) => async () => {
         const c = await swal.fire({ title: confirmText, icon: 'warning', showCancelButton: true, confirmButtonText: 'Sí, continuar', cancelButtonText: 'Cancelar' });
@@ -191,6 +220,31 @@ export default function WhatsappAdmin() {
                                             </div>
                                         </form>
                                     )}
+                                </div>
+                            </div>
+
+                            <div className="card mt-3">
+                                <div className="card-header"><h4 className="card-title">Notificar a instituciones (mantenimiento, pagos, avisos)</h4></div>
+                                <div className="card-body">
+                                    <div className="form-group">
+                                        <label>Mensaje:</label>
+                                        <textarea className="form-control" rows={3}
+                                            value={msgInstituciones}
+                                            onChange={(e) => setMsgInstituciones(e.target.value)}
+                                            placeholder="Texto a enviar al contacto institucional (rector)…" />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Destinatarios:</label>
+                                        <select multiple className="form-select" size={6}
+                                            value={selInstituciones.map(String)}
+                                            onChange={(e) => setSelInstituciones(Array.from(e.target.selectedOptions).map((o) => parseInt(o.value)))}>
+                                            {institucionesLista.map((i) => (
+                                                <option key={i.cinstid} value={i.cinstid}>{i.nombre} — {i.telefono}</option>
+                                            ))}
+                                        </select>
+                                        <small className="text-muted">Sin selección = todas las instituciones con emisor.</small>
+                                    </div>
+                                    <ActionButton icon="tabler:send" className="btn btn-primary" onClick={notificarInstituciones}>Enviar notificación</ActionButton>
                                 </div>
                             </div>
 
