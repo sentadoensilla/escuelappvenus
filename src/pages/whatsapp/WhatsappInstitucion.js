@@ -38,6 +38,7 @@ export default function WhatsappInstitucion() {
     const [estadisticas, setEstadisticas] = useState([]);
     const dias = 14;
     const [total, setTotal] = useState(0);
+    const [msgComunicado, setMsgComunicado] = useState('');
     const [filtros, setFiltros] = useState({ busqueda: '', status: '', desde: '', hasta: '' });
     const timerRef = useRef(null);
 
@@ -139,6 +140,24 @@ export default function WhatsappInstitucion() {
         const r = await messenger.poster({ method: 'POST', url: BASE + endpoint, value: {} });
         swal.fire({ title: r.message, icon: parseInt(r.statusCode) === 200 ? 'success' : 'error' });
         await cargar();
+    };
+
+    const notificar = (audienciaTipo, etiqueta) => async () => {
+        if (!msgComunicado.trim()) return swal.fire({ title: 'Escribe el mensaje', icon: 'warning' });
+        const c = await swal.fire({
+            title: `¿Enviar a ${etiqueta}?`, icon: 'warning',
+            showCancelButton: true, confirmButtonText: 'Sí, enviar', cancelButtonText: 'Cancelar',
+        });
+        if (!c.isConfirmed) return;
+        let anolectivo = null;
+        try { anolectivo = parseInt(tool.decriptar(miUsuario.usuarioAnoId)); } catch (e) { anolectivo = null; }
+        setWaiting(true);
+        const r = await messenger.poster({
+            method: 'POST', url: BASE + '/notificar',
+            value: { audiencia: { tipo: audienciaTipo, ids: [] }, tipo: 1, anolectivo, payload: { text: msgComunicado } },
+        });
+        setWaiting(false);
+        swal.fire({ title: r.message, icon: parseInt(r.statusCode) === 200 ? 'success' : 'error' });
     };
 
     const columnasMensajes = [
@@ -283,6 +302,27 @@ export default function WhatsappInstitucion() {
                                     />
                                 </div>
                             </div>
+
+                            {emisor && (
+                                <div className="card mt-3">
+                                    <div className="card-header"><h4 className="card-title">Comunicaciones masivas</h4></div>
+                                    <div className="card-body">
+                                        <div className="form-group">
+                                            <label>Mensaje:</label>
+                                            <textarea className="form-control" rows={3}
+                                                value={msgComunicado}
+                                                onChange={(e) => setMsgComunicado(e.target.value)}
+                                                placeholder="Texto para docentes o acudientes…" />
+                                        </div>
+                                        <div className="d-flex flex-wrap gap-2">
+                                            <ActionButton icon="tabler:users" className="btn btn-primary"
+                                                onClick={notificar('docentes', 'todos los docentes')}>A todos los docentes</ActionButton>
+                                            <ActionButton icon="tabler:users-group" className="btn btn-success"
+                                                onClick={notificar('todos', 'todos los acudientes (boletines)')}>A todos los acudientes (boletines)</ActionButton>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
 
                             <div className="card mt-3">
                                 <div className="card-header">
