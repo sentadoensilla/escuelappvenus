@@ -189,6 +189,10 @@ Generador de menú alterno **muerto** (no se importa). El menú activo vive en `
   `initWP.js`/`initStatusWP.js` (QR WhatsApp + socket), **`tables.js`** (`Listado` sobre
   `react-data-table-component`).
 - Charts ECharts: `chartBar`, `chartColumn`, `chartPie`, `charDrillDown`, `columnStats`, `lineStats`, etc.
+- **WhatsApp (`pages/whatsapp/`)**: `WhatsappInstitucion.js` (cola, filtros por fecha con ayer/hoy por
+  defecto, controles pausar/reanudar/detener/eliminar), `WhatsappAdmin.js` (emisores e instituciones),
+  `DetalleEnvio.js` (modal con detalle completo + vista previa tipo WhatsApp), `GraficoEnvios.js`
+  (uso en el tiempo con `echarts-for-react`) y `estadoBadge.js` (semáforo de estados y tooltip de error).
 - `parts/`: `ribbon`, `ribbonLight`, `headPublic`, `waiting` (spinner), `draganddrop`, `headAccess`.
 
 ---
