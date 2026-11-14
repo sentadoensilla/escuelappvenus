@@ -150,6 +150,7 @@ export default function WhatsappAdmin() {
     const columnasMensajes = [
         { name: 'Institución', selector: (row) => row.institucion, sortable: true, wrap: true },
         { name: 'Destinatario', selector: (row) => row.destino, sortable: true, wrap: true },
+        { name: 'Envío real', selector: (row) => row.destino_efectivo || row.destino, wrap: true },
         { name: 'Tipo', selector: (row) => row.tipo_nombre || row.type, sortable: true },
         { name: 'Estado', selector: (row) => row.status, sortable: true },
         { name: 'Creación', selector: (row) => row.fecha_creacion, format: (row) => fechaCorta(row.fecha_creacion), sortable: true },
