@@ -167,8 +167,8 @@ export default function WhatsappInstitucion() {
         { name: 'Destinatario', selector: (row) => row.destino, sortable: true, wrap: true },
         { name: 'Tipo', selector: (row) => row.tipo_nombre || row.type, sortable: true },
         { name: 'Estado', selector: (row) => row.status, sortable: true },
-        { name: 'Creación', selector: (row) => row.fecha_creacion, format: (v) => fechaCorta(v), sortable: true },
-        { name: 'Envío', selector: (row) => row.fecha_envio, format: (v) => fechaCorta(v), sortable: true },
+        { name: 'Creación', selector: (row) => row.fecha_creacion, format: (row) => fechaCorta(row.fecha_creacion), sortable: true },
+        { name: 'Envío', selector: (row) => row.fecha_envio, format: (row) => fechaCorta(row.fecha_envio), sortable: true },
         { name: 'Intentos', selector: (row) => row.attempts, sortable: true },
         { name: 'Error', selector: (row) => row.last_error, wrap: true },
     ];

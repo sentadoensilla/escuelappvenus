@@ -128,7 +128,7 @@ export default function WhatsappAdmin() {
     const columnasEmisores = [
         { name: 'Institución', selector: (row) => row.institucion, sortable: true, wrap: true },
         { name: 'Número', selector: (row) => row.numero, sortable: true },
-        { name: 'Sesión', selector: (row) => row.estado_sesion, format: (v) => ESTADO_SESION[v] || '—', sortable: true },
+        { name: 'Sesión', selector: (row) => row.estado_sesion, format: (row) => ESTADO_SESION[row.estado_sesion] || '—', sortable: true },
         { name: 'Pendientes', selector: (row) => row.pendientes, sortable: true },
         { name: 'Enviados', selector: (row) => row.enviados, sortable: true },
         { name: 'Fallidos', selector: (row) => row.fallidos, sortable: true },
@@ -152,8 +152,8 @@ export default function WhatsappAdmin() {
         { name: 'Destinatario', selector: (row) => row.destino, sortable: true, wrap: true },
         { name: 'Tipo', selector: (row) => row.tipo_nombre || row.type, sortable: true },
         { name: 'Estado', selector: (row) => row.status, sortable: true },
-        { name: 'Creación', selector: (row) => row.fecha_creacion, format: (v) => fechaCorta(v), sortable: true },
-        { name: 'Envío', selector: (row) => row.fecha_envio, format: (v) => fechaCorta(v), sortable: true },
+        { name: 'Creación', selector: (row) => row.fecha_creacion, format: (row) => fechaCorta(row.fecha_creacion), sortable: true },
+        { name: 'Envío', selector: (row) => row.fecha_envio, format: (row) => fechaCorta(row.fecha_envio), sortable: true },
         { name: 'Intentos', selector: (row) => row.attempts, sortable: true },
         { name: 'Error', selector: (row) => row.last_error, wrap: true },
     ];
