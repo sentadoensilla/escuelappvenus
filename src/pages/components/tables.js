@@ -88,6 +88,8 @@ export default function Listado({props}){
                     responsive={true}
                     striped={true}
                     highlightOnHover
+                    onRowClicked={props.onRowClicked}
+                    pointerOnHover={typeof props.onRowClicked === 'function'}
                     pagination={pagOpt}
                     {...(conFiltro ? {
                         subHeader: true,

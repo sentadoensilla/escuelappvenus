@@ -148,6 +148,9 @@ const AusentismoGlobal = lazy(() => import(/* webpackChunkName: "ausentismo" */ 
 const RegistrarWhatsapp = lazy(() => import(/* webpackChunkName: "config" */ "../../pages/campana/misWhatsapp"));
 const ConfiguracionesGenerales = lazy(() => import(/* webpackChunkName: "config" */ "../../pages/login"));
 
+const WhatsappInstitucion = lazy(() => import(/* webpackChunkName: "whatsapp" */ "../../pages/whatsapp/WhatsappInstitucion"));
+const WhatsappAdmin = lazy(() => import(/* webpackChunkName: "whatsapp" */ "../../pages/whatsapp/WhatsappAdmin"));
+
 const Help = lazy(() => import(/* webpackChunkName: "help" */ "../../pages/login"));
 
 
@@ -322,6 +325,10 @@ export const MisRutas = () => {
                     {/* ===== Reportes / acciones SAE ===== */}
                     <Route path={privateRoutes.ESTADISTICAS_SAE} element={(callUsers)? <EstadisticasSae isLogged={callUsers} /> : <Forbidden /> } />
                     <Route path={privateRoutes.PROMOCION} element={(callUsers)? <Promocion isLogged={callUsers} /> : <Forbidden /> } />
+
+                    {/* ===== WhatsApp multiinstitución ===== */}
+                    <Route path={privateRoutes.WHATSAPP_INSTITUCION} element={(callUsers)? <WhatsappInstitucion isLogged={callUsers} /> : <Forbidden /> } />
+                    <Route path={privateRoutes.WHATSAPP_ADMIN} element={(callUsers)? <WhatsappAdmin isLogged={callUsers} /> : <Forbidden /> } />
 
                     {/* ===== Alias de rutas SAE (copcimenuenla de logic.tabopcimenu) ===== */}
                     <Route path="/anolec" element={<Navigate to="/gestion/anos" replace />} />

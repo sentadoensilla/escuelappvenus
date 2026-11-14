@@ -156,6 +156,10 @@ export const privateRoutes = {
     ESTADISTICAS_SAE: '/estadisticassae',        // estadísticas de matrícula
     PROMOCION: '/promocion',                     // promoción masiva de estudiantes
 
+    // ===== WhatsApp multiinstitución =====
+    WHATSAPP_INSTITUCION: '/whatsapp',           // emisor/cola/mensajes de la institución
+    WHATSAPP_ADMIN: '/whatsappadmin',            // administración global (Admin)
+
 
 
 }
