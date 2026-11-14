@@ -21,6 +21,17 @@ import DetalleEnvioModal from './DetalleEnvio';
 const BASE = myConst.roots.engine + '/whatsapp';
 const ESTADO_SESION = { 1: 'Esperando QR', 2: 'QR generado', 3: 'Escaneando', 4: 'Conectado', 5: 'Desconectado', 6: 'Cerrado', 7: 'Error' };
 const ESTADOS_COLA = ['pending', 'queued', 'sending', 'sent', 'failed', 'cancelled'];
+
+// Fecha local en formato aaaa-mm-dd (sin desfase UTC).
+const fechaLocal = (d) => {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+};
+const HOY = new Date();
+const AYER = new Date(HOY.getFullYear(), HOY.getMonth(), HOY.getDate() - 1);
+const FILTROS_INICIALES = { busqueda: '', status: '', desde: fechaLocal(AYER), hasta: fechaLocal(HOY) };
 // Color de la burbuja del icono (Atlantis: icon-*) según el estado de la sesión.
 const iconoEstado = (estado) => {
     if (estado === 4) return 'icon-success';
@@ -38,11 +49,11 @@ export default function WhatsappInstitucion() {
     const [vinculando, setVinculando] = useState(false);
     const [mensajes, setMensajes] = useState([]);
     const [estadisticas, setEstadisticas] = useState([]);
-    const dias = 14;
+    const dias = 21; // 26-oct → hoy (se incluye un día extra para repartir 5–15/día)
     const [total, setTotal] = useState(0);
     const [msgComunicado, setMsgComunicado] = useState('');
     const [detalle, setDetalle] = useState(null);
-    const [filtros, setFiltros] = useState({ busqueda: '', status: '', desde: '', hasta: '' });
+    const [filtros, setFiltros] = useState(FILTROS_INICIALES);
     const timerRef = useRef(null);
 
     const cargarMensajes = async (f = filtros) => {
