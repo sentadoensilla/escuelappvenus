@@ -15,6 +15,7 @@ import TituloPagina from '../components/TituloPagina';
 import ActionButton from '../components/ActionButton';
 import AppIcon from '../components/AppIcon';
 import { SparklineCard } from '../components/sparklineStats';
+import EstadoBadge from './estadoBadge';
 
 const BASE = myConst.roots.engine + '/whatsapp';
 const ESTADO_SESION = { 1: 'Esperando QR', 2: 'QR generado', 3: 'Escaneando', 4: 'Conectado', 5: 'Desconectado', 6: 'Cerrado', 7: 'Error' };
@@ -165,13 +166,13 @@ export default function WhatsappInstitucion() {
     const fechaCorta = (v) => (v ? String(v).slice(0, 16).replace('T', ' ') : '—');
     const columnasMensajes = [
         { name: 'Destinatario', selector: (row) => row.destino, sortable: true, wrap: true },
-        { name: 'Envío real', selector: (row) => row.destino_efectivo || row.destino, wrap: true },
+        { name: 'Envío real', selector: (row) => row.destino_efectivo || row.destino, sortable: true, wrap: true },
         { name: 'Tipo', selector: (row) => row.tipo_nombre || row.type, sortable: true },
-        { name: 'Estado', selector: (row) => row.status, sortable: true },
+        { name: 'Estado', selector: (row) => row.status, cell: (row) => <EstadoBadge estado={row.status} />, sortable: true },
         { name: 'Creación', selector: (row) => row.fecha_creacion, format: (row) => fechaCorta(row.fecha_creacion), sortable: true },
         { name: 'Envío', selector: (row) => row.fecha_envio, format: (row) => fechaCorta(row.fecha_envio), sortable: true },
         { name: 'Intentos', selector: (row) => row.attempts, sortable: true },
-        { name: 'Error', selector: (row) => row.last_error, wrap: true },
+        { name: 'Error', selector: (row) => row.last_error, sortable: true, wrap: true },
     ];
 
     // Métricas del widget tipo sparkline: total enviado y variación (2ª mitad vs 1ª).

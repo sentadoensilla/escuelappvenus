@@ -13,6 +13,7 @@ import { Foot } from '../components/foot';
 import Listado from '../components/tables';
 import TituloPagina from '../components/TituloPagina';
 import ActionButton from '../components/ActionButton';
+import EstadoBadge from './estadoBadge';
 
 const BASE = myConst.roots.engine + '/whatsapp';
 
@@ -150,13 +151,13 @@ export default function WhatsappAdmin() {
     const columnasMensajes = [
         { name: 'Institución', selector: (row) => row.institucion, sortable: true, wrap: true },
         { name: 'Destinatario', selector: (row) => row.destino, sortable: true, wrap: true },
-        { name: 'Envío real', selector: (row) => row.destino_efectivo || row.destino, wrap: true },
+        { name: 'Envío real', selector: (row) => row.destino_efectivo || row.destino, sortable: true, wrap: true },
         { name: 'Tipo', selector: (row) => row.tipo_nombre || row.type, sortable: true },
-        { name: 'Estado', selector: (row) => row.status, sortable: true },
+        { name: 'Estado', selector: (row) => row.status, cell: (row) => <EstadoBadge estado={row.status} />, sortable: true },
         { name: 'Creación', selector: (row) => row.fecha_creacion, format: (row) => fechaCorta(row.fecha_creacion), sortable: true },
         { name: 'Envío', selector: (row) => row.fecha_envio, format: (row) => fechaCorta(row.fecha_envio), sortable: true },
         { name: 'Intentos', selector: (row) => row.attempts, sortable: true },
-        { name: 'Error', selector: (row) => row.last_error, wrap: true },
+        { name: 'Error', selector: (row) => row.last_error, sortable: true, wrap: true },
     ];
 
     if (!miUsuario.isLogged) return <Fragment><Forbidden /></Fragment>;
