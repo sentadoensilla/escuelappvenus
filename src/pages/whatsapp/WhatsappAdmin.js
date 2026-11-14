@@ -14,6 +14,7 @@ import Listado from '../components/tables';
 import TituloPagina from '../components/TituloPagina';
 import ActionButton from '../components/ActionButton';
 import EstadoBadge from './estadoBadge';
+import DetalleEnvioModal from './DetalleEnvio';
 
 const BASE = myConst.roots.engine + '/whatsapp';
 
@@ -30,6 +31,7 @@ export default function WhatsappAdmin() {
     const [config, setConfig] = useState(null);
     const [institucionesLista, setInstitucionesLista] = useState([]);
     const [msgInstituciones, setMsgInstituciones] = useState('');
+    const [detalle, setDetalle] = useState(null);
     const [selInstituciones, setSelInstituciones] = useState([]);
     const { register, handleSubmit, reset } = useForm();
 
@@ -274,7 +276,11 @@ export default function WhatsappAdmin() {
                                     </div>
                                 </div>
                                 <div className="card-body">
-                                    <Listado props={{ columns: columnasMensajes, data: mensajes }} />
+                                    <Listado props={{
+                                        columns: columnasMensajes,
+                                        data: mensajes,
+                                        onRowClicked: (row) => setDetalle(row),
+                                    }} />
                                 </div>
                             </div>
                         </div>
@@ -282,6 +288,8 @@ export default function WhatsappAdmin() {
                     <Foot />
                 </div>
             </div>
+
+            <DetalleEnvioModal envio={detalle} onClose={() => setDetalle(null)} />
         </Fragment>
     );
 }

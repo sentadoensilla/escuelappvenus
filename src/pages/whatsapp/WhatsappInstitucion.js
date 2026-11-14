@@ -16,6 +16,7 @@ import ActionButton from '../components/ActionButton';
 import AppIcon from '../components/AppIcon';
 import { SparklineCard } from '../components/sparklineStats';
 import EstadoBadge from './estadoBadge';
+import DetalleEnvioModal from './DetalleEnvio';
 
 const BASE = myConst.roots.engine + '/whatsapp';
 const ESTADO_SESION = { 1: 'Esperando QR', 2: 'QR generado', 3: 'Escaneando', 4: 'Conectado', 5: 'Desconectado', 6: 'Cerrado', 7: 'Error' };
@@ -40,6 +41,7 @@ export default function WhatsappInstitucion() {
     const dias = 14;
     const [total, setTotal] = useState(0);
     const [msgComunicado, setMsgComunicado] = useState('');
+    const [detalle, setDetalle] = useState(null);
     const [filtros, setFiltros] = useState({ busqueda: '', status: '', desde: '', hasta: '' });
     const timerRef = useRef(null);
 
@@ -364,7 +366,11 @@ export default function WhatsappInstitucion() {
                                     </div>
                                 </div>
                                 <div className="card-body">
-                                    <Listado props={{ columns: columnasMensajes, data: mensajes }} />
+                                    <Listado props={{
+                                        columns: columnasMensajes,
+                                        data: mensajes,
+                                        onRowClicked: (row) => setDetalle(row),
+                                    }} />
                                 </div>
                             </div>
                         </div>
@@ -372,6 +378,8 @@ export default function WhatsappInstitucion() {
                     <Foot />
                 </div>
             </div>
+
+            <DetalleEnvioModal envio={detalle} onClose={() => setDetalle(null)} />
         </Fragment>
     );
 }
