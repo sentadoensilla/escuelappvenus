@@ -29,21 +29,22 @@
 
 import tool from '../services/tools';
 
-const cat = (titulo, tabla, columns, fields) => ({
+const cat = (titulo, tabla, columns, fields, opts = {}) => ({
     titulo,
     kind: 'catalogo',
     tabla,
     endpoints: {
-        listar: `/catalogos/${tabla}/listar`,
-        registrar: `/catalogos/${tabla}/registrar`,
-        actualizar: `/catalogos/${tabla}/actualizar`,
-        borrar: `/catalogos/${tabla}/borrar`,
+        listar: `/catalogos/listar/${tabla}`,
+        registrar: `/catalogos/registrar/${tabla}`,
+        actualizar: `/catalogos/actualizar/${tabla}`,
+        borrar: `/catalogos/borrar/${tabla}`,
     },
     columns,
     fields,
+    ...opts,
 });
 
-const sae = (titulo, recurso, columns, fields) => ({
+const sae = (titulo, recurso, columns, fields, opts = {}) => ({
     titulo,
     kind: 'sae',
     endpoints: {
@@ -54,10 +55,11 @@ const sae = (titulo, recurso, columns, fields) => ({
     },
     columns,
     fields,
+    ...opts,
 });
 
 // Entidad de preescolar (endpoints montados en /preescolar).
-const pre = (titulo, recurso, columns, fields) => ({
+const pre = (titulo, recurso, columns, fields, opts = {}) => ({
     titulo,
     kind: 'sae',
     endpoints: {
@@ -68,6 +70,7 @@ const pre = (titulo, recurso, columns, fields) => ({
     },
     columns,
     fields,
+    ...opts,
 });
 
 // Atajos de fuentes (select)
@@ -251,8 +254,26 @@ export const CRUD = {
         [{ name: 'idano', label: 'Año', type: 'select', source: SRC_SAE('anos', 'descripcion'), required: true }, { name: 'idinstitucion', label: 'Institución', type: 'select', source: SRC_INST, required: true }, { name: 'idasignatura', label: 'Asignatura', type: 'select', source: SRC_SAE('asignaturas', 'descripcion'), required: true }, { name: 'idgrado', label: 'Grado', type: 'select', source: SRC_CAT('grados', 'cgraddesc'), required: true }, { name: 'valor', label: 'Valor', type: 'number' }]),
 
     docentes: sae('Docentes', 'docentes',
-        [{ header: 'IDENTIFICACIÓN', key: 'identificacion' }, { header: 'APELLIDOS', key: 'apellido1' }, { header: 'NOMBRES', key: 'nombre1' }, { header: 'EMAIL', key: 'email' }],
-        [{ name: 'identificacion', label: 'Identificación', type: 'text', required: true }, { name: 'idtipodocumento', label: 'Tipo documento', type: 'select', source: SRC_CAT('tiposdocumento', 'ctipodocudesc') }, { name: 'nombre1', label: 'Primer nombre', type: 'text' }, { name: 'nombre2', label: 'Segundo nombre', type: 'text' }, { name: 'apellido1', label: 'Primer apellido', type: 'text' }, { name: 'apellido2', label: 'Segundo apellido', type: 'text' }, { name: 'fechanacimiento', label: 'Fecha nacimiento', type: 'date' }, { name: 'idsexo', label: 'Sexo', type: 'select', source: SRC_CAT('sexos', 'csexodesc') }, { name: 'celular', label: 'Celular', type: 'text' }, { name: 'telefono', label: 'Teléfono', type: 'text' }, { name: 'direccion', label: 'Dirección', type: 'text' }, { name: 'email', label: 'Email', type: 'text' }, { name: 'fechaingreso', label: 'Fecha ingreso', type: 'date' }]),
+        [{ header: 'IDENTIFICACIÓN', key: 'identificacion' }, { header: 'APELLIDOS', key: 'apellido1' }, { header: 'NOMBRES', key: 'nombre1' }, { header: 'CARGO', key: 'cargo' }, { header: 'EMAIL', key: 'email' }, { header: 'ESTADO', key: 'idestado', width: '110px', format: ESTADO }],
+        [
+            { name: 'foto', label: 'Foto (tipo carnet)', type: 'foto', col: 'col-12' },
+            { name: 'idtipodocumento', label: 'Tipo documento', type: 'select', source: SRC_CAT('tiposdocumento', 'ctipodocudesc') },
+            { name: 'identificacion', label: 'Identificación', type: 'text', required: true, validation: 'identificacion', placeholder: 'Número de documento' },
+            { name: 'nombre1', label: 'Primer nombre', type: 'text', required: true, placeholder: 'Ej: María' },
+            { name: 'nombre2', label: 'Segundo nombre', type: 'text', placeholder: 'Ej: Fernanda' },
+            { name: 'apellido1', label: 'Primer apellido', type: 'text', required: true, placeholder: 'Ej: Gómez' },
+            { name: 'apellido2', label: 'Segundo apellido', type: 'text', placeholder: 'Ej: Pérez' },
+            { name: 'fechanacimiento', label: 'Fecha nacimiento', type: 'date', required: true },
+            { name: 'idsexo', label: 'Sexo', type: 'select', source: SRC_CAT('sexos', 'csexodesc'), required: true },
+            { name: 'idtiposangre', label: 'Tipo de sangre', type: 'select', source: SRC_CAT('tipossangre', 'ctiposangdesc'), required: true },
+            { name: 'celular', label: 'Celular', type: 'text', required: true, validation: 'celular', placeholder: 'Ej: 3001234567' },
+            { name: 'telefono', label: 'Teléfono', type: 'text', placeholder: 'Teléfono fijo (opcional)' },
+            { name: 'email', label: 'Email', type: 'text', required: true, validation: 'email', placeholder: 'correo@ejemplo.com' },
+            { name: 'direccion', label: 'Dirección', type: 'text', col: 'col-12', placeholder: 'Dirección de residencia' },
+            { name: 'cargo', label: 'Cargo', type: 'select', source: SRC_CAT('cargos', 'ccargdesc'), required: true, get: 'idcargo' },
+            { name: 'jefearea', label: 'Jefe de área', type: 'select', options: [{ value: '0', label: 'No' }, { value: '1', label: 'Sí' }], get: 'jefearea' },
+            { name: 'fechaingreso', label: 'Fecha ingreso', type: 'date' }
+        ], { print: true, compartir: true, autogestion: true, compartirUrl: '/docentes/autogestion', autorizar: '/sae/docentes/autorizar' }),
     contrataciones: sae('Contratación de docentes', 'contrataciones',
         [{ header: 'DOCENTE', key: 'docente' }, { header: 'CARGO', key: 'cargo' }],
         [{ name: 'idinstitucion', label: 'Institución', type: 'select', source: SRC_INST, required: true }, { name: 'iddocente', label: 'Docente', type: 'select', source: { tipo: 'sae', recurso: 'docentes', label: DOCENTE_LABEL }, required: true }, { name: 'idano', label: 'Año', type: 'select', source: SRC_SAE('anos', 'descripcion'), required: true }, { name: 'idcargo', label: 'Cargo', type: 'select', source: SRC_CAT('cargos', 'ccargdesc') }, { name: 'idtipovinculacion', label: 'Vinculación', type: 'select', source: SRC_CAT('tiposvinculacion', 'ctipovincdesc') }, { name: 'salario', label: 'Salario', type: 'number' }, { name: 'fechainicio', label: 'Fecha inicio', type: 'date' }, { name: 'fechafin', label: 'Fecha fin', type: 'date' }]),

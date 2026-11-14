@@ -22,6 +22,7 @@ const TipoDesempeno = lazy(() => import(/* webpackChunkName: "/tipodesempeno" */
 // ARCHIVOS PARA RUTAS DE LA GESTIÓN SAE (CRUD genérico)
 const GestionList = lazy(() => import(/* webpackChunkName: "gestion" */ "../../pages/gestion/gestionList"));
 const GestionAdd = lazy(() => import(/* webpackChunkName: "gestion" */ "../../pages/gestion/gestionAdd"));
+const GestionPrint = lazy(() => import(/* webpackChunkName: "gestion" */ "../../pages/gestion/gestionPrint"));
 
 // ARCHIVOS PARA RUTAS DE LA GESTIÓN DE INSTITUCIONES
 const InstitucionesList = lazy(() => import(/* webpackChunkName: "instituciones" */ "../../pages/instituciones/institucionesList"));
@@ -30,6 +31,7 @@ const InstitucionesAdd = lazy(() => import(/* webpackChunkName: "instituciones" 
 // ARCHIVOS PARA RUTAS DE LA GESTIÓN DE DOCENTES
 const DocentesList = lazy(() => import(/* webpackChunkName: "docentes" */ "../../pages/docentes/docentesList"));
 const DocentesAdd = lazy(() => import(/* webpackChunkName: "docentes" */ "../../pages/docentes/docentesAdd"));
+const DocenteAutogestion = lazy(() => import(/* webpackChunkName: "docentes" */ "../../pages/docentes/DocenteAutogestion"));
 
 // ARCHIVOS PARA RUTAS DE AVISOS INSTITUCIONALES
 const AvisosList = lazy(() => import(/* webpackChunkName: "avisos" */ "../../pages/avisos/avisosList"));
@@ -169,6 +171,9 @@ export const MisRutas = () => {
                     <Route exact path={publicRoutes.INDEX} element={<Index />} />
                     <Route path={publicRoutes.LOGIN} element={<Login />} />
 
+                    {/* Formulario público de auto-gestión del docente (sin login) */}
+                    <Route path={publicRoutes.DOCENTE_AUTOGESTION} element={<DocenteAutogestion />} />
+
                     {/* Enlace seguro público (SAE → Escuelapp → Padre) */}
                     <Route path={publicRoutes.VISTA_ENLACE} element={<VistaEnlace />} />
 
@@ -277,6 +282,7 @@ export const MisRutas = () => {
                     {/* ===== Gestión SAE (CRUD genérico por entidad) ===== */}
                     <Route path={privateRoutes.GESTION_LIST} element={(callUsers)? <GestionList isLogged={callUsers} /> : <Forbidden /> } />
                     <Route path={privateRoutes.GESTION_ADD} element={(callUsers)? <GestionAdd isLogged={callUsers} /> : <Forbidden /> } />
+                    <Route path={privateRoutes.GESTION_PRINT} element={(callUsers)? <GestionPrint isLogged={callUsers} /> : <Forbidden /> } />
 
                     {/* ===== Gestión de instituciones ===== */}
                     <Route path={privateRoutes.INSTITUCIONES_LIST} element={(callUsers)? <InstitucionesList isLogged={callUsers} /> : <Forbidden /> } />

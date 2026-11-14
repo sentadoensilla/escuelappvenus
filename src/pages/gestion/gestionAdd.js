@@ -1,6 +1,7 @@
 import { Fragment, useContext, useState, useEffect } from 'react';
 import { useNavigate, useParams, useLocation, Link } from 'react-router-dom';
 import swal from 'sweetalert2';
+import QRCode from 'react-qr-code';
 
 import { UserContext } from '../../services/context/UserContext';
 import * as myConst from '../../main/constants';
@@ -15,6 +16,7 @@ import { Foot } from '../components/foot';
 import AppIcon from '../components/AppIcon';
 import ActionButton from '../components/ActionButton';
 import TituloPagina from '../components/TituloPagina';
+import CampoFoto from './FotoCarnet';
 
 
 /**
@@ -25,7 +27,15 @@ import TituloPagina from '../components/TituloPagina';
  *  - El PK (`idregistro`) viene ENCRIPTADO desde el listado y se reenvía tal cual.
  *  - Las FKs (selects) usan como valor el `idregistro` ENCRIPTADO de la fuente;
  *    al editar, el valor crudo del registro se enmascara con tool.encriptar().
+ *
+ * Tipos de campo soportados (config.fields):
+ *  text | number | date | textarea | select (source o options) | boolean | foto
+ *  - `placeholder`: texto guía del input.
+ *  - `validation`: 'email' | 'identificacion' | 'celular' (validación de formato).
+ *  - `required`: campo obligatorio (se valida y marca en rojo).
+ *  - `foto`: archivo de imagen que se reduce a tamaño carnet (300x400) y se envía en base64.
  */
+
 export default function GestionAdd() {
     const { entidad } = useParams();
     const config = CRUD[entidad];
@@ -38,14 +48,28 @@ export default function GestionAdd() {
     const id = (params.state) ? params.state.id : null;
     const esEdicion = (id !== null && id !== undefined && id !== '');
 
+    // QR / enlace para compartir el formulario público de auto-gestión (si aplica).
+    const [mostrarQR, setMostrarQR] = useState(false);
+    const urlCompartir = (() => {
+        if (!config || !config.compartirUrl) return '';
+        const base = window.location.origin + config.compartirUrl;
+        if (!config.autogestion) return base;
+        const p = new URLSearchParams();
+        if (miUsuario.usuarioEmpresaId) p.set('inst', miUsuario.usuarioEmpresaId);
+        if (miUsuario.usuarioAnoId) p.set('ano', miUsuario.usuarioAnoId);
+        const qs = p.toString();
+        return qs ? `${base}?${qs}` : base;
+    })();
+
     const [form, setForm] = useState({});
     const [fuentes, setFuentes] = useState({}); // { fieldName: [{value,label}] }
+    const [errores, setErrores] = useState({});
     const [isFetching, setIsFetching] = useState(true);
 
     // Resuelve la URL y la etiqueta de una fuente de select.
     const resolverFuente = (source) => {
         if (!source) return null;
-        if (source.tipo === 'catalogo') return { url: `/catalogos/${source.tabla}/listar`, label: source.label };
+        if (source.tipo === 'catalogo') return { url: `/catalogos/listar/${source.tabla}`, label: source.label };
         if (source.tipo === 'sae') return { url: `/sae/${source.recurso}/listar`, label: source.label };
         if (source.tipo === 'pre') return { url: `/preescolar/${source.recurso}/listar`, label: source.label };
         if (source.tipo === 'institucion') return { url: `/institucion/instituciones/listar`, label: 'nombre' };
@@ -76,9 +100,17 @@ export default function GestionAdd() {
         const defaults = {};
         config.fields.forEach((f) => {
             const raw = record[f.get || f.name];
-            if (f.type === 'select') {
-                // La FK cruda se enmascara para coincidir con las opciones (encriptadas).
-                defaults[f.name] = (raw !== undefined && raw !== null && raw !== '') ? tool.encriptar(String(raw)) : '';
+            if (f.type === 'foto') {
+                defaults[f.name] = (raw !== undefined && raw !== null && raw !== '') ? raw : '';
+            } else if (f.type === 'select') {
+                if (f.options) {
+                    // Select estático (p.ej. Sí/No): el valor crudo es '0'/'1'.
+                    const enOpciones = (f.options || []).some((o) => String(o.value) === String(raw));
+                    defaults[f.name] = enOpciones ? String(raw) : ((f.options && f.options[0] && f.options[0].value) || '');
+                } else {
+                    // La FK cruda se enmascara para coincidir con las opciones (encriptadas).
+                    defaults[f.name] = (raw !== undefined && raw !== null && raw !== '') ? tool.encriptar(String(raw)) : '';
+                }
             } else if (f.type === 'boolean') {
                 defaults[f.name] = (raw === true || raw === 'true' || raw === '1') ? 'true' : 'false';
             } else if (f.type === 'date') {
@@ -90,6 +122,7 @@ export default function GestionAdd() {
             }
         });
         setForm(defaults);
+        setErrores({});
 
         config.fields.filter((f) => f.source).forEach((f) => cargarFuente(f));
 
@@ -97,7 +130,16 @@ export default function GestionAdd() {
         // eslint-disable-next-line
     }, [entidad]);
 
-    const cambiar = (name, value) => setForm((prev) => ({ ...prev, [name]: value }));
+    const cambiar = (name, value) => {
+        setForm((prev) => ({ ...prev, [name]: value }));
+        // Al corregir un campo, se quita su error.
+        setErrores((prev) => {
+            if (!prev[name]) return prev;
+            const siguiente = { ...prev };
+            delete siguiente[name];
+            return siguiente;
+        });
+    };
 
     // Construye el payload aplicando el enmascarado de FKs y la conversión de tipos.
     const construirPayload = () => {
@@ -114,10 +156,44 @@ export default function GestionAdd() {
         return data;
     };
 
+    // Validación genérica: obligatorios + formatos (email, identificación, celular).
+    const validar = () => {
+        const nuevos = {};
+        config.fields.forEach((f) => {
+            const valor = form[f.name];
+            const vacio = valor === undefined || valor === null || String(valor).trim() === '';
+            if (f.required && vacio) {
+                nuevos[f.name] = 'Este campo es obligatorio';
+            } else if (!vacio) {
+                const texto = String(valor).trim();
+                if (f.validation === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(texto)) {
+                    nuevos[f.name] = 'Correo no válido';
+                } else if (f.validation === 'identificacion' && !/^\d{5,15}$/.test(texto)) {
+                    nuevos[f.name] = 'Identificación no válida (sólo números, 5 a 15 dígitos)';
+                } else if (f.validation === 'celular' && !/^\d{7,15}$/.test(texto)) {
+                    nuevos[f.name] = 'Celular no válido (sólo números)';
+                }
+            }
+        });
+        setErrores(nuevos);
+        return Object.keys(nuevos).length === 0;
+    };
+
     const onRegister = async (event) => {
         event.preventDefault();
-        setWaiting(true);
 
+        if (!validar()) {
+            await swal.fire({
+                title: 'Faltan datos por revisar',
+                text: 'Corrige los campos marcados en rojo antes de continuar.',
+                icon: 'warning',
+                showConfirmButton: true,
+                customClass: { confirmButton: 'btn btn-primary' },
+            });
+            return;
+        }
+
+        setWaiting(true);
         const data = construirPayload();
         const url = myConst.roots.engine + (esEdicion ? config.endpoints.actualizar : config.endpoints.registrar);
 
@@ -157,6 +233,29 @@ export default function GestionAdd() {
         setWaiting(false);
     };
 
+    // Copia al portapapeles el enlace del formulario de auto-gestión.
+    const copiarEnlace = async () => {
+        try {
+            await navigator.clipboard.writeText(urlCompartir);
+            await swal.fire({
+                title: 'Enlace copiado',
+                text: 'Ya puedes pegarlo donde lo necesites.',
+                icon: 'success',
+                showConfirmButton: true,
+                timer: 1800,
+                customClass: { confirmButton: 'btn btn-primary' },
+            });
+        } catch (error) {
+            await swal.fire({
+                title: 'No se pudo copiar',
+                text: urlCompartir,
+                icon: 'info',
+                showConfirmButton: true,
+                customClass: { confirmButton: 'btn btn-primary' },
+            });
+        }
+    };
+
     if (!miUsuario.isLogged) {
         return <Fragment><Forbidden /></Fragment>;
     }
@@ -182,18 +281,20 @@ export default function GestionAdd() {
     // todo el ancho del formulario y el resto se reparte a dos columnas.
     const claseColumna = (field) => field.col || 'col-md-6 col-sm-12';
 
+    const claseInput = (field) => `form-control ${errores[field.name] ? 'is-invalid' : ''}`.trim();
+
     const renderField = (field) => {
         switch (field.type) {
             case 'textarea':
                 return (
-                    <textarea className="form-control" placeholder={field.label}
+                    <textarea className={claseInput(field)} placeholder={field.placeholder || field.label}
                         value={form[field.name] || ''}
                         onChange={(e) => cambiar(field.name, e.target.value)} />
                 );
             case 'select': {
-                const opciones = fuentes[field.name] || [];
+                const opciones = field.options || (fuentes[field.name] || []);
                 return (
-                    <select className="form-control"
+                    <select className={`form-select ${errores[field.name] ? 'is-invalid' : ''}`.trim()}
                         value={form[field.name] || ''}
                         onChange={(e) => cambiar(field.name, e.target.value)}>
                         <option value="">Seleccione una opción</option>
@@ -205,23 +306,25 @@ export default function GestionAdd() {
             }
             case 'boolean':
                 return (
-                    <select className="form-control"
+                    <select className={`form-select ${errores[field.name] ? 'is-invalid' : ''}`.trim()}
                         value={form[field.name] || 'false'}
                         onChange={(e) => cambiar(field.name, e.target.value)}>
                         <option value="false">No</option>
                         <option value="true">Sí</option>
                     </select>
                 );
+            case 'foto':
+                return <CampoFoto value={form[field.name] || ''} onChange={(v) => cambiar(field.name, v)} />;
             case 'number':
-                return <input type="number" className="form-control" placeholder={field.label}
+                return <input type="number" className={claseInput(field)} placeholder={field.placeholder || field.label}
                     value={form[field.name] ?? ''}
                     onChange={(e) => cambiar(field.name, e.target.value)} />;
             case 'date':
-                return <input type="date" className="form-control"
+                return <input type="date" className={claseInput(field)}
                     value={form[field.name] || ''}
                     onChange={(e) => cambiar(field.name, e.target.value)} />;
             default:
-                return <input type="text" className="form-control" placeholder={field.label}
+                return <input type="text" className={claseInput(field)} placeholder={field.placeholder || field.label}
                     value={form[field.name] || ''}
                     onChange={(e) => cambiar(field.name, e.target.value)} />;
         }
@@ -245,13 +348,22 @@ export default function GestionAdd() {
                                     <div className="col-md-12">
                                         <div className="card">
                                             <div className="card-header">
-                                                <div className="d-flex align-items-center">
+                                                <div className="d-flex align-items-center flex-wrap">
                                                     <TituloPagina>
                                                         {esEdicion ? `Editar ${config.titulo}` : `Registrar ${config.titulo}`}
                                                     </TituloPagina>
-                                                    <Link to={`/gestion/${entidad}`} className="btn btn-primary btn-round ms-auto">
-                                                        <AppIcon icon="la flaticon-list" /> Volver al listado
-                                                    </Link>
+                                                    <div className="ms-auto d-flex align-items-center flex-wrap">
+                                                        {urlCompartir && (
+                                                            <button type="button" onClick={() => setMostrarQR(true)}
+                                                                className="btn btn-outline-primary btn-round me-2"
+                                                                title={`Compartir el formulario de ${config.titulo}`}>
+                                                                <AppIcon icon="tabler:qr-code" /> Compartir formulario
+                                                            </button>
+                                                        )}
+                                                        <Link to={`/gestion/${entidad}`} className="btn btn-primary btn-round">
+                                                            <AppIcon icon="la flaticon-list" /> Volver al listado
+                                                        </Link>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="card-body">
@@ -260,8 +372,13 @@ export default function GestionAdd() {
                                                         {config.fields.map((field, i) => (
                                                             <div key={i} className={claseColumna(field)}>
                                                                 <div className="form-group text-start has-feedback">
-                                                                    <label htmlFor={field.name}>{field.label}:</label>
+                                                                    <label htmlFor={field.name}>
+                                                                        {field.label}{field.required ? <span className="text-danger"> *</span> : null}:
+                                                                    </label>
                                                                     {renderField(field)}
+                                                                    {errores[field.name] && (
+                                                                        <small className="text-danger">{errores[field.name]}</small>
+                                                                    )}
                                                                 </div>
                                                             </div>
                                                         ))}
@@ -287,6 +404,34 @@ export default function GestionAdd() {
                     <Foot />
                 </div>
             </div>
+
+            {/* Modal QR para compartir el formulario de auto-gestión. */}
+            {mostrarQR && (
+                <div
+                    style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.55)', zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}
+                    onClick={() => setMostrarQR(false)}
+                >
+                    <div className="card" style={{ width: '340px', maxWidth: '100%' }} onClick={(e) => e.stopPropagation()}>
+                        <div className="card-body text-center">
+                            <div className="d-flex align-items-center justify-content-between mb-2">
+                                <h5 className="card-title mb-0">Compartir formulario</h5>
+                                <button type="button" className="btn-close" aria-label="Cerrar" onClick={() => setMostrarQR(false)} />
+                            </div>
+                            <div className="bg-white d-inline-block p-2 border rounded">
+                                <QRCode value={urlCompartir} size={200} />
+                            </div>
+                            <p className="text-muted mt-3 mb-1">Escanea el QR o copia el enlace para llenar el formulario:</p>
+                            <code className="d-block text-break mb-3" style={{ userSelect: 'all' }}>{urlCompartir}</code>
+                            <div className="d-flex justify-content-center">
+                                <button type="button" className="btn btn-primary btn-sm me-1" onClick={copiarEnlace}>
+                                    <AppIcon icon="tabler:copy" /> Copiar enlace
+                                </button>
+                                <button type="button" className="btn btn-light btn-sm" onClick={() => setMostrarQR(false)}>Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </Fragment>
     );
 }

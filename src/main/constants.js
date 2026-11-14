@@ -1,5 +1,14 @@
 export const roots = {
-	engine: process.env.REACT_APP_BACKEND_URL,
+	// URL base del backend. Si apunta a localhost y la app se abre desde otro
+	// dispositivo (LAN, p.ej. escaneando el QR con el celular), se reemplaza el
+	// host por el de la ventana actual para que el celular llegue a la API.
+	engine: (() => {
+		const base = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4004';
+		if (typeof window !== 'undefined' && /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?/i.test(base)) {
+			return base.replace(/\/\/(localhost|127\.0\.0\.1)/i, '//' + window.location.hostname);
+		}
+		return base;
+	})(),
 	app: process.env.PUBLIC_URL,
 	login: '/users/login/',
 	listaAno: '/anolectivo/listado',
@@ -170,21 +179,21 @@ export const roots = {
 	institucionNew:'/institucion/instituciones/registrar',
 	institucionUpdate:'/institucion/instituciones/actualizar',
 	institucionDelete:'/institucion/instituciones/borrar',
-	listaZonas:'/catalogos/zonasresidencia/listar',
-	listaCaracter:'/catalogos/caracter/listar',
-	listaEspecialidades:'/catalogos/especialidades/listar',
-	listaMetodos:'/catalogos/metodosinstitucionales/listar',
-	listaDepartamentos:'/catalogos/departamentos/listar',
-	listaCiudades:'/catalogos/ciudades/listar',
+	listaZonas:'/catalogos/listar/zonasresidencia',
+	listaCaracter:'/catalogos/listar/caracter',
+	listaEspecialidades:'/catalogos/listar/especialidades',
+	listaMetodos:'/catalogos/listar/metodosinstitucionales',
+	listaDepartamentos:'/catalogos/listar/departamentos',
+	listaCiudades:'/catalogos/listar/ciudades',
 
 	// ===== Gestión de docentes (SAE) =====
 	docenteList:'/sae/docentes/listar',
 	docenteNew:'/sae/docentes/registrar',
 	docenteUpdate:'/sae/docentes/actualizar',
 	docenteDelete:'/sae/docentes/borrar',
-	listaTiposDocumento:'/catalogos/tiposdocumento/listar',
-	listaSexos:'/catalogos/sexos/listar',
-	listaTiposSangre:'/catalogos/tipossangre/listar',
+	listaTiposDocumento:'/catalogos/listar/tiposdocumento',
+	listaSexos:'/catalogos/listar/sexos',
+	listaTiposSangre:'/catalogos/listar/tipossangre',
 
 	// ===== Avisos institucionales (SAE) =====
 	avisoList:'/avisos/avisosrol/listar',
@@ -207,8 +216,8 @@ export const roots = {
 	cursoNew:'/sae/cursos/registrar',
 	cursoUpdate:'/sae/cursos/actualizar',
 	cursoDelete:'/sae/cursos/borrar',
-	listaGrados:'/catalogos/grados/listar',
-	listaJornadas:'/catalogos/jornadas/listar',
+	listaGrados:'/catalogos/listar/grados',
+	listaJornadas:'/catalogos/listar/jornadas',
 	listaAnos:'/sae/anos/listar',
 	listaSedes:'/institucion/sedes/listar',
 

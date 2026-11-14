@@ -1,6 +1,7 @@
 import { Fragment, useContext, useState, useReducer, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import swal from 'sweetalert2';
+import QRCode from 'react-qr-code';
 
 import { UserContext } from '../../services/context/UserContext';
 import * as myConst from '../../main/constants';
@@ -30,8 +31,22 @@ export default function GestionList() {
     const [isFetching, setIsFetching] = useState(false);
     const [listado, setListado] = useState([]);
     const [listadoController, setListadoController] = useState(0);
+    const [mostrarQR, setMostrarQR] = useState(false);
     const navegar = useNavigate();
     const miUsuario = tool.getUser();
+
+    // Enlace del formulario de llenado para compartir (QR + copiar).
+    // Para entidades con auto-gestión (docentes) apunta al formulario público y
+    // lleva los datos de sesión ENCRIPTADOS (institución/año) en el query string.
+    const urlFormulario = (() => {
+        const base = window.location.origin + (config && config.compartirUrl ? config.compartirUrl : `/gestion/${entidad}/agregar`);
+        if (!(config && config.autogestion)) return base;
+        const params = new URLSearchParams();
+        if (miUsuario.usuarioEmpresaId) params.set('inst', miUsuario.usuarioEmpresaId);
+        if (miUsuario.usuarioAnoId) params.set('ano', miUsuario.usuarioAnoId);
+        const qs = params.toString();
+        return qs ? `${base}?${qs}` : base;
+    })();
 
     // Columnas de la tabla (del config) + columna de acciones.
     // `c.format` permite transformar el valor crudo de la API antes de mostrarlo
@@ -47,6 +62,14 @@ export default function GestionList() {
         button: true,
         cell: (row) => (
             <div className="form-button-action">
+                {config.autorizar && Number(row.idestado) === 4 && (
+                    <button type="button" data-bs-toggle="tooltip"
+                        onClick={() => autorizarElement(row)}
+                        title="Autorizar docente (activar en la institución)"
+                        className="btn btn-rounded btn-outline-success btn-xs me-1">
+                        <AppIcon icon="tabler:user-check" />
+                    </button>
+                )}
                 <button type="button" data-bs-toggle="tooltip"
                     onClick={() => editElement(row)}
                     title="Editar elemento" className="btn btn-rounded btn-outline-primary btn-xs me-1">
@@ -124,6 +147,42 @@ export default function GestionList() {
         }
     };
 
+    // Autoriza (activa) un docente autogestionado que está PENDIENTE.
+    // Luego se puede editar para completar cargo / jefe de área.
+    const autorizarElement = async (row) => {
+        const answer = await swal.fire({
+            title: '¿Autorizar docente?',
+            text: 'Se activará como docente de la institución. Después podrás completar cargo y jefe de área con "Editar".',
+            icon: 'question',
+            showConfirmButton: true,
+            confirmButtonText: 'Sí, autorizar',
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar',
+            reverseButtons: true,
+            customClass: { confirmButton: 'btn btn-primary mx-1', cancelButton: 'btn btn-danger mx-1' },
+            buttonsStyling: false,
+        });
+        if (!answer.isConfirmed) { swal.close(); return; }
+        setWaiting(true);
+        try {
+            const resultado = await messenger.poster({
+                method: 'POST',
+                url: myConst.roots.engine + config.autorizar,
+                value: { idregistro: row.idregistro },
+            });
+            setListadoController(listadoController + 1);
+            await swal.fire({
+                title: (parseInt(resultado.statusCode) === 200) ? 'Docente autorizado' : 'No se pudo autorizar',
+                text: resultado.message,
+                icon: resultado.status,
+                showConfirmButton: true,
+                customClass: { confirmButton: 'btn btn-primary' },
+            });
+        } finally {
+            setWaiting(false);
+        }
+    };
+
     // Borrado con confirmación y estado de carga del botón (ActionButton).
     const deleteElement = async (reference) => {
         const answer = await swal.fire({
@@ -154,6 +213,35 @@ export default function GestionList() {
             });
         } finally {
             setWaiting(false);
+        }
+    };
+
+    // Abre en OTRA PESTAÑA el listado imprimible (PDF) de la entidad, sin acciones.
+    // Sólo se muestra para las entidades con `print: true` (p.ej. docentes).
+    const generarPdf = () => {
+        window.open(`/gestion/${entidad}/print`, '_blank', 'noopener,noreferrer');
+    };
+
+    // Copia al portapapeles el enlace del formulario de llenado.
+    const copiarEnlace = async () => {
+        try {
+            await navigator.clipboard.writeText(urlFormulario);
+            await swal.fire({
+                title: 'Enlace copiado',
+                text: 'Ya puedes pegarlo donde lo necesites.',
+                icon: 'success',
+                showConfirmButton: true,
+                timer: 1800,
+                customClass: { confirmButton: 'btn btn-primary' },
+            });
+        } catch (error) {
+            await swal.fire({
+                title: 'No se pudo copiar',
+                text: urlFormulario,
+                icon: 'info',
+                showConfirmButton: true,
+                customClass: { confirmButton: 'btn btn-primary' },
+            });
         }
     };
 
@@ -212,12 +300,28 @@ export default function GestionList() {
                                     <div className="col-md-12">
                                         <div className="card">
                                             <div className="card-header">
-                                                <div className="d-flex align-items-center">
+                                                <div className="d-flex align-items-center flex-wrap">
                                                     <TituloPagina>{config.titulo}</TituloPagina>
-                                                    <Link to={`/gestion/${entidad}/agregar`} className="btn btn-primary btn-round ms-auto">
-                                                        <AppIcon icon="la flaticon-plus" />
-                                                        Agregar
-                                                    </Link>
+                                                    <div className="ms-auto d-flex align-items-center flex-wrap">
+                                                        {config.compartir && (
+                                                            <button type="button" onClick={() => setMostrarQR(true)}
+                                                                className="btn btn-outline-primary btn-round me-2"
+                                                                title={`Compartir el formulario de ${config.titulo}`}>
+                                                                <AppIcon icon="tabler:qr-code" /> Compartir formulario
+                                                            </button>
+                                                        )}
+                                                        {config.print && (
+                                                            <button type="button" onClick={generarPdf}
+                                                                className="btn btn-danger btn-round me-2"
+                                                                title={`Listado de ${config.titulo} en PDF`}>
+                                                                <AppIcon icon="tabler:file-type-pdf" /> Listado de {config.titulo}
+                                                            </button>
+                                                        )}
+                                                        <Link to={`/gestion/${entidad}/agregar`} className="btn btn-primary btn-round">
+                                                            <AppIcon icon="la flaticon-plus" />
+                                                            Agregar
+                                                        </Link>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="card-body">
@@ -234,6 +338,34 @@ export default function GestionList() {
                     <Foot />
                 </div>
             </div>
+
+            {/* Modal QR para compartir el formulario de llenado. */}
+            {mostrarQR && (
+                <div
+                    style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.55)', zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}
+                    onClick={() => setMostrarQR(false)}
+                >
+                    <div className="card" style={{ width: '340px', maxWidth: '100%' }} onClick={(e) => e.stopPropagation()}>
+                        <div className="card-body text-center">
+                            <div className="d-flex align-items-center justify-content-between mb-2">
+                                <h5 className="card-title mb-0">Compartir formulario</h5>
+                                <button type="button" className="btn-close" aria-label="Cerrar" onClick={() => setMostrarQR(false)} />
+                            </div>
+                            <div className="bg-white d-inline-block p-2 border rounded">
+                                <QRCode value={urlFormulario} size={200} />
+                            </div>
+                            <p className="text-muted mt-3 mb-1">Escanea el QR o copia el enlace para llenar el formulario:</p>
+                            <code className="d-block text-break mb-3" style={{ userSelect: 'all' }}>{urlFormulario}</code>
+                            <div className="d-flex justify-content-center">
+                                <button type="button" className="btn btn-primary btn-sm me-1" onClick={copiarEnlace}>
+                                    <AppIcon icon="tabler:copy" /> Copiar enlace
+                                </button>
+                                <button type="button" className="btn btn-light btn-sm" onClick={() => setMostrarQR(false)}>Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </Fragment>
     );
 }

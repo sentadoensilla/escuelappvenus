@@ -3,7 +3,7 @@
 Guía de arquitectura del **frontend** de Escuelapp (`escuelappvenus`, paquete npm `venus`). Permite a
 cualquier agente de programación comprender el código y continuar la codificación sin contexto previo.
 
-**Última actualización:** _(fecha — actualizar tras cada cambio)_
+**Última actualización:** 2026-11-14 — módulo docentes (listado + formulario + auto-gestión + autorización + PDF/QR) y mejoras del CRUD genérico (validación, foto, impresión). Ver §Registro de cambios.
 
 ---
 
@@ -294,6 +294,39 @@ node -e "require('@babel/parser').parse(require('fs').readFileSync('src/pages/<m
 
 npm start   # o npm run build para detectar errores de compilación
 ```
+
+---
+
+## Registro de cambios (trazabilidad)
+
+### 2026-11-14 — Módulo docentes y mejoras del CRUD genérico
+
+**Docentes** (`/gestion/docentes` + `/gestion/docentes/agregar` + `/docentes/autogestion`):
+
+- `src/main/crudConfig.js` — entrada `docentes`: columnas **identificación, apellidos, nombres, cargo,
+  email, estado**; campos **foto, tipo documento, identificación, nombres, apellidos, fecha nacimiento,
+  sexo, tipo de sangre, celular, teléfono, email, dirección, cargo, jefe de área** con `required`,
+  `placeholder` y `validation`; flags `print`, `compartir`, `autogestion`, `compartirUrl`, `autorizar`.
+  Los helpers `cat`/`sae`/`pre` aceptan opciones extra (`opts`).
+- `src/pages/gestion/gestionList.js` — botón **PDF** (abre `/gestion/:entidad/print`), botón **Compartir
+  formulario** (QR + copiar enlace con institución/año encriptados) y botón **Autorizar** para docentes
+  pendientes.
+- `src/pages/gestion/gestionAdd.js` — tipo de campo **foto**, select estático (`options`), `placeholder`,
+  **validación** (obligatorios, email, identificación, celular) y botón **Compartir formulario**.
+- `src/pages/gestion/gestionPrint.js` — listado imprimible genérico sin acciones (estructura `/asignaturas`).
+- `src/pages/gestion/FotoCarnet.js` — selector de foto reutilizable: galería + cámara (`capture`) con
+  reducción a carnet 300×400 y vista previa de la ruta guardada.
+- `src/pages/docentes/DocenteAutogestion.js` — formulario **público** de auto-gestión (sin login) que
+  lee `inst`/`ano` encriptados del enlace y guarda en `/sae/docentes/autoregistro`.
+- `src/services/routes.js` / `src/main/routes/mainroutes.js` — rutas `GESTION_PRINT`
+  (`/gestion/:entidad/print`) y `DOCENTE_AUTOGESTION` (`/docentes/autogestion`, pública).
+
+**Correcciones transversales:**
+
+- `src/main/constants.js` — las URLs de catálogos ahora son `/catalogos/listar/:tabla` (antes
+  `/catalogos/:tabla/listar` → 404); `roots.engine` es dinámico (si apunta a `localhost`, usa el host de la
+  ventana para funcionar desde el celular en la LAN).
+- `src/main/crudConfig.js` y `src/pages/gestion/gestionAdd.js` — mismos ajustes de URL de catálogos.
 
 ---
 

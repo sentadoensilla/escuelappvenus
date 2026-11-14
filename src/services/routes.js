@@ -15,6 +15,7 @@ export const publicRoutes = {
     OBSERVADOR_OPEN:'/observadorshowopen',
     CITACION_OPEN:'/citacionesdetailopen',
     HORARIO_VIEWOPEN:'/horario_salon',
+    DOCENTE_AUTOGESTION:'/docentes/autogestion', // formulario público de auto-gestión del docente
     VISTA_ENLACE:'/vista/:token', // página pública para abrir un enlace seguro (SAE → Escuelapp → Padre)
 }
 
@@ -151,6 +152,7 @@ export const privateRoutes = {
     // ===== Módulos SAE (gestión genérica de CRUD) =====
     GESTION_LIST: '/gestion/:entidad',           // listado genérico de una entidad SAE/catálogo
     GESTION_ADD: '/gestion/:entidad/agregar',    // formulario genérico alta/edición
+    GESTION_PRINT: '/gestion/:entidad/print',    // listado imprimible (PDF) sin acciones
 
     // ===== Reportes / acciones SAE =====
     ESTADISTICAS_SAE: '/estadisticassae',        // estadísticas de matrícula
