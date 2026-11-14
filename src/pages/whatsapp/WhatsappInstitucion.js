@@ -14,7 +14,7 @@ import Listado from '../components/tables';
 import TituloPagina from '../components/TituloPagina';
 import ActionButton from '../components/ActionButton';
 import AppIcon from '../components/AppIcon';
-import { SparklineCard } from '../components/sparklineStats';
+import GraficoEnvios from './GraficoEnvios';
 import EstadoBadge from './estadoBadge';
 import DetalleEnvioModal from './DetalleEnvio';
 
@@ -49,7 +49,6 @@ export default function WhatsappInstitucion() {
     const [vinculando, setVinculando] = useState(false);
     const [mensajes, setMensajes] = useState([]);
     const [estadisticas, setEstadisticas] = useState([]);
-    const dias = 21; // 26-oct → hoy (se incluye un día extra para repartir 5–15/día)
     const [total, setTotal] = useState(0);
     const [msgComunicado, setMsgComunicado] = useState('');
     const [detalle, setDetalle] = useState(null);
@@ -75,7 +74,8 @@ export default function WhatsappInstitucion() {
         setWaiting(true);
         const e = await messenger.poster({ method: 'POST', url: BASE + '/emisores/listar', value: {} });
         setEmisor((e.rows || [])[0] || null);
-        const st = await messenger.poster({ method: 'POST', url: BASE + '/mensajes/estadisticas', value: { dias } });
+        // todo: true → serie completa (todos los mensajes), con días sin envíos en 0.
+        const st = await messenger.poster({ method: 'POST', url: BASE + '/mensajes/estadisticas', value: { todo: true } });
         setEstadisticas(st.rows || []);
         await cargarMensajes();
         setWaiting(false);
@@ -323,11 +323,10 @@ export default function WhatsappInstitucion() {
                             {/* Fila 2: gráfico de mensajes enviados por periodo */}
                             <div className="row mt-3">
                                 <div className="col-12">
-                                    <SparklineCard
-                                        value={totalEnviados}
-                                        label={`Mensajes enviados (${dias} días)`}
+                                    <GraficoEnvios
+                                        datos={estadisticas}
+                                        total={totalEnviados}
                                         delta={deltaEnviados}
-                                        series={estadisticas.map((e) => parseInt(e.enviados) || 0)}
                                     />
                                 </div>
                             </div>
