@@ -150,14 +150,25 @@ export default function WhatsappAdmin() {
 
     const columnasMensajes = [
         { name: 'Institución', selector: (row) => row.institucion, sortable: true, wrap: true },
-        { name: 'Destinatario', selector: (row) => row.destino, sortable: true, wrap: true },
+        {
+            name: 'Destinatario',
+            selector: (row) => `${row.persona_nombre || ''} ${row.destino || ''} ${row.grupo || ''}`,
+            cell: (row) => (
+                <div>
+                    <div className="fw-bold">{row.persona_nombre || '—'}</div>
+                    <div className="small text-muted">
+                        {row.destino || '—'}{row.grupo ? ` · Grupo ${row.grupo}` : ''}
+                    </div>
+                </div>
+            ),
+            sortable: true, wrap: true,
+        },
         { name: 'Envío real', selector: (row) => row.destino_efectivo || row.destino, sortable: true, wrap: true },
         { name: 'Tipo', selector: (row) => row.tipo_nombre || row.type, sortable: true },
-        { name: 'Estado', selector: (row) => row.status, cell: (row) => <EstadoBadge estado={row.status} />, sortable: true },
+        { name: 'Estado', selector: (row) => row.status, cell: (row) => <EstadoBadge estado={row.status} error={row.last_error} />, sortable: true },
         { name: 'Creación', selector: (row) => row.fecha_creacion, format: (row) => fechaCorta(row.fecha_creacion), sortable: true },
         { name: 'Envío', selector: (row) => row.fecha_envio, format: (row) => fechaCorta(row.fecha_envio), sortable: true },
         { name: 'Intentos', selector: (row) => row.attempts, sortable: true },
-        { name: 'Error', selector: (row) => row.last_error, sortable: true, wrap: true },
     ];
 
     if (!miUsuario.isLogged) return <Fragment><Forbidden /></Fragment>;
