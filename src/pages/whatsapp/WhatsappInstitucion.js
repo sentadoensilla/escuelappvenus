@@ -160,14 +160,17 @@ export default function WhatsappInstitucion() {
         swal.fire({ title: r.message, icon: parseInt(r.statusCode) === 200 ? 'success' : 'error' });
     };
 
+    // react-data-table-component v7 espera { name, selector }; con { header, key }
+    // la grilla pinta las filas pero sin encabezados ni celdas visibles.
+    const fechaCorta = (v) => (v ? String(v).slice(0, 16).replace('T', ' ') : '—');
     const columnasMensajes = [
-        { header: 'Destinatario', key: 'destino' },
-        { header: 'Tipo', key: 'tipo_nombre' },
-        { header: 'Estado', key: 'status' },
-        { header: 'Creación', key: 'fecha_creacion' },
-        { header: 'Envío', key: 'fecha_envio' },
-        { header: 'Intentos', key: 'attempts' },
-        { header: 'Error', key: 'last_error' },
+        { name: 'Destinatario', selector: (row) => row.destino, sortable: true, wrap: true },
+        { name: 'Tipo', selector: (row) => row.tipo_nombre || row.type, sortable: true },
+        { name: 'Estado', selector: (row) => row.status, sortable: true },
+        { name: 'Creación', selector: (row) => row.fecha_creacion, format: (v) => fechaCorta(v), sortable: true },
+        { name: 'Envío', selector: (row) => row.fecha_envio, format: (v) => fechaCorta(v), sortable: true },
+        { name: 'Intentos', selector: (row) => row.attempts, sortable: true },
+        { name: 'Error', selector: (row) => row.last_error, wrap: true },
     ];
 
     // Métricas del widget tipo sparkline: total enviado y variación (2ª mitad vs 1ª).

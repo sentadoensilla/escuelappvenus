@@ -122,14 +122,18 @@ export default function WhatsappAdmin() {
         await cargarEmisores();
     };
 
+    // react-data-table-component v7 espera { name, selector }; con { header, key }
+    // la grilla pinta las filas pero sin encabezados ni celdas visibles.
+    const fechaCorta = (v) => (v ? String(v).slice(0, 16).replace('T', ' ') : '—');
     const columnasEmisores = [
-        { header: 'Institución', key: 'institucion' },
-        { header: 'Número', key: 'numero' },
-        { header: 'Sesión', key: 'estado_sesion', format: (v) => ESTADO_SESION[v] || '—' },
-        { header: 'Pendientes', key: 'pendientes' },
-        { header: 'Enviados', key: 'enviados' },
-        { header: 'Fallidos', key: 'fallidos' },
+        { name: 'Institución', selector: (row) => row.institucion, sortable: true, wrap: true },
+        { name: 'Número', selector: (row) => row.numero, sortable: true },
+        { name: 'Sesión', selector: (row) => row.estado_sesion, format: (v) => ESTADO_SESION[v] || '—', sortable: true },
+        { name: 'Pendientes', selector: (row) => row.pendientes, sortable: true },
+        { name: 'Enviados', selector: (row) => row.enviados, sortable: true },
+        { name: 'Fallidos', selector: (row) => row.fallidos, sortable: true },
         {
+            name: 'Acciones',
             button: true,
             cell: (row) => (
                 <div className="form-button-action">
@@ -144,14 +148,14 @@ export default function WhatsappAdmin() {
     ];
 
     const columnasMensajes = [
-        { header: 'Institución', key: 'institucion' },
-        { header: 'Destinatario', key: 'destino' },
-        { header: 'Tipo', key: 'tipo_nombre' },
-        { header: 'Estado', key: 'status' },
-        { header: 'Creación', key: 'fecha_creacion' },
-        { header: 'Envío', key: 'fecha_envio' },
-        { header: 'Intentos', key: 'attempts' },
-        { header: 'Error', key: 'last_error' },
+        { name: 'Institución', selector: (row) => row.institucion, sortable: true, wrap: true },
+        { name: 'Destinatario', selector: (row) => row.destino, sortable: true, wrap: true },
+        { name: 'Tipo', selector: (row) => row.tipo_nombre || row.type, sortable: true },
+        { name: 'Estado', selector: (row) => row.status, sortable: true },
+        { name: 'Creación', selector: (row) => row.fecha_creacion, format: (v) => fechaCorta(v), sortable: true },
+        { name: 'Envío', selector: (row) => row.fecha_envio, format: (v) => fechaCorta(v), sortable: true },
+        { name: 'Intentos', selector: (row) => row.attempts, sortable: true },
+        { name: 'Error', selector: (row) => row.last_error, wrap: true },
     ];
 
     if (!miUsuario.isLogged) return <Fragment><Forbidden /></Fragment>;
